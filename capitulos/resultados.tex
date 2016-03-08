@@ -54,7 +54,25 @@ Assim, todas as máquinas virtuais que estavam no servidor \textit{Solarian} for
 
 
 \section{Implementação da Plataforma em nuvem}
-Para implementação da plataforma em nuvem duas ferramentas foram previamente abordadas \textit{Cloudstack} e \textit{Opennebula}. O \textit{Cloudstack} é uma ferramenta código aberto projetada para implantar e gerenciar uma ampla rede de máquinas virtuais, possibilitando a implantação de uma infraestrutura como serviço de alta disponibilidade \cite{cloudstack}.
+Para implementação da plataforma em nuvem duas ferramentas foram previamente abordadas \textit{Cloudstack} e \textit{Opennebula}. O \textit{Cloudstack} é uma ferramenta código aberto projetada para implantar e gerenciar uma ampla rede de máquinas virtuais, possibilitando a implantação de uma infraestrutura como serviço de alta disponibilidade \cite{cloudstack}. Em um modelo simplificado o cloudstack é composto de uma máquina de gerenciamento e dos recursos a serem gerenciados. Tais recursos compreende: faixa de endereços \textit{IP}, dispositivos \textit{storage},servidores e \textit{VLAN'S}. Para implementação em uma configuração mínima, pode se utilizar uma máquina dedicada apenas para a interface de gerenciamento mantendo o servidor físico apenas com o hipervisor, ou utilizar o servidor físico executando a interface de gerenciamento e hipervisor simultaneamente. 
+
+\begin{figure}[!htb]
+\centering
+\includegraphics [keepaspectratio=true,scale=0.60]{figuras/cloudstack_minimal.eps}
+\caption{Visão simplificada de uma instalação mínima do cloudstack}
+\cite{cloudstack}.
+\label{cloudstatck_minimal}
+\end{figure}
+
+Em modelo mais complexo, o cloudstack apresenta seu pontencial de disponibilidade escalabilidade e gerenciamento. Proporcionando uma modelagem de várias
+infraestrutura em nuvens em uma determinada região. Desse modo o cloudstack possui os seguintes níveis de abstrações \cite{shape}:
+
+\begin{itemize}
+\item \textbf{Regiões:} são a primeira e maior unidade de escala de uma implementação de uma cloud com CloudStack. Uma Região consiste em multiplas Zonas de Disponibilidade, a segunda maior unidade de escala.
+\item \textbf{Zonas: } Tipicamente existe apenas uma Zona por Data Center e cada Zona contem PODs, Hosts e Storage.
+\item \textbf{Pods: } PODs tem propriedades lógicas e físicas com componentes como endereçamento IP e algoritmo de alocação de Máquinas Virutais sendo influenciados por PODs dentro de uma Zona.
+
+\end{itemize}
 
 \begin{figure}[!htb]
 \centering
