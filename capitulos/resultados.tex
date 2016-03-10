@@ -88,6 +88,32 @@ infraestrutura em nuvens em uma determinada região. Desse modo o cloudstack pos
 
 Dessa maneira, afim de se ter um ambiente limpo e com um sistema operacional atualizado, efetuou-se a formtação do disco do servidor \textit{Solarian}, sendo em seguida instalado o sistema operacional \textit{Centos 7}. Assim, com o auxílio da documentação do cloudstack a instalação procedeu sem muitos problemas. Com instalação concluída, já era possível acessar a interface de gerenciamento dando continuidade com as configurações necessárias para criação de máquinas virtuais.Entretanto, a obrigatoriedade de configuração de todos os niveis de abstração apresentados logo a cima mostrou-se despendiosa e desnecessária para uma configuração mínima e também para a infraestrutura disponível no LAPPIS. Desse modo, alguns elementos do \textit{cloudstack} necessários para o ambiente não apresentaram o comportamento esperado. Um exemplo disso, era problemas recorrentes relacionados com a máquina virtual de sistema, reponsável pelas operações no storage secundário (referenciada por \textit{SSVM}), o que impossibilitava a criação de máquinas virtuais a partir de templates.Em resumo, mesmo com os problemas enfrentados, foi possível a criação de máquinas virtuais nessa plataforma, entretanto a configuração de vários elementos decorrente de sua abstração voltada para uma infraestrutura mais complexa, acabou por tornar difícil o gerenciamento e estabilização do ambiente como um todo, sendo considerado, para o caso em específico do LAPPIS, não sustentável.
 
-O \textit{OpenNebula}, assim como o \textit{cloudstack}, é uma ferramenta de código aberto que emergiu como um projeto de pesquisa em 2005 tendo seu primeiro lançamento público em março de 2008. Oferece uma solução simples mais repleta de funcionalidades para construir e gerenciar nuvens corporativas e \textit{data centers} virtuais. Alem disso, combina tecnologias de virtualização existentes com funcionalides avançadas para fornecimento automático e elasticidade, seguindo uma abordagem \textit{bottom-up} guiado pelas reais necessidades de adminstradores de sistemas e \textit{devops}\cite{opennebula}.
+O \textit{OpenNebula}, assim como o \textit{cloudstack}, é uma ferramenta de código aberto que emergiu como um projeto de pesquisa em 2005 tendo seu primeiro lançamento público em março de 2008. Oferece uma solução simples mas repleta de funcionalidades para construir e gerenciar nuvens corporativas e \textit{data centers} virtuais. Alem disso, combina tecnologias de virtualização existentes com funcionalides avançadas para fornecimento automático e elasticidade, seguindo uma abordagem \textit{bottom-up}, guiado pelas reais necessidades de adminstradores de sistemas e \textit{devops}\cite{opennebula}.
+
+Em uma configuração mínima  arquitetura do \textit{OpenNebula} é composta por três componentes: \textit{hosts},\textit{datastores} e \textit{front-end}. O \textit{front-end} é a máquina responsável por disponinbilizar a interface de gerenciamento. Através da rede, monitora os \textit{hosts} e máquinas virtuais, bem como inicia operações relacionadas com máquinas virtuais e \textit{datastores}. Os \textit{hosts} ou \textit{worker nodes} são as máquinas físicas responsáveis pelos recursos físicos essenciais para a criação de máquinas virtuais, é nesta máquina onde o hipervisor será instalado. Por fim, os \textit{datastore} é o \textit{storage} utilizado como repositório de imagens e para manter os discos das máquinas virtuais em execução, não precisa ser necessariamente um storage dedicado, podendo ser uma máquina física com mais capacidade de disco ou até mesmo sendo um dos próprios\textit{hosts}.  
+
+
+\begin{figure}[!htb]
+\centering
+\includegraphics [keepaspectratio=true,scale=0.60]{figuras/opennebula_instalation.eps}
+\caption{Visão geral da infraestrutura do OpenNebula}
+\cite{cloudstack}.
+\label{diagramaopennebula}
+\end{figure}
+
+
+
+O opennebula possui modelos de implementação tanto para nuvens privadas mais simplifcadas quanto para ambientes de infraestrutura mais complexos. Desse modo, para poucos servidores a implementação do \textit{OpenNebula} é efetuada sem necessidade de ter que se preocupar elementos voltadas para uma infraestrutura maior, que no caso do OpenNebula é chamada de \textit{Federação}. Entretanto, para locais ou empresas que possuem múltiplos \textit{data centers}, que por sua vez, possui vários \textit{clusters} de servidores, o opennebula prover funcionalidades que colaboram para que vários data centers separados regionalmente possam ser gerenciados a partir de uma interface em nuvem com acesso externo.     
+
+\begin{figure}[!htb]
+\centering
+\includegraphics [keepaspectratio=true,scale=0.60]{figuras/opennebula_federation.eps}
+\caption{Arquitetura de autenticação em um Federação}
+\cite{cloudstack}.
+\label{opennebulafederation}
+\end{figure}
+
+%código aberto que tem como foco trazer siplicidade na disponibilização de plataformas em nuvems hibridas e privadas.
+
 %O cloudstack se mostrou de fácil instalação, usando no servidor físico um sistema operacional \textit{Centos 7}. Tão logo concluído, a interface de gerenciamento já se encontrava disponivel. O restante da configuração \textit{Ip's}, \textit{storage}, \textit{host}(servidor físico), deve ser feita via interface. E foi aí que encontrou-se dificuldade: A obrigatoriedade de configuração seus niveis de abstração mostrou-se bastante despendiosa para uma configuração mínima.Muitos elementos separados que quando se integram junto pode não se comportar da forma esperada.Outro fator que dificultou bastante na configuração foi suas \textit{VM's} criadas automaticamente.De maneira geral, foi possível a criação de máquinas virtuais, entretanto todo o ambiente demonstrou-se bastante instável, tendo assim bastante dificuldade na disponibilização de ambientes virtuais iniciais para testes.  
 
