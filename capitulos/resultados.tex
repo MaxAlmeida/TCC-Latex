@@ -103,6 +103,7 @@ Em uma configuração mínima  arquitetura do \textit{OpenNebula} é composta po
 
 
 
+
 O \textit{OpenNebula} possui modelos de implementação tanto para nuvens privadas mais simplifcadas quanto para ambientes de infraestrutura mais complexos. Desse modo, para poucos servidores a implementação do \textit{OpenNebula} é efetuada sem necessidade de ter que se preocupar elementos voltadas para uma infraestrutura maior, que no caso do OpenNebula é chamada de \textit{Federação}. Entretanto, para locais ou empresas que possuem múltiplos \textit{data centers}, que por sua vez, possui vários \textit{clusters} de servidores, o opennebula prover funcionalidades que colaboram para que vários data centers separados regionalmente possam ser gerenciados a partir de uma interface em nuvem com acesso externo. 
 
 Cada instância do opennebula é denominada de zona, desse modo em uma infraestrutura com múltiplas zonas pode ser configuradas como uma Federação. Assim, tem-se um compartilhamento da base de dados entre as zonas(Usuários, grupos). Nessa configuração, uma das zonas tem o papel de \textit{master}, ao qual é o responsávle por escrever as informações na base dados, mantendo assim a consistência nos dados\cite{opennebula}.
@@ -115,6 +116,16 @@ Cada instância do opennebula é denominada de zona, desse modo em uma infraestr
 \label{opennebulafederation}
 \end{figure}
 
+%TO DO adequar e estrutura o trecho a seguir
+Assim como feito no caso do cloudstack , foi feita uma limpeza no servidor \textbf{Solarian}, afim de se ter um ambiente limpo, e novamente utilizou-se o \textit{O centos 7}.Assim como no cloudstack, um dos pontos fortes do opennebula foi sua documentação clara e objetiva com relação a instalação. Dessa maneira a instalação prosseguiu sem muitos problemas.Para testes iniciais , utilizou-se uma máquina de estação convencional para atuar como \textit{front-end} e como storage. O servidor \textit{Solarian} ficou como \textit{hosts}.Com as configurações de redes e instalação terminada, já era possível acessar a interface de gerenciamento. Logo de iniciou-se era notória a facilidade e simplicidade/ , tão enaltecida pela documentação do \textit{OpenNebula}. Através da interface de gerenciamento, adicionou-se o servidor \textit{Solarian} como \textit{host}, e em seguida, fora feita a configuração de rede virtual deixando-a sob o mesmo \textit{gateway} ao qual o servidor \textit{Solarian} e o \textit{front-end} estava conectado. Dessa forma prosseguiu-se com a criação de máquinas virtuais sem muitas dificuldades e sem qualquer problemas graves de instabilidades. Dessa forma, como forma de testar o estabilidade e desempenho do ambiente na disponibilização dos serviços, um dos primeiros passos foi a instanciação do ambiente do portal do software público. Em resumo, tal ambiente é constituído por cinco máquinas virtuais , aos quais possui diversas aplicações em cada uma delas sendo  que alguma delas comunicam entre si. O deploy desse ambiente é automatizado, assim com poucos comandos inicia-se a instalação automática das aplicações que compõem o Portal do software Público através das cinco máquinas virtuais. Desse modo, utilizou-se tal procedimento como um meio inicial de avaliar o desempenho do ambiente como todo. A imagem a seguir apresenta a estrutura do portal do software público. 
+
+\begin{figure}[!htb]
+\centering
+\includegraphics [keepaspectratio=true,scale=0.60]{figuras/arquiteturaSPB.eps}
+\caption{Arquitetura do Portal do Software Público}
+%\cite{opennebula}.
+\label{SPB}
+\end{figure}
 
 %código aberto que tem como foco trazer siplicidade na disponibilização de plataformas em nuvems hibridas e privadas.
 
