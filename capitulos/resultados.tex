@@ -90,28 +90,31 @@ Dessa maneira, afim de se ter um ambiente limpo e com um sistema operacional atu
 
 O \textit{OpenNebula}, assim como o \textit{cloudstack}, é uma ferramenta de código aberto que emergiu como um projeto de pesquisa em 2005 tendo seu primeiro lançamento público em março de 2008. Oferece uma solução simples mas repleta de funcionalidades para construir e gerenciar nuvens corporativas e \textit{data centers} virtuais. Alem disso, combina tecnologias de virtualização existentes com funcionalides avançadas para fornecimento automático e elasticidade, seguindo uma abordagem \textit{bottom-up}, guiado pelas reais necessidades de adminstradores de sistemas e \textit{devops}\cite{opennebula}.
 
-Em uma configuração mínima  arquitetura do \textit{OpenNebula} é composta por três componentes: \textit{hosts},\textit{datastores} e \textit{front-end}. O \textit{front-end} é a máquina responsável por disponinbilizar a interface de gerenciamento. Através da rede, monitora os \textit{hosts} e máquinas virtuais, bem como inicia operações relacionadas com máquinas virtuais e \textit{datastores}. Os \textit{hosts} ou \textit{worker nodes} são as máquinas físicas responsáveis pelos recursos físicos essenciais para a criação de máquinas virtuais, é nesta máquina onde o hipervisor será instalado. Por fim, os \textit{datastore} é o \textit{storage} utilizado como repositório de imagens e para manter os discos das máquinas virtuais em execução, não precisa ser necessariamente um storage dedicado, podendo ser uma máquina física com mais capacidade de disco ou até mesmo sendo um dos próprios\textit{hosts}.  
+Em uma configuração mínima  arquitetura do \textit{OpenNebula} é composta por três componentes: \textit{hosts}, \textit{datastores} e \textit{front-end}. O \textit{front-end} é a máquina responsável por disponinbilizar a interface de gerenciamento. Através da rede, monitora os \textit{hosts} e máquinas virtuais, bem como inicia operações relacionadas com máquinas virtuais e \textit{datastores}. Os \textit{hosts} ou \textit{worker nodes} são as máquinas físicas responsáveis pelos recursos físicos essenciais para a criação de máquinas virtuais, é nesta máquina onde o hipervisor será instalado. Por fim, os \textit{datastore} é o \textit{storage} utilizado como repositório de imagens e para manter os discos das máquinas virtuais, em execução. Não precisa ser necessariamente um storage dedicado, podendo ser uma máquina física com mais capacidade de disco ou até mesmo sendo um dos próprios\textit{hosts}.  
 
 
 \begin{figure}[!htb]
 \centering
 \includegraphics [keepaspectratio=true,scale=0.60]{figuras/opennebula_instalation.eps}
 \caption{Visão geral da infraestrutura do OpenNebula}
-\cite{cloudstack}.
+\cite{opennebula}.
 \label{diagramaopennebula}
 \end{figure}
 
 
 
-O opennebula possui modelos de implementação tanto para nuvens privadas mais simplifcadas quanto para ambientes de infraestrutura mais complexos. Desse modo, para poucos servidores a implementação do \textit{OpenNebula} é efetuada sem necessidade de ter que se preocupar elementos voltadas para uma infraestrutura maior, que no caso do OpenNebula é chamada de \textit{Federação}. Entretanto, para locais ou empresas que possuem múltiplos \textit{data centers}, que por sua vez, possui vários \textit{clusters} de servidores, o opennebula prover funcionalidades que colaboram para que vários data centers separados regionalmente possam ser gerenciados a partir de uma interface em nuvem com acesso externo.     
+O \textit{OpenNebula} possui modelos de implementação tanto para nuvens privadas mais simplifcadas quanto para ambientes de infraestrutura mais complexos. Desse modo, para poucos servidores a implementação do \textit{OpenNebula} é efetuada sem necessidade de ter que se preocupar elementos voltadas para uma infraestrutura maior, que no caso do OpenNebula é chamada de \textit{Federação}. Entretanto, para locais ou empresas que possuem múltiplos \textit{data centers}, que por sua vez, possui vários \textit{clusters} de servidores, o opennebula prover funcionalidades que colaboram para que vários data centers separados regionalmente possam ser gerenciados a partir de uma interface em nuvem com acesso externo. 
+
+Cada instância do opennebula é denominada de zona, desse modo em uma infraestrutura com múltiplas zonas pode ser configuradas como uma Federação. Assim, tem-se um compartilhamento da base de dados entre as zonas(Usuários, grupos). Nessa configuração, uma das zonas tem o papel de \textit{master}, ao qual é o responsávle por escrever as informações na base dados, mantendo assim a consistência nos dados\cite{opennebula}.
 
 \begin{figure}[!htb]
 \centering
-\includegraphics [keepaspectratio=true,scale=0.60]{figuras/opennebula_federation.eps}
-\caption{Arquitetura de autenticação em um Federação}
-\cite{cloudstack}.
+\includegraphics [keepaspectratio=true,scale=0.60]{figuras/opennebula_zone.eps}
+\caption{Arquitetura de implantação por zonas}
+\cite{opennebula}.
 \label{opennebulafederation}
 \end{figure}
+
 
 %código aberto que tem como foco trazer siplicidade na disponibilização de plataformas em nuvems hibridas e privadas.
 
