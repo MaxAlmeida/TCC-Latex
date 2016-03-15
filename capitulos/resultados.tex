@@ -129,7 +129,7 @@ Em seguida, afim de se ter uma avaliação inicial de desempenho, tomou-se a dec
 \label{SPB}
 \end{figure}
 
-Assim, devido a quantidade ferramentas que seriam instalados, só o processo de instalação já seria um ótimo meio de avaliar o desempenho.Portanto, cinco máquinas virtuais foram criadas com o sistema operacional \textit{Centos 7}(necessário para o deploy do SPB), e em seguida, iniciou-se o procedimento de instalação do Portal do software Público nessas máquinas virtuais. Percebeu-se então que havia uma certa lentidão na instalação das ferramentas , e o procedimento que, em condições normais demoraria de 20 a 30 minutos, sob o ambiente virtual récem instanciado havia demorado por volta de 5 horas. Desse modo, alguns possíveis fatores foram listados como possíveis causas dessa lentidão:
+Assim, devido a quantidade ferramentas que seriam instalados, só o processo de instalação já seria um ótimo meio de avaliar o desempenho. Portanto, cinco máquinas virtuais foram criadas com o sistema operacional \textit{Centos 7}(necessário para o deploy do SPB), e em seguida, iniciou-se o procedimento de instalação do Portal do software Público nessas máquinas virtuais. Percebeu-se então que havia uma certa lentidão na instalação das ferramentas , e o procedimento que, em condições normais demoraria de 20 a 30 minutos, sob o ambiente virtual récem instanciado havia demorado por volta de 5 horas. Desse modo, alguns possíveis fatores foram listados como possíveis causas dessa lentidão:
 
 \begin{itemize}
 \item Uso de uma estação de trabalho de baixo de desempenho como \textit{datastore} e \textit{front-end}.
@@ -150,9 +150,47 @@ Inicialmente, havia se utilizado como configuração padrão do OpenNebula a op�
 
 Outro fator que impactava no desempenho era o uso de imagens \textit{qcow2}. O \textit{qcow2} é um formato de imagem de disco, ao qual sua vantagem reside no fácil gerenciamento. Afinal, possui suporte para \textit{snapshot}, alocação de espaço no disco é dinâmica e o tamanho de suas imagens é bastante reduzido se comparado com o formato \textit{raw}. Entretanto, possui um baixo desempenho, se comparado ao  próprio \textit{raw}. Uma alternativa incial foi o uso de discos \textit{LVM} para as máquinas virtuais ao invés de imagens de disco como \textit{raw} e \textit{qcow2}, entretanto teve-se problemas com o monitoramento efetuado pelo \textit{ONED}, o que por si só foi um indicativo que para o uso de \textit{LVM} o openenbula ainda não oferece um bom suporte. Então, após investigações sobre o problema de desempenho com imagens de disco no formato \textit{qcow2}, descobriu-se que os problemas de desempenho com essas imagens podem ser minimizados utilizando opções de \textit{cache} em disco. Dentre as opções disponibilizadas pelo \textit{OpenNebula} (\textit{writeback, writethrough, directsync, unsafe} a que mostrou mais efetiva em termos de desempenho e segurança foi a opção \textit{writeback}.
 
-Após esses procedimentos, notou-se um aumento considerável no desempenho de escrita de disco nas máquinas virtuais, de modo que as aplicações passaram a serem instaladas sem qualquer tipo de tempo de espera, possibilitando assim que o \textit{deploy}  Portal do Software Público para ambiente de testes pudesse ser feito sem grandes problemas. Com isso, emfim tinha-se finalmente chegado a um ponto de estabilização da infraestrutura como um todo, os próximos passos englobariam então a disponibilização dos serviço providos pelo LAPPIS sob a nova plataforma em nuvem, bem como utilização do servidor \textit{Imperius} sob essa plataforma.  
+Após esses procedimentos, notou-se um aumento considerável no desempenho de escrita de disco nas máquinas virtuais, de modo que as aplicações passaram a serem instaladas sem qualquer problema relacionado com desempenho, possibilitando assim que o \textit{deploy}  Portal do Software Público para ambiente de testes pudesse ser feito sem grandes problemas. Com isso, emfim tinha-se finalmente chegado a um ponto de estabilização da infraestrutura como um todo, os próximos passos englobariam então a disponibilização dos serviço providos pelo LAPPIS sob a nova plataforma em nuvem, bem como utilização do servidor \textit{Imperius} sob essa plataforma.  
 
 \section{Consolidação da Infraestrutura}
+Após os testes iniciais e a disponibilização de alguns serviços, tinha-se uma infraestrutura estável e pronta para ser utilizada como provedora de serviços. Como etapa final, então era necessário incorporar o servidor \textit{Imperius} sob a plataforma em nuvem. Antes disso, fazia-se necessário replicar os serviços, que atualmente estavam em execução no servidor \textit{Imperius}. Após te-lo feito, o servidor \textit{imperius} fora incorporado sob a nova plataforma consolidando assim toda a infraestrutura física de servidores sob a nova plataforma em nuvem. A Figura \ref{fig:opennebula_lappis} apresenta o modelo de implantação final do \textit{OpenNebula}.
+
+\begin{figure}[!h]
+\centering
+\includegraphics [keepaspectratio=true,scale=0.53]{figuras/cloud_implation.eps}
+\caption{Implantação do \textit{OpenNebula}}
+\label{fig:opennebula_lappis}
+\end{figure}
+
+
+Serviços como \textit{Redmine}, \textit{Dotproject} se mantiveram, a \textit{Services} que antes era utilizado tanto como \textit{Firewall} como máquina para acesso externo, fora configurada apenas como máquina de acesso externo. Uma outra máquina virtual para \textit{Firewall} fora criada, sendo nela colocados os ip's públicos. Outros serviços foram disponibilizados, a Figura \ref{fig:vm_infra} apresenta um visão geral de todos eles. A seguir é feita uma breve descrição dos principais serviços recém disponibilizados:
+
+\begin{itemize}
+\item \textbf{\textit{Proxy}}: Utilizada como um \textit{proxy} de cache, promovendo assim um melhor desempenho na transferência de pacotes que já foram baixados.
+\item \textbf{\textit{Boca}}: Máquina virtual utilizada para disponibilização do \textit{BOCA}, servindo dessa forma como \textit{juiz online} para competições de programação para disciplina de \textit{Tópicos Especiais em Programação}.
+\item \textbf{\textit{Moodle}}: Responsável pela disponibilização do \textit{Moodle} para disciplinas de Computação Básica.
+\item \textbf{\textit{Mirror}}: Reponsável por servir de \textit{espelho} de alguns repositórios utilizados pelo Portal do Software Público.
+\item \textbf{\textit{PortalFGA-Homologação:}} Ambiente de homologação do Portal da FGA.
+
+\end{itemize}
+
+
+\begin{figure}[!h]
+\centering
+\includegraphics [keepaspectratio=true,scale=0.4]{figuras/vm_infra.eps}
+\caption{Visão geral da Infraestrutura}
+\label{fig:vm_infra}
+\end{figure}
+ %Outro procedimento adotado foi o uso de receitas \textit{chef} em conjunto com o \textit{chake} para automatização, tanto no provimento da plataforma em nuvem, quanto na disponibilização de serviços. O uso dessas ferramentas contribui para gerencia do serviços oferecidos, promovendo também um meio de compartilhamento de conhecimento através do código.A imagem a seg
+
+
+
+
+
+
+
+
+
 
 %TO DO adequar e estrutura o trecho a seguir
 %Assim como feito no caso do cloudstack , foi feita uma limpeza no servidor \textbf{Solarian}, afim de se ter um ambiente limpo, e novamente utilizou-se o \textit{O centos 7}.Assim como no cloudstack, um dos pontos fortes do opennebula foi sua documentação clara e objetiva com relação a instalação. Dessa maneira a instalação prosseguiu sem muitos problemas.Para testes iniciais , utilizou-se uma máquina de estação convencional para atuar como \textit{front-end} e como storage. O servidor \textit{Solarian} ficou como \textit{hosts}.Com as configurações de redes e instalação terminada, já era possível acessar a interface de gerenciamento. Logo de iniciou-se era notória a facilidade e simplicidade/ , tão enaltecida pela documentação do \textit{OpenNebula}. Através da interface de gerenciamento, adicionou-se o servidor \textit{Solarian} como \textit{host}, e em seguida, fora feita a configuração de rede virtual deixando-a sob o mesmo \textit{gateway} ao qual o servidor \textit{Solarian} e o \textit{front-end} estava conectado. Dessa forma prosseguiu-se com a criação de máquinas virtuais sem muitas dificuldades e sem qualquer problemas graves de instabilidades. Dessa forma, como forma de testar o estabilidade e desempenho do ambiente na disponibilização dos serviços, um dos primeiros passos foi a instanciação do ambiente do portal do software público. Em resumo, tal ambiente é constituído por cinco máquinas virtuais , aos quais possui diversas aplicações em cada uma delas sendo  que alguma delas comunicam entre si. O deploy desse ambiente é automatizado, assim com poucos comandos inicia-se a instalação automática das aplicações que compõem o Portal do software Público através das cinco máquinas virtuais. Desse modo, utilizou-se tal procedimento como um meio inicial de avaliar o desempenho do ambiente como todo. A imagem a seguir apresenta a estrutura do portal do software público. 
