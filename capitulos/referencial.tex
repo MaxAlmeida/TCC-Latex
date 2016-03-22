@@ -36,7 +36,7 @@ Uma máquina virtual é uma abstração em software de uma máquina física real
 
 \begin{figure}[!htb]
 \centering
-\includegraphics [keepaspectratio=true,scale=0.60]{figuras/virtualization_arc.eps}
+\includegraphics [keepaspectratio=true,scale=0.40]{figuras/virtualization_arc.eps}
 \caption{Representação da implementação de um ambiente virtual}
 \cite{junior}.
 \label{arc_virtualization}
@@ -58,7 +58,7 @@ Na virtualização total, uma estrutura completa de hardware é virtualizada, po
 
 \begin{figure}[!htb]
 \centering
-\includegraphics [keepaspectratio=true,scale=0.40]{figuras/full_virtualization.eps}
+\includegraphics [keepaspectratio=true,scale=0.30]{figuras/full_virtualization.eps}
 \caption{Representação da virtualização total}
 \cite{marcos}.
 \label{full_virtualization}
@@ -68,11 +68,14 @@ Na paravirtualização, o sistema a ser virtualizado (sistema convidado) sofre m
 
 \begin{figure}[!htb]
 \centering
-\includegraphics [keepaspectratio=true,scale=0.40]{figuras/paravirtualization.eps}
+\includegraphics [keepaspectratio=true,scale=0.3]{figuras/paravirtualization.eps}
 \caption{Representação da virtualização total}
 \cite{marcos}.
 \label{paravirtualization}
 \end{figure}
 
 \subsection{Ferramentas de Virtualização}
-Nessa seção serão abordadas algumas das ferramentas principais utilizadas para provimento de ambientes virtualizados: \textit{Xen, KVM, VMMWare}
+Nessa seção serão abordadas algumas das ferramentas principais utilizadas para provimento de ambientes virtualizados: \textit{Xen, KVM, VMMWare}. As ferramentas de virualização basicamente são as plataformas responsáveis por prover a camada de virtualização responsável pela disponibilização de máquinas virtuais.
+
+Xen é um hipervisor do tipo 1 (ou baremetal) \textit{open source} para arquiteruas x86 que utiliza, por padrão a técnica de paravirtualização, \cite{clark}. Uma das maiores vantagens do uso do Xen como VMM na para-virtualização é o fato de que este apresenta um desempenho melhor do que os produtos de virtualização total, quando a máquina física hospedeira não tem instruções de hardware de suporte a virtualização \cite{eder}  
+
