@@ -32,7 +32,16 @@ Uma outra abordagem que pode ser utilizada para conceituar a virtualização é 
 \end{figure}
 
 \subsection{Máquinas virtuais}
-Uma máquina virtual é uma abstração em software de uma máquina física real. Destaca-se que é executada como uma aplicação padrão de usuário sobre um sistema operacional. A própria máquina virtual emula uma máquina física possuindo assim seus próprios discos e dispositivos \cite{}. Desse modo, umas das vantages de máquinas virtuais reside na independência de uso do seu sistmea operacional com relação ao sistema operacional da máquina física ao qual se encontra. Assim em uma máquina física pode-se executar várias máquinas virtuais cada uma delas com sistemas operacionais diversos. 
+Uma máquina virtual é uma abstração em software de uma máquina física real. Destaca-se que é executada como uma aplicação padrão de usuário sobre um sistema operacional. A própria máquina virtual emula uma máquina física possuindo assim seus próprios discos e dispositivos \cite{mcewan}. Desse modo, umas das vantagens de máquinas virtuais reside na independência de uso do seu sistmea operacional com relação ao sistema operacional da máquina física ao qual se encontra. Assim, em uma máquina física pode-se executar várias máquinas virtuais cada uma delas com sistemas operacionais diversos. A imagem \ref{arc_virtualization}, apresenta a arquitetura de um ambiente virtualizado dividido em duas camadas: \textit{software} e \textit{hardware}. É na camada de software, mais espceficamente na camada de virtualização, através dos hipervisores, que são providos as máquinas virtuais (hóspedes) com seus respectivos sistemais operacionais e \textit{hardwares} virtuais.  
+
+\begin{figure}[!htb]
+\centering
+\includegraphics [keepaspectratio=true,scale=0.60]{figuras/virtualization_arc.eps}
+\caption{Representação da implementação de um ambiente virtual}
+\cite{junior}.
+\label{arc_virtualization}
+\end{figure} 
+ 
 \subsection{Hipervisores}
 O hipervisor (ou também conhecido como monitor de máquinas virtuais) é o software que possui mecanismos capazes de prover máquinas virtuais. Suas principais funções cosistem no esclanomaneto de tarefas, gerência da memória e manutenção do estado da máquina virtual \cite{manoel}. Desse modo, atributos como desempenho e escalabilidade são determinantes para definir a qualidade dos serviços fornecidos por um hipervisor. Algumas características são essenciais a um hipervisor: segurança sobre os recursos virtualizados e agilidade na reconfiguração de recursos computacionais, sem interromper as operações do servidor de máquinas virtuais \cite{manoel}. Os hipervisores são classificados em dois tipos:
 
@@ -45,7 +54,7 @@ O hipervisor (ou também conhecido como monitor de máquinas virtuais) é o soft
 \subsection{Tipos de virtualização}
 A virtualização pode ser realizada de diferentes maneiras, cada uma com seus prós e contras. Na prática, em arquiteturas x86, as opções de virtualização alteram o nível de privilégios (\textit{rings}) padrões. As soluções baseads em hipervisores inclue a virtualização completa e a paravirtualização \cite{manoel}.
 
-Na virtualização total, uma estrutura completa de hardware é virtualizada, portanto o sistema a ser virtualizado (sistema convidado) não precisa sofrer qualquer tipo de alteração. O principal benefícios da virtualização total é justamente o fato de que o sistema a ser virtualizado não sofre qualquer tipo de alteração \cite{marcos}. Entretanto, o sistema virtualizado eecuta de forma mais lenta e o monitor de máquinas virtuais precisa implementar alternativas para que as operações privilegidas possam ser executadas em procesadores que não suportem a virtualização nativamente \cite{marcos}.
+Na virtualização total, uma estrutura completa de hardware é virtualizada, portanto o sistema a ser virtualizado (sistema convidado) não precisa sofrer qualquer tipo de alteração. O principal benefícios da virtualização total é justamente o fato de que o sistema a ser virtualizado não sofre qualquer tipo de alteração \cite{marcos}. Entretanto, o sistema virtualizado executa de forma mais lenta e o monitor de máquinas virtuais precisa implementar alternativas para que as operações privilegidas possam ser executadas em procesadores que não suportem a virtualização nativamente \cite{marcos}.
 
 \begin{figure}[!htb]
 \centering
