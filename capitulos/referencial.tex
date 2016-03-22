@@ -31,8 +31,34 @@ Uma outra abordagem que pode ser utilizada para conceituar a virtualização é 
 \label{virtualization_role}
 \end{figure}
 
-\subsection{Monitor de Máquinas Virtuais}
+\subsection{Hipervisores}
+O hipervisor (ou também conhecido como monitor de máquinas virtuais) é o software que possui mecanismos capazes de prover máquinas virtuais. Suas principais funções cosistem no esclanomaneto de tarefas, gerência da memória e manutenção do estado da máquina virtual \cite{manoel}. Desse modo, atributos como desempenho e escalabilidade são determinantes para definir a qualidade dos serviços fornecidos por um hipervisor. Algumas características são essenciais a um hipervisor: segurança sobre os recursos virtualizados e agilidade na reconfiguração de recursos computacionais, sem interromper as operações do servidor de máquinas virtuais \cite{manoel}. Os hipervisores são classificados em dois tipos:
 
+\begin{itemize}
+\item \textbf{Tipo I}(\textit{bare metal}, nativo ou supervisor):executa diretamente no hardware do sesrvidor. Controla o hardware e o acesso do sistema operacional convidado(\textit{guest OS}. O papel do hipervisor nativo é compartilhar os recursos de hardware entre as máquinas virtuais, de fomra que cada uma delas imagina ter recursos exclusivos \cite{manoel}.
 
+\item \textbf{Tipo II}(hosted): aplicação que fornece um ambiente de execução para outras apicações. Executa sob um sistema operacional nativo como se fosse um processo deste. A camada de virtualização é composta por um sistema operacional hóspede e um hardware virtual, que são criados sobre os recursos de hardware oferecidos por meio do sistema operacional nativo \cite{manoel}.
+\end{itemize}
 
-\section{Computação em Nuvem}
+\subsection{Tipos de virtualização}
+A virtualização pode ser realizada de diferentes maneiras, cada uma com seus prós e contras. Na prática, em arquiteturas x86, as opções de virtualização alteram o nível de privilégios (\textit{rings}) padrões. As soluções baseads em hipervisores inclue a virtualização completa e a paravirtualização \cite{manoel}.
+
+Na virtualização total, uma estrutura completa de hardware é virtualizada, portanto o sistema a ser virtualizado (sistema convidado) não precisa sofrer qualquer tipo de alteração. O principal benefícios da virtualização total é justamente o fato de que o sistema a ser virtualizado não sofre qualquer tipo de alteração \cite{marcos}. Entretanto, o sistema virtualizado eecuta de forma mais lenta e o monitor de máquinas virtuais precisa implementar alternativas para que as operações privilegidas possam ser executadas em procesadores que não suportem a virtualização nativamente \cite{marcos}.
+
+\begin{figure}[!htb]
+\centering
+\includegraphics [keepaspectratio=true,scale=0.40]{figuras/full_virtualization.eps}
+\caption{Representação da virtualização total}
+\cite{marcos}.
+\label{full_virtualization}
+\end{figure}
+
+Na paravirtualização, o sistema a ser virtualizado (sistema convidado) sofre modificações para que a interação com o monitor de máquinas virtuais seja mais eficiente. A paravirtualização permite que o sistema convidado consiga acesar recursos do hardware diretamente. O acesso é monitorado pelo monitor e máquinas virtuais, que ffornece ao sistema convidado todos os "limites" do sistema, tais como endereços de memória que podem ser utilizados e endereçamento em disco, por exemplo \cite{marcos}.
+
+\begin{figure}[!htb]
+\centering
+\includegraphics [keepaspectratio=true,scale=0.40]{figuras/paravirtualization.eps}
+\caption{Representação da virtualização total}
+\cite{marcos}.
+\label{paravirtualization}
+\end{figure}
