@@ -75,7 +75,18 @@ Na paravirtualização, o sistema a ser virtualizado (sistema convidado) sofre m
 \end{figure}
 
 \subsection{Ferramentas de Virtualização}
-Nessa seção serão abordadas algumas das ferramentas principais utilizadas para provimento de ambientes virtualizados: \textit{Xen, KVM, VMMWare}. As ferramentas de virualização basicamente são as plataformas responsáveis por prover a camada de virtualização responsável pela disponibilização de máquinas virtuais.
+Nessa seção serão abordadas algumas das ferramentas principais utilizadas para provimento de ambientes virtualizados: \textit{Xen, KVM}. As ferramentas de virualização basicamente são as plataformas responsáveis por prover a camada de virtualização responsável pela disponibilização de máquinas virtuais.
 
-Xen é um hipervisor do tipo 1 (ou baremetal) \textit{open source} para arquiteruas x86 que utiliza, por padrão a técnica de paravirtualização, \cite{clark}. Uma das maiores vantagens do uso do Xen como VMM na para-virtualização é o fato de que este apresenta um desempenho melhor do que os produtos de virtualização total, quando a máquina física hospedeira não tem instruções de hardware de suporte a virtualização \cite{eder}  
+O KVM é uma solução de virtualização total voltada para arquiteturas x86, possui suporte para tecnologias de virtualização \textit{Intel VT} e \textit{AMD-V}. Foi incorporado ao kernel em janeiro de 2007, tornando-se assim um componente do linux sendo capaz de herdar as funcionalidade principais do mesmo \cite{redhat}.Pelo fato do KVM ter sido incorporado ao kernel do linux, o seu desenvolvimento passou a ter a colaboração ativa e o suporte da ampla comunidade do linux bem como de algumas fornecedoras da industria do software tais como, Red Hat, AMD, HP, IBM, Intel, Novell, Siemens, SGI entre outros\cite {redhatkvm}.
+
+A arquitetura do KVM é implementada como um processo convencional do linux, de modo que cada CPU virtual aparece como um processo regular. Proporcionando assim, ao KVM os beneficios de todas as funcionalidades do kernel do linux. A emulação dos dispositivos e as operações de entrada e saída nos sistemas operacionais hóspedes, fica por conta de uma versão modificado do QEMU \cite{redhatkvm}.   
+
+\begin{figure}[!htb]
+\centering
+\includegraphics [keepaspectratio=true,scale=0.6]{figuras/kvm_arc.eps}
+\caption{Arquitetura do KVM}
+\cite{fabiano}.
+\label{kvm_arc}
+\end{figure}
+%Xen é um hipervisor do tipo 1 (ou baremetal) \textit{open source} para arquiteruas x86 que utiliza, por padrão a técnica de paravirtualização, \cite{clark}. Uma das maiores vantagens do uso do Xen como VMM na para-virtualização é o fato de que este apresenta um desempenho melhor do que os produtos de virtualização total, quando a máquina física hospedeira não tem instruções de hardware de suporte a virtualização \cite{eder}  
 
