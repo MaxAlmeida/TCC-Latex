@@ -2,7 +2,7 @@
 \section{Estudo de Caso}
 O LAPPIS possui uma infraestrutura de servidores que vinha possibilitando a disponibilização de serviços e ferramentas de utilidades para FGA. Destaca-se as ferramentas Redmine e Dotproject, utilizadas nas disciplinas de metodologia de desenvolvimento de software e Gestão de Portiflólio e Produto, bem como possibilitava a disponibilização de máquinas virtuais utilizadas como ambientes de testes para desenvolvimento do Portal do Software Público, e para sistemas que estavam sendo desenvolvidos também pelo  lappis, tais como o SRA(sistema de registro de atendimento) e o SGD(sistema de gestão de desempenho). Entretanto tais recursos físicos vinham sendo subutilizados, devido aos seguintes fatores.
 \begin{itemize}
- \item Versão do hypervisor desatualizada.
+ \item Versão do \textit{hypervisor} desatualizada.
  \item Ausência de uma interface de gestão para máquinas virtuais.
  \item centralização do conhecimento.
 \end{itemize}
@@ -30,13 +30,13 @@ A infraestrutura basicamente é composta de três servidores físicos e de máqu
 \end{itemize}
 Esses servidores são identificados como \textit{Solarian} e \textit{Imperius} e estavam sendo utilizados como os provedores de máquinas virtuais.O terceiro servidor físico possui a seguinte configuração:
 \begin{itemize}
-	\item Servidor dell em torre.
+	\item Servidor \textit{Dell} T5500
 	\item 8 processadores \textit{Intel Xeon }, 3.2GHz.
 	\item 24 GB de Memória DDR3.
 	\item 2TB SATA HDD.
 	\item 1 interface \textit{EThernet 10/100/1000-BaseT.}
 \end{itemize} 
-Esse servidor é identificado como \textit{Polaris} e seu uso se limitava a uma estação de trabalho convencional. A imagem a seguir apresenta um esquema onde mostra a alocação das máquinas virtuais nos servidores, em seguida é feita uma breve descrição dos serviços oferecidos.
+Esse servidor é identificado como \textit{Polaris} e seu uso se limitava a uma estação de trabalho convencional.% A imagem a seguir apresenta um esquema onde mostra a alocação das máquinas virtuais nos servidores, em seguida é feita uma breve descrição dos serviços oferecidos.
 
 \section{Migração de Máquinas Virtuais}
 Para implementação de uma solução de plataforma em nuvem, os procedimentos adotados consistiam em usar inicialmente um dos servidores como ambiente físico  para testes iniciais da plataforma em nuvem. Assim que a mesma estivesse estabilizada, o outro servidor seria agregado a essa solução. Desse modo, uma maneira encontrada para que esses procedimentos fosse feitos sem ter a indisponibilização dos serviços por um grande período de tempo foi a migração de todos os serviços para um único servidor. Assim, teria-se um servidor livre para uma implementação e investigação incial dessa plataforma em nuvem, enquanto que o outro servidor estaria disponibilizando os serviços em uso. Com isso, o servidor escolhido para essa implementação e investigação inicial da plataforma em nuvem foi o \textit{solarian}. 
@@ -54,69 +54,9 @@ Assim, todas as máquinas virtuais que estavam no servidor \textit{Solarian} for
 
 
 \section{Implementação da Plataforma em nuvem}
-Para implementação da plataforma em nuvem duas ferramentas foram previamente abordadas \textit{Cloudstack} e \textit{Opennebula}. O \textit{Cloudstack} é uma ferramenta código aberto projetada para implantar e gerenciar uma ampla rede de máquinas virtuais, possibilitando a implantação de uma infraestrutura como serviço de alta disponibilidade \cite{cloudstack}. Em um modelo simplificado, o cloudstack é composto de uma máquina de gerenciamento e dos recursos a serem gerenciados. Tais recursos compreende: faixa de endereços \textit{IP}, dispositivos \textit{storage},servidores e \textit{VLAN'S}. Para implementação em uma configuração mínima, pode se utilizar uma máquina dedicada apenas para a interface de gerenciamento, mantendo o servidor físico apenas com o hipervisor, ou utilizar o servidor físico executando a interface de gerenciamento e o hipervisor simultaneamente. 
-
-\begin{figure}[!htb]
-\centering
-\includegraphics [keepaspectratio=true,scale=0.60]{figuras/cloudstack_minimal.eps}
-\caption{Visão simplificada de uma instalação mínima do cloudstack}
-\cite{cloudstack}.
-\label{cloudstatck_minimal}
-\end{figure}
-
-Em modelo mais complexo, o cloudstack apresenta seu pontencial de disponibilidade escalabilidade e gerenciamento. Proporcionando uma modelagem de várias
-infraestrutura em nuvens em uma determinada região. Desse modo o cloudstack possui os seguintes níveis de abstrações \cite{shape}:
-
-\begin{itemize}
-\item \textbf{Regiões:} são a primeira e maior unidade de escala de uma implementação de uma cloud com CloudStack. Uma Região consiste em multiplas Zonas de Disponibilidade, a segunda maior unidade de escala.
-\item \textbf{Zonas: } Tipicamente existe apenas uma Zona por Data Center e cada Zona contem PODs, Hosts e Storage.
-\item \textbf{Pods: } PODs tem propriedades lógicas e físicas com componentes como endereçamento IP e algoritmo de alocação de Máquinas Virutais sendo influenciados por PODs dentro de uma Zona.
-\item \textbf{Clusters: } São simples grupos de servidores homogêneos combinados com um Storage Primário. Cada Cluster utiliza um mesmo tipo de hypervisor mas em uma Zona pode ceoxistir combinações de todos os hypervisores suportados. Cada Cluster utiliza um mesmo tipo de hypervisor mas em uma Zona pode ceoxistir combinações de todos os hypervisores suportados.
-\item \textbf{Hosts: } Responsável por disponibilizar a camada de computação real em que Máquinas Virtuais são executadas.
-\item \textbf{Storage Primário: }  onde os discos das Máquinas Virtuais residem e pode ser utilizado o disco local de um Host ou um storage compartilhado como NFS, iSCSI, Fiber Channel, etc.
-\item \textbf{Storage Secundário:} onde é armazenado os Templates de Máquinas Virtuais, arquivos ISO e Snapshots e é utilizado o protocolo NFS para este Storage
-\end{itemize}
-
-
-\begin{figure}[!htb]
-\centering
-\includegraphics [keepaspectratio=true,scale=0.60]{figuras/cloudstack_structure.eps}
-\caption{Visão geral da infraestrutura do Cloudstack}
-\cite{cloudstack}.
-\label{diagramacloudstack}
-\end{figure}
+Para implementação da plataforma em nuvem duas ferramentas foram previamente abordadas \textit{Cloudstack} e \textit{Opennebula}. 
 
 Dessa maneira, afim de se ter um ambiente limpo e com um sistema operacional atualizado, efetuou-se a formtação do disco do servidor \textit{Solarian}, sendo em seguida instalado o sistema operacional \textit{Centos 7}. Assim, com o auxílio da documentação do cloudstack a instalação procedeu sem muitos problemas. Com instalação concluída, já era possível acessar a interface de gerenciamento dando continuidade com as configurações necessárias para criação de máquinas virtuais. Entretanto, a obrigatoriedade de configuração de todos os niveis de abstração, apresentados logo a cima, mostrou-se despendiosa e desnecessária para uma configuração mínima e também para a infraestrutura disponível no LAPPIS. Desse modo, alguns elementos do \textit{cloudstack}, necessários para o ambiente, não apresentaram o comportamento esperado. Um exemplo disso, era problemas recorrentes relacionados com a máquina virtual de sistema, reponsável pelas operações no storage secundário (referenciada por \textit{SSVM}), o que impossibilitava a criação de máquinas virtuais a partir de templates.Em resumo, mesmo com os problemas enfrentados, foi possível a criação de máquinas virtuais nessa plataforma, entretanto a configuração de vários elementos decorrente de sua abstração voltada para uma infraestrutura mais complexa, acabou por tornar difícil o gerenciamento e estabilização do ambiente como um todo, sendo considerado, para o caso em específico do LAPPIS, não sustentável.
-
-O \textit{OpenNebula}, assim como o \textit{cloudstack}, é uma ferramenta de código aberto que emergiu como um projeto de pesquisa em 2005 tendo seu primeiro lançamento público em março de 2008. Oferece uma solução simples mas repleta de funcionalidades para construir e gerenciar nuvens corporativas e \textit{data centers} virtuais. Alem disso, combina tecnologias de virtualização existentes com funcionalides avançadas para fornecimento automático e elasticidade, seguindo uma abordagem \textit{bottom-up}, guiado pelas reais necessidades de adminstradores de sistemas e \textit{devops}\cite{opennebula}.
-
-Em uma configuração mínima  arquitetura do \textit{OpenNebula} é composta por três componentes: \textit{hosts}, \textit{datastores} e \textit{front-end}. O \textit{front-end} é a máquina responsável por disponinbilizar a interface de gerenciamento. Através da rede, monitora os \textit{hosts} e máquinas virtuais, bem como inicia operações relacionadas com máquinas virtuais e \textit{datastores}. Os \textit{hosts} ou \textit{worker nodes} são as máquinas físicas responsáveis pelos recursos físicos essenciais para a criação de máquinas virtuais, é nesta máquina onde o hipervisor será instalado. Por fim, os \textit{datastore} é o \textit{storage} utilizado como repositório de imagens e para manter os discos das máquinas virtuais, em execução. Não precisa ser necessariamente um storage dedicado, podendo ser uma máquina física com mais capacidade de disco ou até mesmo sendo um dos próprios \textit{hosts}.  
-
-
-\begin{figure}[!htb]
-\centering
-\includegraphics [keepaspectratio=true,scale=0.60]{figuras/opennebula_instalation.eps}
-\caption{Visão geral da infraestrutura do OpenNebula}
-\cite{opennebula}.
-\label{diagramaopennebula}
-\end{figure}
-
-
-
-
-O \textit{OpenNebula} possui modelos de implementação tanto para nuvens privadas mais simplifcadas quanto para ambientes de infraestrutura mais complexos. Desse modo, para poucos servidores a implementação do \textit{OpenNebula} é efetuada sem necessidade de ter que se preocupar elementos voltadas para uma infraestrutura maior, que no caso do OpenNebula é chamada de \textit{Federação}. Entretanto, para locais ou empresas que possuem múltiplos \textit{data centers}, que por sua vez, possui vários \textit{clusters} de servidores, o opennebula prover funcionalidades que colaboram para que vários data centers separados regionalmente possam ser gerenciados a partir de uma interface em nuvem com acesso externo. 
-
-Cada instância do opennebula é denominada de zona, desse modo em uma infraestrutura com múltiplas zonas pode ser configuradas como uma Federação. Assim, tem-se um compartilhamento da base de dados entre as zonas(Usuários, grupos). Nessa configuração, uma das zonas tem o papel de \textit{master}, ao qual é o responsável por escrever as informações na base dados, mantendo assim a consistência nos dados\cite{opennebula}.
-
-\begin{figure}[!htb]
-\centering
-\includegraphics [keepaspectratio=true,scale=0.60]{figuras/opennebula_zone.eps}
-\caption{Arquitetura de implantação por zonas}
-\cite{opennebula}.
-\label{opennebulafederation}
-\end{figure}
-
-
 
 Para instalação do \textit{OpenNebula}, foram adotados os mesmos procedimentos feitos para testes com o \textit{Cloudstack}: formatação do disco e instalação do sistema operacional \textit{Centos 7}. Dessa forma, destaca-se a clareza e objetividade da documentação do \textit{OpenNebula}, ao qual, apartir da mesma, a instalação prosseguiu sem muitas dificuldades. Para testes iniciais, utilizou-se uma estação convencional de trabalho para ser usada como \textit{front-end} e \textit{datastore}. O servidor \textit{Solarian}, foi então configurado como \textit{worked node}. Após a instalação e as configurações de redes devidamente concluídas no \textit{front-end} e \textit{worked node}, já era possível acessar a interface de gerenciamento. Percebeu-se de início a facilidade e simplicidade tão enaltecidas pela documentação do \textit{OpenNebula}. Assim, sem necessidade de muitas instruções, através da interface de gerenciamento, adicionou-se o servidor \textit{Solarian} como \textit{worked node}. Apartir de então, o \textit{daemon ONED} do \textit{OpenNebula} passou a realizar operações de reconhecimento e monitoramento no servidor \textit{Solarian}, sendo possível a criação de máquinas virtuais sobre o mesmo. Não se teve qualquer tipo de problema ou instabilidade graves na criação de máquinas virtuais, tão logo criadas, ja era possível acessa-las via \textit{ssh}. Destaca-se que a integração da interface de gerenciamento com o \textit{OpenNebula MarketPlace}, possibilitou a disponibilização rápida de máquinas virtuais. O \textit{OpenNebula Marketplace} é um catálogo \textit{online} de imagens pré-configuradas para máquinas virtuais, assim através da sua integração com a interface de gerenciamento já era possível criar máquinas virtuais com sistemas operacionais como \textit{Debian 8} e \textit{Centos 7}, previamente disponibilizados no \textit{OpenNebula Marketplace}. 
 
@@ -142,7 +82,7 @@ A estação de trabalho convencional havia sido escolhido apenas para testes ini
 
 \begin{itemize}
 \item \textit{\textbf{shared}} - O \textit{System Datastore} é compartilhado entre todos os outros hots usando \textit{NFS}, por exemplo.
-\item \textit{\textbf{vmfs}} - Necessário quando o hipervisor utilizado é o \textit{VMware}.
+\item \textit{\textbf{vmfs}} - Necessário quando o \textit{hypervisor} utilizado é o \textit{VMware}.
 \item \textit{\textbf{ssh}} - Nesse caso, cada host possui seu próprio \textit{System Datastore}.
 \end{itemize}
 

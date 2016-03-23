@@ -21,7 +21,7 @@ Pode se definir que Virtualização é a técnica que permite particionar um ún
 
 \end{itemize}
 
-Uma outra abordagem que pode ser utilizada para conceituar a virtualização é defini-la como uma camada de abstração entre o hardware e o software, que protege o acesso direto do software aos recursos físicos do hardware. A forma pela qual essa camada de abstração é implementada dá origem às máquinas virtuais de processo e aos monitores de máquinas virtuais também chamados de hipervisores \cite{manoel}.
+Uma outra abordagem que pode ser utilizada para conceituar a virtualização é defini-la como uma camada de abstração entre o hardware e o software, que protege o acesso direto do software aos recursos físicos do hardware. A forma pela qual essa camada de abstração é implementada dá origem às máquinas virtuais de processo e aos monitores de máquinas virtuais também chamados de \textit{hypervisor} \cite{manoel}.
 
 \begin{figure}[!htb]
 \centering
@@ -32,7 +32,7 @@ Uma outra abordagem que pode ser utilizada para conceituar a virtualização é 
 \end{figure}
 
 \subsection{Máquinas virtuais}
-Uma máquina virtual é uma abstração em software de uma máquina física real. Destaca-se que é executada como uma aplicação padrão de usuário sobre um sistema operacional. A própria máquina virtual emula uma máquina física possuindo assim seus próprios discos e dispositivos \cite{mcewan}. Desse modo, umas das vantagens de máquinas virtuais reside na independência de uso do seu sistmea operacional com relação ao sistema operacional da máquina física ao qual se encontra. Assim, em uma máquina física pode-se executar várias máquinas virtuais cada uma delas com sistemas operacionais diversos. A imagem \ref{arc_virtualization}, apresenta a arquitetura de um ambiente virtualizado dividido em duas camadas: \textit{software} e \textit{hardware}. É na camada de software, mais espceficamente na camada de virtualização, através dos hipervisores, que são providos as máquinas virtuais (hóspedes) com seus respectivos sistemais operacionais e \textit{hardwares} virtuais.  
+Uma máquina virtual é uma abstração em software de uma máquina física real. Destaca-se que é executada como uma aplicação padrão de usuário sobre um sistema operacional. A própria máquina virtual emula uma máquina física possuindo assim seus próprios discos e dispositivos \cite{mcewan}. Desse modo, umas das vantagens de máquinas virtuais reside na independência de uso do seu sistmea operacional com relação ao sistema operacional da máquina física ao qual se encontra. Assim, em uma máquina física pode-se executar várias máquinas virtuais cada uma delas com sistemas operacionais diversos. A imagem \ref{arc_virtualization}, apresenta a arquitetura de um ambiente virtualizado dividido em duas camadas: \textit{software} e \textit{hardware}. É na camada de software, mais espceficamente na camada de virtualização, através dos \textit{hypervisor}, que são providos as máquinas virtuais (hóspedes) com seus respectivos sistemais operacionais e \textit{hardwares} virtuais.  
 
 \begin{figure}[!htb]
 \centering
@@ -42,17 +42,17 @@ Uma máquina virtual é uma abstração em software de uma máquina física real
 \label{arc_virtualization}
 \end{figure} 
  
-\subsection{Hipervisores}
-O hipervisor (ou também conhecido como monitor de máquinas virtuais) é o software que possui mecanismos capazes de prover máquinas virtuais. Suas principais funções cosistem no esclanomaneto de tarefas, gerência da memória e manutenção do estado da máquina virtual \cite{manoel}. Desse modo, atributos como desempenho e escalabilidade são determinantes para definir a qualidade dos serviços fornecidos por um hipervisor. Algumas características são essenciais a um hipervisor: segurança sobre os recursos virtualizados e agilidade na reconfiguração de recursos computacionais, sem interromper as operações do servidor de máquinas virtuais \cite{manoel}. Os hipervisores são classificados em dois tipos:
+\subsection{Monitor de Máquinas virtuais}
+O \textit{hypervisor} (ou também conhecido como monitor de máquinas virtuais) é o software que possui mecanismos capazes de prover máquinas virtuais. Suas principais funções cosistem no esclanomaneto de tarefas, gerência da memória e manutenção do estado da máquina virtual \cite{manoel}. Desse modo, atributos como desempenho e escalabilidade são determinantes para definir a qualidade dos serviços fornecidos por um \textit{hypervisor}. Algumas características são essenciais a um \textit{hypervisor}: segurança sobre os recursos virtualizados e agilidade na reconfiguração de recursos computacionais, sem interromper as operações do servidor de máquinas virtuais \cite{manoel}. Os \textit{hypervisors} são classificados em dois tipos:
 
 \begin{itemize}
-\item \textbf{Tipo I}(\textit{bare metal}, nativo ou supervisor):executa diretamente no hardware do sesrvidor. Controla o hardware e o acesso do sistema operacional convidado(\textit{guest OS}. O papel do hipervisor nativo é compartilhar os recursos de hardware entre as máquinas virtuais, de fomra que cada uma delas imagina ter recursos exclusivos \cite{manoel}.
+\item \textbf{Tipo I}(\textit{bare metal}, nativo ou supervisor):executa diretamente no hardware do sesrvidor. Controla o hardware e o acesso do sistema operacional convidado(\textit{guest OS}. O papel do \textit{hypervisor} nativo é compartilhar os recursos de hardware entre as máquinas virtuais, de fomra que cada uma delas imagina ter recursos exclusivos \cite{manoel}.
 
 \item \textbf{Tipo II}(hosted): aplicação que fornece um ambiente de execução para outras apicações. Executa sob um sistema operacional nativo como se fosse um processo deste. A camada de virtualização é composta por um sistema operacional hóspede e um hardware virtual, que são criados sobre os recursos de hardware oferecidos por meio do sistema operacional nativo \cite{manoel}.
 \end{itemize}
 
 \subsection{Tipos de virtualização}
-A virtualização pode ser realizada de diferentes maneiras, cada uma com seus prós e contras. Na prática, em arquiteturas x86, as opções de virtualização alteram o nível de privilégios (\textit{rings}) padrões. As soluções baseads em hipervisores inclue a virtualização completa e a paravirtualização \cite{manoel}.
+A virtualização pode ser realizada de diferentes maneiras, cada uma com seus prós e contras. Na prática, em arquiteturas x86, as opções de virtualização alteram o nível de privilégios (\textit{rings}) padrões. As soluções baseadas em \textit{hypervisor} inclue a virtualização completa e a paravirtualização \cite{manoel}.
 
 Na virtualização total, uma estrutura completa de hardware é virtualizada, portanto o sistema a ser virtualizado (sistema convidado) não precisa sofrer qualquer tipo de alteração. O principal benefícios da virtualização total é justamente o fato de que o sistema a ser virtualizado não sofre qualquer tipo de alteração \cite{marcos}. Entretanto, o sistema virtualizado executa de forma mais lenta e o monitor de máquinas virtuais precisa implementar alternativas para que as operações privilegidas possam ser executadas em procesadores que não suportem a virtualização nativamente \cite{marcos}.
 
@@ -77,9 +77,9 @@ Na paravirtualização, o sistema a ser virtualizado (sistema convidado) sofre m
 \subsection{Ferramentas de Virtualização}
 Nessa seção serão abordadas algumas das ferramentas principais utilizadas para provimento de ambientes virtualizados: \textit{Xen, KVM}. As ferramentas de virualização basicamente são as plataformas responsáveis por prover a camada de virtualização responsável pela disponibilização de máquinas virtuais.
 
-O KVM é uma solução de virtualização total voltada para arquiteturas x86, possui suporte para tecnologias de virtualização \textit{Intel VT} e \textit{AMD-V}. Foi incorporado ao kernel em janeiro de 2007, tornando-se assim um componente do linux sendo capaz de herdar as funcionalidade principais do mesmo \cite{redhat}.Pelo fato do KVM ter sido incorporado ao kernel do linux, o seu desenvolvimento passou a ter a colaboração ativa e o suporte da ampla comunidade do linux bem como de algumas fornecedoras da industria do software tais como, Red Hat, AMD, HP, IBM, Intel, Novell, Siemens, SGI entre outros\cite {redhatkvm}.
+O KVM é uma solução de virtualização total voltada para arquiteturas x86, possui suporte para tecnologias de virtualização \textit{Intel VT} e \textit{AMD-V}. Foi incorporado ao kernel em janeiro de 2007, tornando-se assim um componente do linux sendo capaz de herdar as funcionalidade principais do mesmo \cite{redhatkvm,qumranet}.Pelo fato do KVM ter sido incorporado ao kernel do linux, o seu desenvolvimento passou a ter a colaboração ativa e o suporte da ampla comunidade do linux bem como de algumas fornecedoras da industria do software tais como, Red Hat, AMD, HP, IBM, Intel, Novell, Siemens, SGI entre outros\cite {redhatkvm}.
 
-A arquitetura do KVM é implementada como um processo convencional do linux, de modo que cada CPU virtual aparece como um processo regular. Proporcionando assim, ao KVM os beneficios de todas as funcionalidades do kernel do linux. A emulação dos dispositivos e as operações de entrada e saída nos sistemas operacionais hóspedes, fica por conta de uma versão modificado do QEMU \cite{redhatkvm}.   
+A arquitetura do KVM é implementada como um processo convencional do linux, de modo que cada CPU virtual aparece como um processo regular. Proporcionando assim, ao KVM os beneficios de todas as funcionalidades do kernel do linux\cite{redhatkvm}. A emulação dos dispositivos e as operações de entrada e saída nos sistemas operacionais hóspedes, fica por conta de uma versão modificado do QEMU \cite{redhatkvm,}.   
 
 \begin{figure}[!htb]
 \centering
