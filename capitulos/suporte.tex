@@ -40,20 +40,35 @@ Em uma configuração mínima  arquitetura do \textit{OpenNebula} é composta po
 
 \begin{figure}[!htb]
 \centering
-\includegraphics [keepaspectratio=true,scale=0.60]{figuras/opennebula_instalation.eps}
+\includegraphics [keepaspectratio=true,scale=0.70]{figuras/opennebula_instalation.eps}
 \caption{Visão geral da infraestrutura do OpenNebula}
 \cite{opennebula}.
 \label{diagramaopennebula}
 \end{figure}
 
-O \textit{System Datastore} é uma abstração do OpenNebula ao qual é responsável por manter os discos das máquinas virtuais em execução. Possui três tipos:
+O \textit{System Datastore} é uma abstração do OpenNebula ao qual é responsável por manter os discos das máquinas virtuais em execução. Possui três tipos\cite{opennebula}:
 
 \begin{itemize}
 \item \textit{\textbf{shared}} - O \textit{System Datastore} é compartilhado entre todos os outros hots usando \textit{NFS}, por exemplo.
-\item \textit{\textbf{vmfs}} - Necessário quando o \textit{hypervisor} utilizado é o \textit{VMware}.
+\item \textit{\textbf{vmfs}} - Necessário quando o \textit{hypervisor} utilizado é o \textit{VMware}. Uma versão da opção \textit{shared} voltada para o sistemas de arquivos do \textit{VMware}.
 \item \textit{\textbf{ssh}} - Nesse caso, cada host possui seu próprio \textit{System Datastore}.
 \end{itemize}
 
+\begin{figure}[!htb]
+\centering
+\includegraphics [keepaspectratio=true,scale=0.60]{figuras/ssh_datastore.eps}
+\caption{Funcionamento do \textit{System Datastore} na configuração \textit{SSH}.}
+\cite{opennebula}.
+\label{ssh_datastore}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics [keepaspectratio=true,scale=0.60]{figuras/shared_datastore.eps}
+\caption{Funcionamento do \textit{System Datastore} na configuração \textit{shared}. }
+\cite{opennebula}.
+\label{shared_datastore}
+\end{figure}
 
 O \textit{OpenNebula} possui modelos de implementação tanto para nuvens privadas mais simplifcadas quanto para ambientes de infraestrutura mais complexos. Desse modo, para poucos servidores a implementação do \textit{OpenNebula} é efetuada sem necessidade de ter que se preocupar elementos voltadas para uma infraestrutura maior, que no caso do OpenNebula é chamada de \textit{Federação}. Entretanto, para locais ou empresas que possuem múltiplos \textit{data centers}, que por sua vez, possui vários \textit{clusters} de servidores, o opennebula prover funcionalidades que colaboram para que vários data centers separados regionalmente possam ser gerenciados a partir de uma interface em nuvem com acesso externo. 
 
@@ -61,8 +76,13 @@ Cada instância do opennebula é denominada de zona, desse modo em uma infraestr
 
 \begin{figure}[!htb]
 \centering
-\includegraphics [keepaspectratio=true,scale=0.60]{figuras/opennebula_zone.eps}
+\includegraphics [keepaspectratio=true,scale=0.50]{figuras/opennebula_zone.eps}
 \caption{Arquitetura de implantação por zonas}
 \cite{opennebula}.
 \label{opennebulafederation}
 \end{figure}
+
+\section{Comparativo entre as ferramentas de Plataforma em nuvem}
+
+Nesta seção é apresentado um breve comparativo entre as ferramentas \textit{OpenNebula} e \textit{Cloudstack} baseado no trabalho de \citeonline{salam}. De acordo com \citeonline{salam}, de maneira geral tanto cloudstack quanto o opennebula possuem funcionlidades que proporcionam um excelente \textit{feedback} com relação ao provimento de plataformas em nuvem. O \textit{OpenNebula} tem como pontos fortes a flexibilidade e escalabilidade o que proporciona um certo dinanismo na adição de novos recursos. Já o \textit{Cloudstack} provê uma API que proporcina facilidades no que diz respeito a integração de outras ferramentas, possibilitando bons mecanismos para configuração da plataforma como um todo \cite{salam}. Entretanto, dos fatores apresentado na tabela x, a robustez contra erros foi decisivo para escolha em favor do OpenNebula, dado que , como será relatado na seção tal, o Cloudstack mostrou-se bastante instável e intolerantes a erros.
+

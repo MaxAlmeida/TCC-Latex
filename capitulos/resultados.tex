@@ -78,13 +78,7 @@ Assim, devido a quantidade ferramentas que seriam instalados, só o processo de 
 %mysql
 \end{itemize}
 
-A estação de trabalho convencional havia sido escolhido apenas para testes iniciais, desse modo, por possuir uma configuração intermediária entre um servidor e estação de trabalho de alto desemepenho, optou-se por utilizar a máquina \textit{Polaris} como \textit{datastore}, \textit{front-end} e também como \textit{worked-node}. Após isso, notou-se uma melhora significativa no tempo de disponibilização de máquinas virtuais mas ainda assim, continuava baixo o desempenho para \textit{deploy} do Portal do Software Público. Então a próxima medida adotada foi a mudança de configuração no tipo de \textit{System Dastore}. O \textit{System Datastore} é uma abstração do OpenNebula ao qual é responsável por manter os discos das máquinas virtuais em execução. Possui três tipos:
-
-\begin{itemize}
-\item \textit{\textbf{shared}} - O \textit{System Datastore} é compartilhado entre todos os outros hots usando \textit{NFS}, por exemplo.
-\item \textit{\textbf{vmfs}} - Necessário quando o \textit{hypervisor} utilizado é o \textit{VMware}.
-\item \textit{\textbf{ssh}} - Nesse caso, cada host possui seu próprio \textit{System Datastore}.
-\end{itemize}
+A estação de trabalho convencional havia sido escolhido apenas para testes iniciais, desse modo, por possuir uma configuração intermediária entre um servidor e estação de trabalho de alto desemepenho, optou-se por utilizar a máquina \textit{Polaris} como \textit{datastore}, \textit{front-end} e também como \textit{worked-node}. Após isso, notou-se uma melhora significativa no tempo de disponibilização de máquinas virtuais mas ainda assim, continuava baixo o desempenho para \textit{deploy} do Portal do Software Público. Então a próxima medida adotada foi a mudança de configuração no tipo de \textit{System Dastore}. 
 
 Inicialmente, havia se utilizado como configuração padrão do OpenNebula a opção \textit{shared} para tipo do \textit{System Datastore}. O que se mostrou um equívoco inicial, afinal o \textit{LAPPIS} não possui uma infraestrutura de rede de armazenamento que comporte esse tipo de centralização de armazenamento para máquinas virtuais. Com as operações de escrita em disco das máquinas virtuais tendo que passar através da rede, isso viria a se tornar um grande gargalo. Portanto, a opção adequada nesse caso foi a configuração do \textit{System Datastore} para opçao \textit{ssh}. Teria-se um aumento no tempo na disponibilização de máquinas, entretanto o desempenho melhoraria pois o uso do disco estava local agora. 
 
