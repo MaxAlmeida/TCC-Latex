@@ -79,7 +79,7 @@ Nessa seção serão abordadas algumas das ferramentas principais utilizadas par
 
 O KVM é uma solução de virtualização total voltada para arquiteturas x86, possui suporte para tecnologias de virtualização \textit{Intel VT} e \textit{AMD-V}. Foi incorporado ao kernel em janeiro de 2007, tornando-se assim um componente do linux sendo capaz de herdar as funcionalidade principais do mesmo \cite{redhatkvm,qumranet}.Pelo fato do KVM ter sido incorporado ao kernel do linux, o seu desenvolvimento passou a ter a colaboração ativa e o suporte da ampla comunidade do linux bem como de algumas fornecedoras da industria do software tais como, Red Hat, AMD, HP, IBM, Intel, Novell, Siemens, SGI entre outros\cite {redhatkvm}.
 
-A arquitetura do KVM é implementada como um processo convencional do linux, de modo que cada CPU virtual aparece como um processo regular. Proporcionando assim, ao KVM os beneficios de todas as funcionalidades do kernel do linux\cite{redhatkvm}. A emulação dos dispositivos e as operações de entrada e saída nos sistemas operacionais hóspedes, fica por conta de uma versão modificado do QEMU \cite{redhatkvm,}.   
+A arquitetura do KVM é implementada como um processo convencional do linux, de modo que cada CPU virtual aparece como um processo regular. Proporcionando assim, ao KVM os beneficios de todas as funcionalidades do kernel do linux\cite{redhatkvm}. A emulação dos dispositivos e as operações de entrada e saída nos sistemas operacionais hóspedes, fica por conta de uma versão modificado do QEMU \cite{redhatkvm,qumranet}. Neste, caso o KVM intercepta eventos a niveis de sistema que precisam ser emulados, tais como leitura do disco ou o envio de um pacote pela rede, e invoca o QEMU que emula a funcionalidade do \textit{hardware} requsitado \cite{rasmusson}. Por exemplo, a placa de rede virtual da máquina virtual que precisasse ser usada para algum envio de pacotes pela rede, teria esse tipo de funcionalidade emulada a partir da placa de rede física da máquina hospedeira. 
 
 \begin{figure}[!htb]
 \centering
@@ -88,5 +88,19 @@ A arquitetura do KVM é implementada como um processo convencional do linux, de 
 \cite{fabiano}.
 \label{kvm_arc}
 \end{figure}
+
+Já o XEN foi criado por Keir Fraser e Ian pratt como parte do projeto de pesquisa \textit{Xenoserver} pela \textit{Cambridge University}. Sendo que em 2002, teve seu código fonte aberto afim de promover melhorias no mesmo com a contribuição da comunidade de desenvolvedores. É um dos mais populares \textit{hypervisor} a implementar técnica de paravirtualização\cite{xen}. Desse modo é conhecido por possuir uma baixa perda de desempeho, se aproximando da performance nativa do servidor\cite{walters}.Isso é justificado pelo fato de que o sistema operacional das máquinas virtuais é modificado de modo que as chamadas privilegiadas são substituidas por chamadas diretas ao \textit{hypervisor}, ao contrário do que é feito com abordagens que utilizam emulação e tradução binária que acabam por focar no gerenciamento de chamadas previlegiadas \cite{redhatkvm}. 
+
+A arquitetura do XEN é composta por dois dois componentes: o próprio \textit{hypervisor} XEN e pelo domínio 0 (ou Dom0). O \textit{hypervisor} XEN é responsável por virtualização de memória e CPU, gerenciamento de energia e escalonamento das máquinas virtuais. Enquanto que o Dom0 é uma máquina virtual instanciada pelo próprio \textit{hypervisor} XEN que possui acesso direto ao hardware, sendo responsável por prover \textit{drivers} dos dispostivos de E/S para máquinas virtuais \cite{redhatkvm}. As máquinas virtuais são conhecidas como DomU(\textit{unprivileged domain}), sendo que as operações feitas por dispositivos de E/S são realizadas através da comunicação entre o processo \textit{front end}, existente no núcleo modificado das DomU, e o processo \textit{back end}, existente no núcleo da Dom0 \cite{redhatkvm}.
+
+\begin{figure}[!htb]
+\centering
+\includegraphics [keepaspectratio=true,scale=0.6]{figuras/xen_arquitecture.eps}
+\caption{Arquitetura do KVM}
+\cite{fabiano}.
+\label{xen_arquitecture}
+\end{figure}
+
+
 %Xen é um hipervisor do tipo 1 (ou baremetal) \textit{open source} para arquiteruas x86 que utiliza, por padrão a técnica de paravirtualização, \cite{clark}. Uma das maiores vantagens do uso do Xen como VMM na para-virtualização é o fato de que este apresenta um desempenho melhor do que os produtos de virtualização total, quando a máquina física hospedeira não tem instruções de hardware de suporte a virtualização \cite{eder}  
 
