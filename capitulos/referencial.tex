@@ -95,12 +95,56 @@ A arquitetura do XEN é composta por dois dois componentes: o próprio \textit{h
 
 \begin{figure}[!htb]
 \centering
-\includegraphics [keepaspectratio=true,scale=0.6]{figuras/xen_arquitecture.eps}
+\includegraphics [keepaspectratio=true,scale=0.65]{figuras/xen_arquitecture.eps}
 \caption{Arquitetura do KVM}
 \cite{fabiano}.
 \label{xen_arquitecture}
 \end{figure}
 
+\section{Trabalhos relacionados}
+Esse seção tem como intuito expor alguns trabalhos relacionados a 
+No trabalho apresentado por \cite{koh2007} é feita um estudo de interferência entre aplicações executadas sobre o mesmo \textit{hardware} a apartir de máquinas virtuais. Como cargas de trabalho, foram escolhidas aplicações do mundo real utilizadas para compreensão, compilação de código fonte, e rendenrização de \textit{frames}, bem como fora utilizadas ferramentas voltadas para testes de desempenho (\textit{benchmark}). Essas ferramentas foram escolhidas visando o teste de vários aspectos do sistema e \textit{hardware}.
 
+\begin{table}[!h]
+\centering
+%\cite{koh2007}
+\caption{Aplicações utilizadas para testes de desempenho}
+\label{applications}
+\resizebox{0.6\textwidth}{!}{
+\begin{tabular}{|l|c|lll}
+\cline{1-2}
+Name        & \multicolumn{1}{l|}{Maior recurso utilizado} &  &  &  \\ \cline{1-2}
+Add\_double & CPU                                          &  &  &  \\ \cline{1-2}
+Analyser    & Memória                                      &  &  &  \\ \cline{1-2}
+Bw\_mem     & Memória                                      &  &  &  \\ \cline{1-2}
+Bzip2       & Misto                                        &  &  &  \\ \cline{1-2}
+Cat         & Disco                                        &  &  &  \\ \cline{1-2}
+Cachebench  & Memória                                      &  &  &  \\ \cline{1-2}
+Cachebuster & Memória                                      &  &  &  \\ \cline{1-2}
+Ccrypt      & Misto                                        &  &  &  \\ \cline{1-2}
+Cp          & Disco                                        &  &  &  \\ \cline{1-2}
+Dd          & Disco                                        &  &  &  \\ \cline{1-2}
+Grep        & Disco                                        &  &  &  \\ \cline{1-2}
+Gzip        & Misto                                        &  &  &  \\ \cline{1-2}
+Iozone      & Disco                                        &  &  &  \\ \cline{1-2}
+Make        & Misto                                        &  &  &  \\ \cline{1-2}
+Povray      & Misto                                        &  &  &  \\ \cline{1-2}
+Spinlock    & CPU                                          &  &  &  \\ \cline{1-2}
+\end{tabular}}
+\end{table}
+
+Para cálculo da interferencia é feita a seguinte abordagem: Duas máquinas virtuais são criadas (denomina-se "domínio 1" e "domínio 2") em um servidor executando o \textit{hypervisor} XEN,  uma aplicação F é executada no domínio 1 contra domínio 2 sem qualquer aplicação sendo executada, o desempenho da aplicação F neste cenário é medido. Em seguida, essa mesma aplicação F é executada contra uma aplicação B que está sendo executada em domínio 2, o desempenho de F e medido novamente. O calculo da interferencia de uma aplicação F contra B é feito dividindo o desempenho de F executado contra aplicação B, pelo desempenho do próprio F contra o domínio sem qualquer aplicação. Tal procedimento é feito para os seguinte conjunto de métricas: Média de uso de CPU, \textit{cache hits}, \textit{cache misses}, troca de máquinas virtuais por segundo, bloqueio de operações de entrada e saída por segundo, tempo de emissão de leitura e escrita por segundo e tempo gasto na leitra e escrita por máquina virtual. 
+
+De maneira geral, a observação feita neste trabalho é que determinadas aplicações podem sofrer mais interferências de outras aplicações que possuem o mesmo uso de tipo de recurso. O exemplo disso apresentado por \citeonline{koh2007} como mostrado na imagem \ref{interference_app} , onde uma aplicação executada sem interferência alcança uma pontuação de 1. Duas aplicações que não interferem uma com a outra alcança uma pontuação perto de 2, como grep+povray. Já executando grep+grep a pontuação cai para 0.35 %Por exemplo, uma aplicação A que costuma consumir mais CPU, pode sofrer mais interferência de uma outra aplicação que possui a mesma característica, do que de uma aplicação que realiza operações mais focadas na escrita de disco. Além disso, é proposto por esse trabalho que com resultados desses desempenhos pode se fazer predição de desempenho de uma aplicação qualquer, a partir de analise matemáticas.
+
+\begin{figure}[!htb]
+\centering
+\includegraphics [keepaspectratio=true,scale=0.65]{figuras/interference_aplications.eps}
+\caption{Arquitetura do KVM}
+\cite{koh2007}.
+\label{interference_app}
+\end{figure}
+
+Além disso, é proposto por esse trabalho que com resultados desses desempenhos pode se fazer predição de desempenho de uma aplicação qualquer, a partir de análises matemáticas. Dado a quantidade variáveis, que nada mais que são as métricas utilizadas para medição de desempenho, as análises matemáticas escolhidas foram a análise de componente principal e a análise de regressão linear. Um comparartivo entre as análises foi feito de modo que chegou-se a conclusão que análise por PCA apresentava uma porcentagem de erro menor. Esse trabalho demonstrou que a taxa de erro utilizando o modelo PCA se manteve igual, mesmo utilizando outros ambiente físicos. Entretanto uma das restrições deste trabalhos é que o mesmo fora aplicado em aplicações que estavam sendo executadas em duas máquinas virtuais. Desse modo como trabalhos futuros é proposta a investigação no uso de mais máquinas virtuais, e aplicação de modelos não lineares para predição de desempenho bem como a adição de novos tipos de métricas que envolvam outras características a nivel de sistema, tal como desempenho de aplicações de rede.
 %Xen é um hipervisor do tipo 1 (ou baremetal) \textit{open source} para arquiteruas x86 que utiliza, por padrão a técnica de paravirtualização, \cite{clark}. Uma das maiores vantagens do uso do Xen como VMM na para-virtualização é o fato de que este apresenta um desempenho melhor do que os produtos de virtualização total, quando a máquina física hospedeira não tem instruções de hardware de suporte a virtualização \cite{eder}  
 
