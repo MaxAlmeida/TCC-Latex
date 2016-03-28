@@ -37,7 +37,29 @@ Esses servidores são identificados como \textit{Solarian} e \textit{Imperius} e
 	\item 2TB SATA HDD.
 	\item 1 interface \textit{EThernet 10/100/1000-BaseT.}
 \end{itemize} 
-Esse servidor é identificado como \textit{Polaris} e seu uso se limitava a uma estação de trabalho convencional. A imagem a seguir apresenta um esquema onde mostra a alocação das máquinas virtuais nos servidores, em seguida é feita uma breve descrição dos serviços oferecidos.
+Esse servidor é identificado como \textit{Polaris} e seu uso se limitava a um ambiente de testes para ferramentas de integração contínua do Portal do Software Público. A imagem \ref{fig:infra_older} a seguir apresenta um esquema onde mostra a alocação das máquinas virtuais nos servidores, em seguida é feita uma breve descrição dos serviços oferecidos.
+
+\begin{figure}[!h]
+\centering
+\includegraphics [keepaspectratio=true,scale=0.4]{figuras/vm_infra_older.eps}
+\caption{Visão geral da Infraestrutura}
+\label{fig:infra_older}
+\end{figure}
+
+\begin{itemize}
+  \item \textbf{\textit{Services}}: Ambiente utilizado para acesso externo, tinha função de servidor \textit{DHCP} também.
+  \item \textbf{\textit{Backup}}: Ambiente utilizado para backups do \textit{Redmine}, \textit{Dotproject} e Portal da FGA.
+  \item \textbf{\textit{MySql}}: Utilizada como banco de dados para o \textit{Redmine} e \textit{Dotproject}.
+  \item \textbf{\textit{SRA-Homolog}}: Ambiente utilizada para homologação do Sistema de Registro de Atendimentos.
+  \item \textbf{\textit{SGD-Homolog}}: Ambiente utilizada como homologação do Sistema de Gestão de Desempenho.
+  \item \textbf{\textit{Dotproject}}: Utilizada para provimento do \textit{Dotproject}, empregado como ferramenta de Gestão nas disciplinas de Gestão de Portifólio e Produto e Metodologia de Desenvolvimento de Software.
+  \item \textbf{\textit{Redmine}}: Utilizado para disponibilização do \textit{Redmine}, empregado também como ferramentas de Gestão nas disciplinas de Gestão de Portifólio e Produto e Metodologia de Desenvolvimento de Software.
+  \item \textbf{\textit{PortalFga-homolog}}: Ambiente de homologação para o Portal da FGA.
+  \item \textbf{\textit{GestorPsi}}: Ambiente de testes para o \textit{GestorPsi}, software da disciplina Manutenção Evolução do Software.
+  \item \textbf{\textit{Colab-homolog}}: Ambiente de testes para a ferramenta \textit{Colab}, software que compõe o Portal do Software Público.
+\end{itemize}
+
+
 
 \section{Migração de Máquinas Virtuais}
 Para implementação de uma solução de plataforma em nuvem, os procedimentos adotados consistiam em usar inicialmente um dos servidores como ambiente físico  para testes iniciais da plataforma em nuvem. Assim que a mesma estivesse estabilizada, o outro servidor seria agregado a essa solução. Desse modo, uma maneira encontrada para que esses procedimentos fosse feitos sem ter a indisponibilização dos serviços por um grande período de tempo foi a migração de todos os serviços para um único servidor. Assim, teria-se um servidor livre para uma implementação e investigação incial dessa plataforma em nuvem, enquanto que o outro servidor estaria disponibilizando os serviços em uso. Com isso, o servidor escolhido para essa implementação e investigação inicial da plataforma em nuvem foi o \textit{solarian}. 
@@ -113,7 +135,7 @@ Serviços como \textit{Redmine}, \textit{Dotproject} se mantiveram, a \textit{Se
 \begin{figure}[!h]
 \centering
 \includegraphics [keepaspectratio=true,scale=0.4]{figuras/vm_infra.eps}
-\caption{Visão geral da Infraestrutura}
+\caption{Visão geral da Infraestrutura após implantação do \textit{OpenNebula}}
 \label{fig:vm_infra}
 \end{figure}
 
