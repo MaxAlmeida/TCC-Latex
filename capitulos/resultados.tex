@@ -139,7 +139,47 @@ Serviços como \textit{Redmine}, \textit{Dotproject} se mantiveram, a \textit{Se
 \label{fig:vm_infra}
 \end{figure}
 
-Outro procedimento adotado foi o uso da ferramenta \textit{Chef} em conjunto com o \textit{Chake} para automatização, tanto no provimento da plataforma em nuvem, quanto na disponibilização de serviços. Com isso, como uma iniciativa inicial para automatização bem como documentação da infraestrutura, desenvolveu-se neste trabalho arquivos de configurações, utilizando o \textit{Chake} e \textit{chef solo}, para alguns serviços disponibilizados: \textit{Dotproject}, \textit{Redmine}, \textit{OpenNebula Front end}, \textit{OpenNebula Worked Node}.
+Outro procedimento adotado foi o uso da ferramenta \textit{Chef} em conjunto com o \textit{Chake} para automatização, tanto no provimento da plataforma em nuvem, quanto na disponibilização de serviços. Com isso, como uma iniciativa inicial para automatização bem como documentação da infraestrutura, desenvolveu-se neste trabalho arquivos de configurações, utilizando o \textit{Chake} e \textit{chef solo}, para alguns serviços disponibilizados: \textit{Dotproject}, \textit{Redmine}, \textit{OpenNebula Front end}, \textit{OpenNebula Worked Node}. 
+
+O código \ref{listing:frontend} pertence à uma receita para instalação do \textit{OpenNebula Front End}. Os comandos \textit{package} são utilizados para instalação de pacotes ou aplicações, se equivale ao \textit{yum install} ou \textit{apt-get install}. O comando \textit{template}, possibilita que sejam criados arquivos de configuração na máquina alvo a partir de templates. No caso do código \ref{listing:frontend}, nas linhas 4 e 5 é criado um arquivo de configuração do repositório para o opennebula no diretório definido na primeira linha, o comando \textit{source} indica a localização do template  cuja informação será colocada no arquivo de configuração. Os procedimentos \textit{execute}, possibilitam a execução de comandos específicos de um ambiente, no caso, comandos próprios da instalação do \textit{OpenNebula frontend}. Por fim, a diretiva \textit{service} permite gerenciar o estado de um serviço. No codigo \ref{listing:frontend}, os serviços que compõem o \textit{OpenNebula front end}, são habilitados e iniciados.
+
+\begin{lstlisting}[label=listing:frontend, caption=opennebula.rb]
+repo_dir = '/etc/yum.repos.d/opennebula.repo'
+package "epel-release"
+
+template repo_dir do
+  source 'opennebula.repo.erb'
+end
+
+package 'opennebula-server'
+package 'opennebula-sunstone'
+
+execute 'disable-selinux' do
+  command 'sed -i "s/SELINUX=\w*/SELINUX=disable /g" etc/sysconfig/selinux'
+end
+
+execute 'change_script' do
+  command 'sed -i "s/yum install/yum install -y/g" /usr/share/one/install_gems'
+end
+
+execute 'sunstone' do
+  command 'echo -e 1 "\n" "\n"| /usr/share/one/install_gems'
+end
+
+execute 'external_acess' do
+  command 'sed -i "s/:host: 127.0.0.1/:host: 0.0.0.0/g" /etc/one/sunstone-server.conf'
+end
+
+service 'opennebula' do
+  action [:enable, :start]
+end
+
+service 'opennebula-sunstone' do
+  action [:enable, :start]
+end
+
+
+\end{lstlisting}
 
 
 
