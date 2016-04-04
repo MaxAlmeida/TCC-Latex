@@ -2,12 +2,220 @@
 
 \partapendices
 
-\chapter{Primeiro Apêndice}
+\chapter{Código fonte da receita do \textit{OpenNebula Frontend}}
 
-Texto do primeiro apêndice.
+\begin{lstlisting}
+repo_dir = '/etc/yum.repos.d/opennebula.repo'
+config_ssh_dir = '/var/lib/one/.ssh/config'
+package "epel-release"
 
-\chapter{Segundo Apêndice}
+template repo_dir do 
+  source 'opennebula.repo.erb'
+end
 
-Texto do segundo apêndice.
+package 'opennebula-server'
+package 'opennebula-sunstone'
+
+execute 'disable-selinux' do
+  command 'sed -i "s/SELINUX=\w*/SELINUX=disable /g" etc/sysconfig/selinux'
+end
+
+execute 'change_script' do
+  command 'sed -i "s/yum install/yum install -y/g" /usr/share/one/install_gems'
+end
+
+execute 'sunstone' do
+  command 'echo -e 1 "\n" "\n"| /usr/share/one/install_gems'
+end
+
+execute 'external_acess' do
+  command 'sed -i "s/:host: 127.0.0.1/:host: 0.0.0.0/g" /etc/one/sunstone-server.conf'
+end
+
+service 'opennebula' do
+  action [:enable, :start]
+end
+
+service 'opennebula-sunstone' do
+  action [:enable, :start]
+end
+ 
+template config_ssh_dir do
+  source 'config.erb'
+  owner 'oneadmin'
+  group 'oneadmin'
+  mode '0600'
+end
+
+
+\end{lstlisting}
+\chapter{Código fonte da receita do \textit{OpenNebula Node}}
+\begin{lstlisting}
+repo_dir= '/etc/yum.repos.d/opennebula.repo'
+
+#add opennebula repository
+template repo_dir do
+  source 'opennebula.repo.erb'
+end
+#install node package for OpenNebula
+package "opennebula-node-kvm"
+
+#enable and starts services
+service "messagebus.service" do
+  action [:enable, :start]
+end
+
+service "libvirtd.service" do
+  action [:enable, :start]
+end
+
+service "nfs-server.service" do
+  action [:enable, :start]
+end
+
+\end{lstlisting}
+
+\chapter{Código fonte da receita do \textit{Redmine}}
+\begin{lstlisting}
+version = '3.2.0'
+url_redmine = "https://www.redmine.org/releases/redmine-#{version}.tar.gz"
+redmine_dir = '/opt/redmine/'
+apache_conf_dir = '/etc/apache2/sites-available/master.conf'
+#install dependencies
+execute 'update' do
+  command "apt-get update"
+  ignore_failure true
+  action :nothing
+end
+packages = %w(mysql-client libmysqlclient-dev gcc build-essential zlib1g zlib1g-dev zlibc ruby-zip libssl-dev libyaml-dev libcurl4-openssl-dev ruby gem libapache2-mod-passenger apache2-mpm-prefork apache2-dev libapr1-dev libxslt1-dev checkinstall libxml2-dev ruby-dev vim libmagickwand-dev imagemagick)
+
+
+packages.each do |package_name|
+  package package_name
+end
+
+directory redmine_dir
+
+remote_file redmine_dir + 'redmine.tar.gz' do
+  source url_redmine
+  mode '0755'
+end
+
+execute 'extract_redmine' do
+  command 'tar xzf redmine.tar.gz'
+  cwd redmine_dir
+end
+
+#installing gem bundler
+gem_package 'bundler'
+
+extracted_redmine_dir = redmine_dir+'redmine-'+version
+
+execute 'bundle_install' do
+  command 'bundle install'
+  cwd extracted_redmine_dir
+end
+
+execute 'generate_redmine_secret_token' do
+  command 'bundle exec rake generate_secret_token'
+  cwd extracted_redmine_dir
+end
+
+template extracted_redmine_dir+'/'+'config/database.yml' do
+  source 'database.yml.erb'
+  variables({
+    redmine_passwd: node['passwd']['redmine']
+  })
+end
+
+execute 'database_migration' do
+  command 'RAILS_ENV=production bundle exec rake db:migrate || RAILS_ENV=production bundle exec rake redmine:load_default_data'
+  cwd extracted_redmine_dir
+end
+
+execute "chown-data-www" do
+  command "sudo chown -R www-data files log tmp public/plugin_assets"
+  user "root"
+  cwd extracted_redmine_dir
+end
+
+execute "simbolic_link" do
+  command 'sudo ln -s '+extracted_redmine_dir+'/public/'+' /var/www/html/redmine'  
+end 
+
+template apache_conf_dir do
+  source 'master.conf.erb'
+end
+
+execute 'disable_default_apache' do
+  command 'sudo a2dissite 000-default.conf'
+end
+
+execute 'enable_master_conf' do
+  command 'sudo a2ensite master.conf'
+end
+
+execute 'passenger_permission' do
+  command "echo 'PassengerUser www-data' >> /etc/apache2/mods-available/passenger.conf"
+end
+
+execute 'enable_passenger' do
+  command "sudo a2enmod passenger"
+
+end
+service 'apache2' do
+  action :restart
+end 
+
+\end{lstlisting}
+
+\chapter{Código fonte da receita do servidor \textit{Proxy} usando \textit{squid}}\label{apendice}
+\begin{lstlisting}
+# Recipe for squid server
+
+# Config: 
+squid_maximum_object_size = "600" #MB
+squid_minimum_object_size = "0" #MB
+squid_cache_size = "30000" #MB
+
+# Yum update
+execute "yum_update" do
+  command "yum -y update"
+end
+
+# Install Squid
+package 'squid'
+
+# Configure squid.conf
+squid_conf_file = "/etc/squid/squid.conf"
+template squid_conf_file do
+  source 'squid.conf.erb'
+  variables({
+    cache_size: squid_cache_size,
+    maximum_object_size: squid_maximum_object_size,
+    minimum_object_size: squid_minimum_object_size
+  })
+end
+
+# Restart squid service
+service "squid" do
+  action :restart
+end
+
+# Enable iptables to listen port 3128
+execute "add_squid_iptables_rule" do
+  command "iptables -I INPUT -p tcp --dport 3128 -j ACCEPT && " +
+          "iptables-save > /etc/sysconfig/iptables"
+end
+
+# Install iptables service
+package 'iptables-services'
+
+# Enable iptables on boot and start it
+service "iptables" do
+  action [:enable,:start]
+end
+
+\end{lstlisting}
 
 \end{apendicesenv}
