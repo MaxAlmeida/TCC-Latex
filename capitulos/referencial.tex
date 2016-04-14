@@ -6,7 +6,7 @@ No contexto da computação, frequetemente uma alteração tecnológica torna al
  Seu ressurgimento só viria acontecer, nos anos 90 dentro de um contexto ao qual tinha-se o crescimento de novos paradigmas computacionais, tais como cliente-servidor  e sistemas \textit{peer-to-peer}, aos quais suas estruturas eram constituídas basicamente de máquinas clientes conectadas à vários servidores. Esses novos ambientes trouxeram com eles diversos desafios e problemas incluindo confiabilidade, segurança, aumento no custo de administração e complexidade, espaço fisico e consumo de energia \cite{menasce}. Desse modo, o ressurgimento da virtualização vem promovendo a mitigação de tais problemas recorrentes nesses novos paradigmas computacionais ( alteração tecnológica).
  
 \subsection{Conceituação} 
-Pode se definir que Virtualização é a técnica que permite particionar um único sistema computacional em vários outros denominados de máquinas virtuais. Cada máquina virtual oferece um ambiente completo muito similar a uma máquina física. Com isso, cada máquina virtual pode ter seu próprio sistema operacional, aplicativos e serviços de rede (Internet) \cite{carissimi}. A virtualização pode ser feita das seguintes formas:
+Pode se definir que virtualização é a técnica que permite particionar um único sistema computacional em vários outros denominados de máquinas virtuais. Cada máquina virtual oferece um ambiente completo muito similar a uma máquina física. Com isso, cada máquina virtual pode ter seu próprio sistema operacional, aplicativos e serviços de rede (Internet) \cite{carissimi}. A virtualização pode ser feita das seguintes formas:
 
 \begin{itemize}
 \item \textbf{Virtualização de servidores:} a mais comum e fácil de ser justificada. Diferente da época dos \textit{mainframes}, a virtualização agora é feita em servidores \textit{x86}.
@@ -46,15 +46,15 @@ Uma máquina virtual é uma abstração em software de uma máquina física real
 O \textit{hypervisor} (ou também conhecido como monitor de máquinas virtuais) é o software que possui mecanismos capazes de prover máquinas virtuais. Suas principais funções consistem no esclanomaneto de tarefas, gerência da memória e manutenção do estado da máquina virtual \cite{manoel}. Desse modo, atributos como desempenho e escalabilidade são determinantes para definir a qualidade dos serviços fornecidos por um \textit{hypervisor}. Algumas características são essenciais a um \textit{hypervisor}: segurança sobre os recursos virtualizados e agilidade na reconfiguração de recursos computacionais, sem interromper as operações do servidor de máquinas virtuais \cite{manoel}. Os \textit{hypervisors} são classificados em dois tipos:
 
 \begin{itemize}
-\item \textbf{Tipo I}(\textit{bare metal}, nativo ou supervisor):executa diretamente no hardware do servidor. Controla o hardware e o acesso do sistema operacional convidado(\textit{guest OS}. O papel do \textit{hypervisor} nativo é compartilhar os recursos de hardware entre as máquinas virtuais, de forma que cada uma delas imagina ter recursos exclusivos \cite{manoel}. Exemplos desse tipo incluem: \textit{Oracle Virtual Box}, \textit{VMware workstation}.
+\item \textbf{Tipo I}(\textit{bare metal}, nativo ou supervisor):executa diretamente no hardware do servidor. Controla o hardware e o acesso do sistema operacional convidado(\textit{guest OS}. O papel do \textit{hypervisor} nativo é compartilhar os recursos de hardware entre as máquinas virtuais, de forma que cada uma delas imagina ter recursos exclusivos \cite{manoel}. Exemplos desse tipo incluem: \textit{VMware ESXi}, \textit{Citrix XenServer}, e {Microsoft Hyper-V.}
 
-\item \textbf{Tipo II}(hosted): aplicação que fornece um ambiente de execução para outras aplicações. Executa sob um sistema operacional nativo como se fosse um processo deste. A camada de virtualização é composta por um sistema operacional hóspede e um hardware virtual, que são criados sobre os recursos de hardware oferecidos por meio do sistema operacional nativo \cite{manoel}.  Exemplos desse tipo incluem: \textit{KVM}, \textit{ Hyper-V}, \textit{XEN}.
+\item \textbf{Tipo II}(hosted): aplicação que fornece um ambiente de execução para outras aplicações. Executa sob um sistema operacional nativo como se fosse um processo deste. A camada de virtualização é composta por um sistema operacional hóspede e um hardware virtual, que são criados sobre os recursos de hardware oferecidos por meio do sistema operacional nativo \cite{manoel}.Exemplos desse tipo incluem: \textit{Oracle Virtual Box}, \textit{VMware, workstation.}
 \end{itemize}
 
 \subsection{Tipos de virtualização}
-A virtualização pode ser realizada de diferentes maneiras, cada uma com seus prós e contras. Na prática, em arquiteturas x86, as opções de virtualização alteram o nível de privilégios (\textit{rings}) padrões. As soluções baseadas em \textit{hypervisor} inclui a virtualização completa e a paravirtualização \cite{manoel}.
+A virtualização pode ser realizada de diferentes maneiras, cada uma com seus prós e contras. Na prática, em arquiteturas x86, as opções de virtualização alteram o nível de privilégios (\textit{rings}) padrões. As soluções baseadas em \textit{hypervisor} incluem a virtualização completa e a paravirtualização \cite{manoel}.
 
-Na virtualização total, uma estrutura completa de hardware é virtualizada, portanto o sistema a ser virtualizado (sistema convidado) não precisa sofrer qualquer tipo de alteração. O principal benefícios da virtualização total é justamente o fato de que o sistema a ser virtualizado não sofre qualquer tipo de alteração \cite{marcos}. Entretanto, o sistema virtualizado executa de forma mais lenta e o monitor de máquinas virtuais precisa implementar alternativas para que as operações privilegidas possam ser executadas em procesadores que não suportem a virtualização nativamente \cite{marcos}.
+Na virtualização total, uma estrutura completa de hardware é virtualizada, portanto o sistema a ser virtualizado (sistema convidado) não precisa sofrer qualquer tipo de alteração. O principal benefício da virtualização total é justamente o fato de que o sistema a ser virtualizado não sofre qualquer tipo de alteração \cite{marcos}. Entretanto, o sistema virtualizado executa de forma mais lenta e o monitor de máquinas virtuais precisa implementar alternativas para que as operações privilegidas possam ser executadas em procesadores que não suportem a virtualização nativamente \cite{marcos}.
 
 \begin{figure}[!htb]
 \centering
@@ -69,7 +69,7 @@ Na paravirtualização, o sistema a ser virtualizado (sistema convidado) sofre m
 \begin{figure}[!htb]
 \centering
 \includegraphics [keepaspectratio=true,scale=0.3]{figuras/paravirtualization.eps}
-\caption{Representação da virtualização total}
+\caption{Representação da paravirtualização}
 \cite{marcos}.
 \label{paravirtualization}
 \end{figure}
@@ -77,9 +77,9 @@ Na paravirtualização, o sistema a ser virtualizado (sistema convidado) sofre m
 \subsection{Ferramentas de Virtualização}
 Nessa seção serão abordadas algumas das ferramentas principais utilizadas para provimento de ambientes virtualizados: \textit{Xen, KVM}. As ferramentas de virualização basicamente são as plataformas responsáveis por prover a camada de virtualização responsável pela disponibilização de máquinas virtuais.
 
-O KVM é uma solução de virtualização total voltada para arquiteturas x86, possui suporte para tecnologias de virtualização \textit{Intel VT} e \textit{AMD-V}. Foi incorporado ao kernel em janeiro de 2007, tornando-se assim um componente do linux sendo capaz de herdar as funcionalidade principais do mesmo \cite{redhatkvm,qumranet}.Pelo fato do KVM ter sido incorporado ao kernel do linux, o seu desenvolvimento passou a ter a colaboração ativa e o suporte da ampla comunidade do linux bem como de algumas fornecedoras da industria do software tais como, Red Hat, AMD, HP, IBM, Intel, Novell, Siemens, SGI entre outros\cite {redhatkvm}.
+O KVM é uma solução de virtualização total voltada para arquiteturas x86, possui suporte para tecnologias de virtualização \textit{Intel VT} e \textit{AMD-V}. Foi incorporado ao \textit{kernel} em janeiro de 2007, tornando-se assim um componente do linux sendo capaz de herdar as funcionalidade principais do mesmo \cite{redhatkvm,qumranet}.Pelo fato do KVM ter sido incorporado ao kernel do linux, o seu desenvolvimento passou a ter a colaboração ativa e o suporte da ampla comunidade do linux bem como de algumas fornecedoras da industria do software tais como, Red Hat, AMD, HP, IBM, Intel, Novell, Siemens, SGI entre outros\cite {redhatkvm}.
 
-A arquitetura do KVM é implementada como um processo convencional do linux, de modo que cada CPU virtual aparece como um processo regular. Proporcionando assim, ao KVM os beneficios de todas as funcionalidades do kernel do linux\cite{redhatkvm}. A emulação dos dispositivos e as operações de entrada e saída nos sistemas operacionais hóspedes, fica por conta de uma versão modificado do QEMU \cite{redhatkvm,qumranet}. Neste, caso o KVM intercepta eventos a niveis de sistema que precisam ser emulados, tais como leitura do disco ou o envio de um pacote pela rede, e invoca o QEMU que emula a funcionalidade do \textit{hardware} requsitado \cite{rasmusson}. Por exemplo, a placa de rede virtual da máquina virtual que precisasse ser usada para algum envio de pacotes pela rede, teria esse tipo de funcionalidade emulada a partir da placa de rede física da máquina hospedeira. 
+A arquitetura do KVM é implementada como um processo convencional do linux, de modo que cada CPU virtual aparece como um processo regular. Proporcionando assim, ao KVM os beneficios de todas as funcionalidades do \textit{kernel} do linux\cite{redhatkvm}. A emulação dos dispositivos e as operações de entrada e saída nos sistemas operacionais hóspedes, fica por conta de uma versão modificada do \textit{QEMU} \cite{redhatkvm,qumranet}. Neste, caso o KVM intercepta eventos a niveis de sistema que precisam ser emulados, tais como leitura do disco ou o envio de um pacote pela rede, e invoca o QEMU que emula a funcionalidade do \textit{hardware} requisitado \cite{rasmusson}. Por exemplo, a placa de rede virtual da máquina virtual que precisasse ser usada para algum envio de pacotes pela rede, teria esse tipo de funcionalidade emulada a partir da placa de rede física da máquina hospedeira. 
 
 \begin{figure}[!htb]
 \centering
@@ -96,7 +96,7 @@ A arquitetura do XEN é composta por dois dois componentes: o próprio \textit{h
 \begin{figure}[!htb]
 \centering
 \includegraphics [keepaspectratio=true,scale=0.65]{figuras/xen_arquitecture.eps}
-\caption{Arquitetura do KVM}
+\caption{Arquitetura do XEN}
 \cite{fabiano}.
 \label{xen_arquitecture}
 \end{figure}

@@ -5,7 +5,7 @@ Ultimamente, devido a tendências como computação em nuvem, TI verde e a conso
 
 Neste contexto, a computação em nuvem, alinhada à virtualização, permite um conjunto de servidores físicos disponibilizar dezenas ou centenas de máquinas virtuais. Desse modo, proporciona-se aumento na escalabilidade, maximizando o uso de recursos \cite{popiolek2012}. Entretanto, antes de migrar aplicações de ambientes não virtuais para ambientes virtuais, é necessário entender como será o desempenho dessas aplicações nesse novo ambiente \cite{benevuto2006}. A adoção de servidores virtualizados vem com o aumento de custo na complexidade e dinâmica do sistema. O aumento da dinâmica é causada pela falta de controle direto sobre o hardware, pelas interações complexas entre as aplicações e cargas de trabalho que compartilham os mesmos recursos físicos, introduzindo novos desafios em sistemas gestão\cite{huber2011}.
 
-De acordo com \citeonline{koh2007}, observa-se que as tecnologias atuais que possibilitam a criação de máquinas virtuais não fornece um isolamento efetivo. Enquanto o \textit{hypervisor} ( software responsável pela disponibilização e gerenciamento de máquinas virtuais), reparte os recursos e os aloca para as VMs, o comportamento de cada VM ainda pode afetar o desempenho das outras de maneira negativa, devido ao uso de recursos compartilhados no sistema.  
+De acordo com \citeonline{koh2007}, observa-se que as tecnologias atuais que possibilitam a criação de máquinas virtuais não fornecem um isolamento efetivo. Enquanto o \textit{hypervisor} ( software responsável pela disponibilização e gerenciamento de máquinas virtuais), reparte os recursos e os aloca para as VMs, o comportamento de cada VM ainda pode afetar o desempenho das outras de maneira negativa, devido ao uso de recursos compartilhados no sistema.  
 
 Além disso, o custo de desempenho de virtualização pode variar de forma significativa, dependendo da configuração do ambiente virtual. Uma escolha de configuração que afeta criticamente o desempenho do sistema é a alocação de CPUs à várias máquinas virtuais\cite{benevuto2006}.
 
@@ -39,7 +39,7 @@ A partir do contexto e da justificativa apresentada, o objetivo deste trabalho �
 \begin{itemize}
 \item Realizar estudo bibliográfico sobre virtualização para melhor entendimento dos conceitos
 \item Efetuar estudo prévio de trabalhos ja realizados relacionados á análise de desempenho em ambientes virtualizados.
-\item Implantar uma Plataforma em Nuvem nos servidores do LAPPIS.
+\item Implantar uma plataforma em nuvem nos servidores do LAPPIS.
 \item Automatizar parcialmente a infraestrutura virtual do LAPPIS ( plataforma em nuvem, serviços oferecidos)
 \item Estabelecer um ambiente para estudo de interferência de desempenho entre ambientes virtuais.
 \item Aplicar a análise de desempenho em um dos servidores físicos do LAPPIS.

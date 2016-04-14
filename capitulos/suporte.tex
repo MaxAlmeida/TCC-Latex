@@ -2,7 +2,7 @@
 
 Nesta seção são apresentadas as ferramentas utilizadas para a consolidação da infraestrutura do LAPPIS. Basicamente as ferramentas utilizadas englobam o nicho de computação em nuvem \textit{Cloudstack} e \textit{OpenNebula} e automatização da infraestrutura utilizando \textit{chef-solo} e \textit{chake}.
 \section{Cloudstack}
-Em um modelo simplificado, o cloudstack é composto de uma máquina de gerenciamento e dos recursos a serem gerenciados. Tais recursos compreende: faixa de endereços \textit{IP}, dispositivos \textit{storage}, servidores e \textit{VLAN'S}. Para implementação em uma configuração mínima, pode se utilizar uma máquina dedicada apenas para a interface de gerenciamento, mantendo o servidor físico apenas com o \textit{hypervisor}, ou utilizar o servidor físico executando a interface de gerenciamento e o \textit{hypervisor} simultaneamente. 
+Em um modelo simplificado, o \textit{Cloudstack} é composto de uma máquina de gerenciamento e dos recursos a serem gerenciados. Tais recursos compreende: faixa de endereços \textit{IP}, dispositivos \textit{storage}, servidores e \textit{VLAN'S}. Para implementação em uma configuração mínima, pode se utilizar uma máquina dedicada apenas para a interface de gerenciamento, mantendo o servidor físico apenas com o \textit{hypervisor}, ou utilizar o servidor físico executando a interface de gerenciamento e o \textit{hypervisor} simultaneamente. 
 
 \begin{figure}[!htb]
 \centering
@@ -12,30 +12,29 @@ Em um modelo simplificado, o cloudstack é composto de uma máquina de gerenciam
 \label{cloudstatck_minimal}
 \end{figure}
 
-Em modelo mais complexo, o cloudstack apresenta seu pontencial de disponibilidade escalabilidade e gerenciamento. Proporcionando uma modelagem de várias
-infraestrutura em nuvens em uma determinada região. Desse modo o cloudstack possui os seguintes níveis de abstrações \cite{shape}:
+Em modelo mais complexo, o \textit{Cloudstack} apresenta seu pontencial de disponibilidade escalabilidade e gerenciamento. Proporcionando uma modelagem de várias infraestruturas em nuvens em uma determinada região. Desse modo o \textit{Cloudstack} possui os seguintes níveis de abstrações \cite{shape}:
 
 \begin{itemize}
-\item \textbf{Regiões:} são a primeira e maior unidade de escala de uma implementação de uma cloud com CloudStack. Uma Região consiste em multiplas Zonas de Disponibilidade, a segunda maior unidade de escala.
-\item \textbf{Zonas: } Tipicamente existe apenas uma Zona por Data Center e cada Zona contem PODs, Hosts e Storage.
-\item \textbf{Pods: } PODs tem propriedades lógicas e físicas com componentes como endereçamento IP e algoritmo de alocação de Máquinas Virutais sendo influenciados por PODs dentro de uma Zona.
+\item \textbf{Regiões:} são a primeira e maior unidade de escala de uma implementação de uma \textit{cloud} com \textit{CloudStack}. Uma Região consiste em multiplas Zonas de Disponibilidade, a segunda maior unidade de escala.
+\item \textbf{Zonas: } Tipicamente existe apenas uma Zona por \textit{Data Center} e cada Zona contem PODs, \textit{hosts} e \textit{storage.}
+\item \textbf{Pods: } PODs tem propriedades lógicas e físicas com componentes como endereçamento IP e algoritmo de alocação de máquinas virtuais sendo influenciados por PODs dentro de uma Zona.
 \item \textbf{Clusters: } São simples grupos de servidores homogêneos combinados com um Storage Primário. Cada Cluster utiliza um mesmo tipo de hypervisor mas em uma Zona pode ceoxistir combinações de todos os hypervisores suportados. Cada Cluster utiliza um mesmo tipo de hypervisor mas em uma Zona pode ceoxistir combinações de todos os hypervisores suportados.
 \item \textbf{Hosts: } Responsável por disponibilizar a camada de computação real em que Máquinas Virtuais são executadas.
-\item \textbf{Storage Primário: }  onde os discos das Máquinas Virtuais residem e pode ser utilizado o disco local de um Host ou um storage compartilhado como NFS, iSCSI, Fiber Channel, etc.
-\item \textbf{Storage Secundário:} onde é armazenado os Templates de Máquinas Virtuais, arquivos ISO e Snapshots e é utilizado o protocolo NFS para este Storage
+\item \textbf{Storage Primário: }  onde os discos das Máquinas Virtuais residem e pode ser utilizado o disco local de um \textit{host} ou um \textit{storage} compartilhado como \textit{NFS, iSCSI, Fiber Channel}, etc.
+\item \textbf{Storage Secundário:} onde é armazenado os \textit{templates} de máquinas virtuais, arquivos ISO e \textit{snapshots} e é utilizado o protocolo NFS para este \textit{storage}
 \end{itemize}
 
 
 \begin{figure}[!htb]
 \centering
 \includegraphics [keepaspectratio=true,scale=0.60]{figuras/cloudstack_structure.eps}
-\caption{Visão geral da infraestrutura do Cloudstack}
+\caption{Visão geral da infraestrutura do \textit{Cloudstack}}
 \cite{cloudstack}.
 \label{diagramacloudstack}
 \end{figure}
 
 \section{OpenNebula}
-O \textit{OpenNebula}, assim como o \textit{cloudstack}, é uma ferramenta de código aberto que emergiu como um projeto de pesquisa em 2005 tendo seu primeiro lançamento público em março de 2008. Oferece uma solução simples mas repleta de funcionalidades para construir e gerenciar nuvens corporativas e \textit{data centers} virtuais. Alem disso, combina tecnologias de virtualização existentes com funcionalides avançadas para fornecimento automático e elasticidade, seguindo uma abordagem \textit{bottom-up}, guiado pelas reais necessidades de adminstradores de sistemas e \textit{devops}\cite{opennebula}.
+O \textit{OpenNebula}, assim como o \textit{Cloudstack}, é uma ferramenta de código aberto que emergiu como um projeto de pesquisa em 2005 tendo seu primeiro lançamento público em março de 2008. Oferece uma solução simples mas repleta de funcionalidades para construir e gerenciar nuvens corporativas e \textit{data centers} virtuais. Além disso, combina tecnologias de virtualização existentes com funcionalides avançadas para fornecimento automático e elasticidade, seguindo uma abordagem \textit{bottom-up}, guiado pelas reais necessidades de adminstradores de sistemas e \textit{devops}\cite{opennebula}.
 
 Em uma configuração mínima  arquitetura do \textit{OpenNebula} é composta por três componentes: \textit{hosts}, \textit{datastores} e \textit{front-end}. O \textit{front-end} é a máquina responsável por disponinbilizar a interface de gerenciamento. Através da rede, monitora os \textit{hosts} e máquinas virtuais, bem como inicia operações relacionadas com máquinas virtuais e \textit{datastores}. Os \textit{hosts} ou \textit{worker nodes} são as máquinas físicas responsáveis pelos recursos físicos essenciais para a criação de máquinas virtuais, é nesta máquina onde o \textit{hypervisor} será instalado. Por fim, os \textit{datastore} é o \textit{storage} utilizado como repositório de imagens e para manter os discos das máquinas virtuais em execução. Não precisa ser necessariamente um \textit{storage} dedicado, podendo ser uma máquina física com mais capacidade de disco ou até mesmo sendo um dos próprios \textit{hosts}.  
 
@@ -71,9 +70,9 @@ O \textit{System Datastore} é uma abstração do OpenNebula ao qual é respons�
 \label{shared_datastore}
 \end{figure}
 
-O \textit{OpenNebula} possui modelos de implementação tanto para nuvens privadas mais simplifcadas quanto para ambientes de infraestrutura mais complexos. Desse modo, para poucos servidores a implementação do \textit{OpenNebula} é efetuada sem necessidade de ter que se preocupar elementos voltadas para uma infraestrutura maior, que no caso do OpenNebula é chamada de \textit{Federação}. Entretanto, para locais ou empresas que possuem múltiplos \textit{data centers}, que por sua vez, possui vários \textit{clusters} de servidores, o opennebula prover funcionalidades que colaboram para que vários data centers separados regionalmente possam ser gerenciados a partir de uma interface em nuvem com acesso externo. 
+O \textit{OpenNebula} possui modelos de implementação tanto para nuvens privadas mais simplifcadas quanto para ambientes de infraestrutura mais complexos. Desse modo, para poucos servidores a implementação do \textit{OpenNebula} é efetuada sem necessidade de ter que se preocupar elementos voltadas para uma infraestrutura maior, que no caso do OpenNebula é chamada de \textit{Federação}. Entretanto, para locais ou empresas que possuem múltiplos \textit{data centers}, que por sua vez, possuem vários \textit{clusters} de servidores, o \textit{OpenNebul} prover funcionalidades que colaboram para que vários data centers separados regionalmente possam ser gerenciados a partir de uma interface em nuvem com acesso externo. 
 
-Cada instância do opennebula é denominada de zona, desse modo em uma infraestrutura com múltiplas zonas pode ser configuradas como uma Federação. Assim, tem-se um compartilhamento da base de dados entre as zonas(Usuários, grupos). Nessa configuração, uma das zonas tem o papel de \textit{master}, ao qual é o responsável por escrever as informações na base dados, mantendo assim a consistência nos dados\cite{opennebula}.
+Cada instância do \textit{OpenNebula} é denominada de zona, desse modo em uma infraestrutura com múltiplas zonas pode ser configuradas como uma Federação. Assim, tem-se um compartilhamento da base de dados entre as zonas(Usuários, grupos). Nessa configuração, uma das zonas tem o papel de \textit{master}, ao qual é o responsável por escrever as informações na base dados, mantendo assim a consistência nos dados\cite{OpenNebula}.
 
 \begin{figure}[!htb]
 \centering
@@ -85,7 +84,7 @@ Cada instância do opennebula é denominada de zona, desse modo em uma infraestr
 
 \section{Comparativo entre as ferramentas de Plataforma em nuvem}
 
-Nesta seção é apresentado um breve comparativo entre as ferramentas \textit{OpenNebula} e \textit{Cloudstack} baseado no trabalho de \citeonline{salam}. De acordo com \citeonline{salam}, de maneira geral tanto \textit{Cloudstack} quanto o \textit{OpenNebula} possuem funcionlidades que proporcionam um excelente \textit{feedback} com relação ao provimento de plataformas em nuvem. O \textit{OpenNebula} tem como pontos fortes a flexibilidade e escalabilidade o que proporciona um certo dinanismo na adição de novos recursos. Já o \textit{Cloudstack} provê uma API que proporciona facilidades no que diz respeito a integração de outras ferramentas, possibilitando bons mecanismos para configuração da plataforma como um todo \cite{salam}. Entretanto, dos fatores apresentado na tabela \ref{cloud_comparison}, a robustez contra erros foi decisivo para escolha em favor do OpenNebula, dado que, como será relatado no capítulo \ref{cap:resultados}, o Cloudstack mostrou-se bastante instável e intolerantes a erros.
+Nesta seção é apresentado um breve comparativo entre as ferramentas \textit{OpenNebula} e \textit{Cloudstack} baseado no trabalho de \citeonline{salam}. De acordo com \citeonline{salam}, de maneira geral tanto \textit{Cloudstack} quanto o \textit{OpenNebula} possuem funcionalidades que proporcionam um excelente \textit{feedback} com relação ao provimento de plataformas em nuvem. O \textit{OpenNebula} tem como pontos fortes a flexibilidade e escalabilidade o que proporciona um certo dinanismo na adição de novos recursos. Já o \textit{Cloudstack} provê uma API que proporciona facilidades no que diz respeito a integração de outras ferramentas, possibilitando bons mecanismos para configuração da plataforma como um todo \cite{salam}. Entretanto, dos fatores apresentados na tabela \ref{cloud_comparison}, a robustez contra erros foi decisivo para escolha em favor do OpenNebula, dado que, como será relatado no capítulo \ref{cap:resultados}, o \textit{Cloudstack} mostrou-se bastante instável e intolerante a erros.
 
 \begin{table}[!h]
 \centering
@@ -117,7 +116,8 @@ Segurança                                                                      
 O \textit{Chef} é um \textit{Framework} que tem como objetivo transformar uma complexa infraestrutura em código,  tornando mais fácil a disponiblização de aplicações em qualquer ambiente seja ele físico ou virtual \cite{chef}. É composto pelo \textit{Chef Client} e pelo \textit{Chef Server}, sendo que o \textit{chef client} é responsável por efetuar as configurações necessárias na máquina pretendida a partir de informações localizadas e gerenciadas pelo \textit{chef server}. As configurações são feitas a partir de arquivos denominados de recursos e receitas \textit{Chef}. Os recursos descrevem algum pedaço da infraestrutura tal como um arquivo, template ou pacote. A receita \textit{Chef} é um arquivo que contém os recursos relacionados a configuração de um servidor \textit{web} ou de banco de dados. No código \ref{codigoChef}, é apresentado um exemplo de uma receita \textit{Chef}. Na linha 1 é feita a instalação de um servidor \textit{apache} usando a diretiva \textit{package} que se equivale a um \textit{yum install} ou \textit{apt-get install}. Nas linha 3 a 5 usa-se o recurso \textit{service} para habilitar e iniciar o serviço do \textit{apache}. Por fim, o recurso \textit{template} define um arquivo de configuração, no caso \textit{index.html.erb}, já pronto a ser utilizado na máquina alvo no endereço \textit{/var/www.html.index.html}. Um meio de se utilizar o \textit{Chef client} sem ter que o usar o \textit{Chef Server} é usar a versão código aberto do \textit{Chef client}, o \textit{Chef Solo}.
 
 O \textit{chake} é uma ferramenta que ajuda a gerenciar múltiplos ambientes sem a necessidade de se utilizar o \textit{chef server}. As configurações são geralmente implantadas via \textit{rsync} com o auxílio do \textit{SSH}, e aplicadas invocando o \textit{chef solo} em cada ambiente. O uso dessas ferramentas contribui para gerencia do serviços oferecidos, promovendo também um meio de compartilhamento de conhecimento através do código.
- 
+
+Dentre outras ferramentas de automatização o chef foi o a solução que demonstrou maior maturidade e robustez , o uso do chake possibilita o uso da versão livre do chef client , o chef-solo.. 
 \begin{lstlisting}[caption={Código exemplo de uma receita Chef}, label=codigoChef]
 package 'httpd'
 
