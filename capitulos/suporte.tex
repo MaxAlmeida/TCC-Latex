@@ -18,7 +18,7 @@ Em modelo mais complexo, o \textit{Cloudstack} apresenta seu pontencial de dispo
 \item \textbf{Regiões:} são a primeira e maior unidade de escala de uma implementação de uma \textit{cloud} com \textit{CloudStack}. Uma Região consiste em multiplas Zonas de Disponibilidade, a segunda maior unidade de escala.
 \item \textbf{Zonas: } Tipicamente existe apenas uma Zona por \textit{Data Center} e cada Zona contem PODs, \textit{hosts} e \textit{storage.}
 \item \textbf{Pods: } PODs tem propriedades lógicas e físicas com componentes como endereçamento IP e algoritmo de alocação de máquinas virtuais sendo influenciados por PODs dentro de uma Zona.
-\item \textbf{Clusters: } São simples grupos de servidores homogêneos combinados com um Storage Primário. Cada Cluster utiliza um mesmo tipo de hypervisor mas em uma Zona pode ceoxistir combinações de todos os hypervisores suportados. Cada Cluster utiliza um mesmo tipo de hypervisor mas em uma Zona pode ceoxistir combinações de todos os hypervisores suportados.
+\item \textbf{Clusters: } São simples grupos de servidores homogêneos combinados com um Storage Primário. Cada Cluster utiliza um mesmo tipo de hypervisor mas em uma Zona pode coexistir combinações de todos os hypervisores suportados. Cada \textit{cluster} utiliza um mesmo tipo de \textit{hypervisor} mas em uma Zona pode coexistir combinações de todos os \textit{hypervisores} suportados.
 \item \textbf{Hosts: } Responsável por disponibilizar a camada de computação real em que Máquinas Virtuais são executadas.
 \item \textbf{Storage Primário: }  onde os discos das Máquinas Virtuais residem e pode ser utilizado o disco local de um \textit{host} ou um \textit{storage} compartilhado como \textit{NFS, iSCSI, Fiber Channel}, etc.
 \item \textbf{Storage Secundário:} onde é armazenado os \textit{templates} de máquinas virtuais, arquivos ISO e \textit{snapshots} e é utilizado o protocolo NFS para este \textit{storage}
@@ -72,7 +72,7 @@ O \textit{System Datastore} é uma abstração do OpenNebula ao qual é respons�
 
 O \textit{OpenNebula} possui modelos de implementação tanto para nuvens privadas mais simplifcadas quanto para ambientes de infraestrutura mais complexos. Desse modo, para poucos servidores a implementação do \textit{OpenNebula} é efetuada sem necessidade de ter que se preocupar elementos voltadas para uma infraestrutura maior, que no caso do OpenNebula é chamada de \textit{Federação}. Entretanto, para locais ou empresas que possuem múltiplos \textit{data centers}, que por sua vez, possuem vários \textit{clusters} de servidores, o \textit{OpenNebul} prover funcionalidades que colaboram para que vários data centers separados regionalmente possam ser gerenciados a partir de uma interface em nuvem com acesso externo. 
 
-Cada instância do \textit{OpenNebula} é denominada de zona, desse modo em uma infraestrutura com múltiplas zonas pode ser configuradas como uma Federação. Assim, tem-se um compartilhamento da base de dados entre as zonas(Usuários, grupos). Nessa configuração, uma das zonas tem o papel de \textit{master}, ao qual é o responsável por escrever as informações na base dados, mantendo assim a consistência nos dados\cite{OpenNebula}.
+Cada instância do \textit{OpenNebula} é denominada de zona, desse modo em uma infraestrutura com múltiplas zonas pode ser configuradas como uma Federação. Assim, tem-se um compartilhamento da base de dados entre as zonas(Usuários, grupos). Nessa configuração, uma das zonas tem o papel de \textit{master}, ao qual é o responsável por escrever as informações na base dados, mantendo assim a consistência nos dados\cite{opennebula}.
 
 \begin{figure}[!htb]
 \centering
@@ -129,3 +129,5 @@ template '/var/www/html/index.html' do
   source 'index.html.erb'
 end
 \end{lstlisting}
+
+A escolha do \textit{chef} deve se ao fato de ser uma ferramenta bastante consolidada no que diz respeito a automatização da infraestrutura.  O uso de uma linguagem de domínio específico para especificação de recursos utilizando o \textit{ruby} como linguagem de referênncia, facilita na documentação através do código.
