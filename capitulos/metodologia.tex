@@ -107,14 +107,20 @@ Por fim, o trabalho de \citeonline{huber2011} tem como intuito prover um modelo 
 Os trabalhos de \citeonline{koh2007} e \citeonline{huber2011} tem como ponto em comum o desenvolvimento de mecanismos que possam predizer o desempenho em ambientes virtualizados, uma característica interessante é que \citeonline{huber2011} aplica os mesmos experimentos em \textit{hypervisors} com arquiteturas distintas. Já o trabalho de \citeonline{koh2007} , apesar de fazer essa análise em apenas um \textit{hypervisor}, acaba focando na interferência que determinadas aplicações utilizadas no cotidiano, dependendo de sua característica a nivel de sistema, podem ocasionar em outras aplicações executadas em máquinas virtuais diferentes, no mesmo servidor físico,  trazendo assim um experimento mais próximo do que acontece no mundo real, tornando isso um diferencial deste trabalho. Desse modo, ainda com relação ao trabalho de \citeonline{koh2007}, um questionamento que poderia ser feito é com relação a aplicabilidade deste experimento em um outro \textit{hypervisor} com um tipo de virtualização diferente do apresentado no trabalho. Já o trabalho de \citeonline{popiolek2012} é mais voltado para monitoramento, análise de desempenho e detecção de gargalos a partir de métricas nativas do sistema operacional não sendo feito, como nos outros trabalhos, qualquer iniciativa de predição de desempenho.
 
 \section{Questão problema}
+Dado que o trabalho de \citeonline{koh2007} apresenta uma análise de interferência de desempenho utilizando o \textit{XEN}, que é um \textit{hypervisor} conhecido por utilizar a paravirtualização para provimento de máquinas virtuais, este trabalho visará responder a seguinte questão:
 
-Comparação com trabalhos relacionados
- x pergunta central /xen
+\textit{ Qual  grau de interferência entra máquinas virtuais, executando sob o mesmo servidor, utilizando o \textit{KVM} como \textit{hypervisor}, que implementa a virtualização total?  }
  
+Tendo essa questão como ponto de referência, o objetivo deste trabalho é a aplicar um estudo de interferência entre máquinas virtuais, de modo que sejam comparados grau de interferência entre as duas técnicas de virtualização existentes: paravirtualização e virtualização total.
 \subsection{Hipóteses}
- 	Hipótese h1 xen x kvm
- 	Hipótese h2 
+A partir da questão problema definiu-se as seguintes hipóteses que irão motivar a realização deste trabalho:
 
+\begin{itemize}
+	\item \textit{H1}: O \textit{XEN}, por utilizar a paravirtualização como técnica de virtualização, apresenta menor interferência entre máquinas virtuais do que o \textit{KVM}.
+	\item \textit{H2}: A análise estatística proposta por \citeonline{koh2007} é condizente em outros ambientes %reformular
+	\item \textit{H3}: É possível propor uma nova distribuição de máquinas vrituais para o ambiente do SPB %reformular
+\end{itemize}
+	
 \section{Ambiente de testes}
 
 \section{Coleta de dados}
