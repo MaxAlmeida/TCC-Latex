@@ -1,13 +1,49 @@
 Add_double
+  -- Dentro do diretório suite9, executa -se o comando ./singleuser , em seguida escolhe-se o tempo de execução do teste. Uma possibilidade
+  é que pode se definrir também métricas para memória.
+  Teste: Executar um teste de add double com duração de 15s , durante 15 min
+  ./singleuser <<<$'foreground\n\n3\n/mnt\n'
+ 
 Bw_mem
+Instalando bw_mem http://apt.sw.be/redhat/el7/en/x86_64/rpmforge/RPMS/
+executar bw_mem cp 800M trinta vezes
+
 Bzip2
+dd if=/dev/zero of=file.txt count=1024 bs=4048576 >> comando para gerar arquivo de 4GB
+bzip2 -c --best file.txt > file.txt.bz
+
 cat
+trinta vezes
+cat random > filecat.txt >> random um arquivo de texto de 1gb ou mais
+
 cachebench
+Trinta vezes no mínimo
+./cachebench -rwbsp -x0 -m24 -d1 -e1
+
 Ccrypt
+dd if=/dev/zero of=random bs=20048576 count=100 >> criação de arquivo de 2GB
+
+
 cp
+
 dd
+
 Grep
+dd if=/dev/urandom of=random bs=10048576 count=100 >> comando para gerar arquivo de 1000mb para grep
+grep -aoE '[123]+' random | tr -d '\n'
+
 Gzip
+trinta vezes
+dd if=/dev/zero of=file.txt count=1024 bs=4048576 >> comando para gerar arquivo de 4GB
+gzip -c --best file.txt > file.txt.bz
+
 Iozone
 Make
 Povray
+
+
+
+cache
+
+http://accu.org/index.php/journals/1886
+https://courses.cs.washington.edu/courses/cse326/05wi/valgrind-doc/cg_main.html
