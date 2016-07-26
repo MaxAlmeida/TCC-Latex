@@ -117,13 +117,30 @@ A partir da questão problema definiu-se as seguintes hipóteses que irão motiv
 
 \begin{itemize}
 	\item \textit{H1}: O \textit{XEN}, por utilizar a paravirtualização como técnica de virtualização, apresenta menor interferência entre máquinas virtuais do que o \textit{KVM}.
-	\item \textit{H2}: A análise estatística proposta por \citeonline{koh2007} é condizente em outros ambientes %reformular
-	\item \textit{H3}: É possível propor uma nova distribuição de máquinas vrituais para o ambiente do SPB %reformular
+	\item \textit{H2}: O modelo de predição proposto por \citeonline{koh2007} é aplicável em um ambiente com outro tipo de virtualização que não a provida pelo \textit{XEN}. %reformular
+	\item \textit{H3}: Com esse mecanismo de predição de desempenho é possível propor uma nova distribuição de aplicações em um ambiente com múltiplas máquinas virtuais.  %reformular
 \end{itemize}
 	
-\section{Ambiente de testes}
+\section{Ambiente de Testes}
+Para o estudo proposto por este trabalho fora definido um  ambiente de testes que consiste no uso de máquinas virtuais com aplicações voltadas para realização
+de testes de \textit{benchmark}. Tais aplicações foram definidas a partir do trabalho de \citeonline{koh2007}, tendo essas sido escolhidas visando o estresse de vários aspectos de sistema e de \textit{hardware}. Com a infraestrutura de computação em nuvem implementada com o \textit{OpenNebula} foi possível a criação desses ambientes de testes em máquinas virtuais criadas remotamente. As máquinas virtuais possuía, como configuração, sistema operacional \textit{Centos 7}, espaço em disco de 15GB e 1GB de memória \textit{ram}.Em um primeiro momento as aplicações foram instaladas e testadas de modo que se pudesse observar quais são os comandos utilizados para funcionamento das mesmas, em seguida foram criados \textit{snapshots} com o auxílio provido pelo \textit{OpenNebula}. 
 
-\section{Coleta de dados}
+Assim era possível criar, destruir e efetuar quaisquer tipos de testes com relativa comodidade. Entre as aplicações escolhidas estão típicas provedoras de \textit{stress} computacional no cotidiano tais como compilação de código fonte, compressão e criptaçao de arquivos e rendenrização de \textit{frames}. Há também ferramentas voltadas para geração de testes de \textit{benchmark} tais como \textit{Cachebench} e \textit{AIM Benchmark suite}. A seguir é feita uma breve descrição das ferramentas utilizadas.
+
+\begin{itemize}
+\item \textit{Add\_double} é um dos vários programas de testes de carga existentes no \textit{AIM benchmark suite}. É responsável por medir operações de adição de dupla precisão.
+
+\item \textit{Bzip2} e \textit{gzip} são aplicações típicas para compressão e descompressão de arquivos. Para realização de testes de compressão fora definido o uso de arquivos com tamanho no mínimo o dobro da memória \textit{RAM}, assim utilizou-se arquivos com tamanho de 3GB. Evitando assim o efeito de \textit{cache} de grande parte desse arquivo na memória.
+
+\item \textit{Ccrypt} é uma ferramenta de código aberto voltada para encriptação e desencriptação de arquivos. Foi desenvolvido com o intuito de substituir a aplicação padrão do \textit{unix}, o \textit{crypt} \cite{ccrypt}.
+
+\item \textit{Cachebench} é uma ferramenta de \textit{benchmark} de código aberto desenvolvida para avaliar o desempempenho do subsistema de memória.
+
+
+
+\end{itemize} 
+
+\section{Coleta de dados} 
 
 \section{Análise de dados}
 Análise estatística

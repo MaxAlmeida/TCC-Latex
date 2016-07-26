@@ -1,0 +1,37 @@
+contra inativo
+Ccrypt: 51.8378666667
+Cp: 31.1255
+Grep: 59.3415666667
+Bzip: 42.3671666667
+Povray: 223.308466667
+
+Grep x Povray: 60.1937
+
+
+bzip2 x grep:  45.4030666667   grep x bzip2: 60.6004666667
+Grep x Bzip2 : 60.3724
+
+(cp+bzip2)
+cp x bzip2: 46.1492333333
+bzip2 x cp: 92.7449333333 
+
+crypt x crypt: 57.8379333333
+
+grep x grep:  
+
+>>>>(Para arquivo random 2gb e file.txt 3GB)
+
+Cálculo Prévio (GREP+BZIP2) (arquivo random 2GB, e file.txt 3GB)
+Grep@Inativo = 0,016863406
+Bzip@Inativo = 0,023603183
+
+NS(Grep@Bzip2) = 0,016666667/ 0,016863406 = 0,988333377
+NS(Bzip2@Grep) = 0,023188047 / 0,023603183 = 0,982411852
+
+NS(Bzip2 + Grep) = 1,970745229
+
+
+(CP + BZIP2) para file.txt de 2GB e duas máquinas virtuais de benchmark
+Cp: 34.3835
+Cp x BZIP2: 54.7735666667
+ 
