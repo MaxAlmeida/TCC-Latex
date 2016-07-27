@@ -105,7 +105,6 @@ Por fim, o trabalho de \citeonline{huber2011} tem como intuito prover um modelo 
 \end{figure} 
 
 Os trabalhos de \citeonline{koh2007} e \citeonline{huber2011} tem como ponto em comum o desenvolvimento de mecanismos que possam predizer o desempenho em ambientes virtualizados, uma característica interessante é que \citeonline{huber2011} aplica os mesmos experimentos em \textit{hypervisors} com arquiteturas distintas. Já o trabalho de \citeonline{koh2007} , apesar de fazer essa análise em apenas um \textit{hypervisor}, acaba focando na interferência que determinadas aplicações utilizadas no cotidiano, dependendo de sua característica a nivel de sistema, podem ocasionar em outras aplicações executadas em máquinas virtuais diferentes, no mesmo servidor físico,  trazendo assim um experimento mais próximo do que acontece no mundo real, tornando isso um diferencial deste trabalho. Desse modo, ainda com relação ao trabalho de \citeonline{koh2007}, um questionamento que poderia ser feito é com relação a aplicabilidade deste experimento em um outro \textit{hypervisor} com um tipo de virtualização diferente do apresentado no trabalho. Já o trabalho de \citeonline{popiolek2012} é mais voltado para monitoramento, análise de desempenho e detecção de gargalos a partir de métricas nativas do sistema operacional não sendo feito, como nos outros trabalhos, qualquer iniciativa de predição de desempenho.
-
 \section{Questão problema}
 Dado que o trabalho de \citeonline{koh2007} apresenta uma análise de interferência de desempenho utilizando o \textit{XEN}, que é um \textit{hypervisor} conhecido por utilizar a paravirtualização para provimento de máquinas virtuais, este trabalho visará responder a seguinte questão:
 
@@ -123,18 +122,30 @@ A partir da questão problema definiu-se as seguintes hipóteses que irão motiv
 	
 \section{Ambiente de Testes}
 Para o estudo proposto por este trabalho fora definido um  ambiente de testes que consiste no uso de máquinas virtuais com aplicações voltadas para realização
-de testes de \textit{benchmark}. Tais aplicações foram definidas a partir do trabalho de \citeonline{koh2007}, tendo essas sido escolhidas visando o estresse de vários aspectos de sistema e de \textit{hardware}. Com a infraestrutura de computação em nuvem implementada com o \textit{OpenNebula} foi possível a criação desses ambientes de testes em máquinas virtuais criadas remotamente. As máquinas virtuais possuía, como configuração, sistema operacional \textit{Centos 7}, espaço em disco de 15GB e 1GB de memória \textit{ram}.Em um primeiro momento as aplicações foram instaladas e testadas de modo que se pudesse observar quais são os comandos utilizados para funcionamento das mesmas, em seguida foram criados \textit{snapshots} com o auxílio provido pelo \textit{OpenNebula}. 
+de testes de \textit{benchmark}. Tais aplicações foram definidas a partir do trabalho de \citeonline{koh2007}, tendo essas sido escolhidas visando o estresse de vários aspectos de sistema e de \textit{hardware}. Com a infraestrutura de computação em nuvem implementada com o \textit{OpenNebula} foi possível a criação desses ambientes de testes em máquinas virtuais criadas remotamente. As máquinas virtuais possuíam, como configuração, sistema operacional \textit{Centos 7}, espaço em disco de 15GB e 1GB de memória \textit{RAM}. Em um primeiro momento as aplicações foram instaladas e testadas de modo que se pudesse observar quais são os comandos utilizados para funcionamento das mesmas, em seguida foram criados \textit{snapshots} das máquinas virtuais com o auxílio provido pelo \textit{OpenNebula}. 
 
-Assim era possível criar, destruir e efetuar quaisquer tipos de testes com relativa comodidade. Entre as aplicações escolhidas estão típicas provedoras de \textit{stress} computacional no cotidiano tais como compilação de código fonte, compressão e criptaçao de arquivos e rendenrização de \textit{frames}. Há também ferramentas voltadas para geração de testes de \textit{benchmark} tais como \textit{Cachebench} e \textit{AIM Benchmark suite}. A seguir é feita uma breve descrição das ferramentas utilizadas.
+Assim era possível criar, destruir e efetuar quaisquer tipos de testes com relativa comodidade. Entre as aplicações escolhidas estão típicas provedoras de \textit{stress} computacional no cotidiano tais como compilação de código fonte, compressão e criptação de arquivos e rendenrização de \textit{frames}. Há também ferramentas voltadas para geração de testes de \textit{benchmark} tais como \textit{Cachebench} e \textit{AIM Benchmark suite}. A seguir é feita uma breve descrição das ferramentas utilizadas.
 
 \begin{itemize}
 \item \textit{Add\_double} é um dos vários programas de testes de carga existentes no \textit{AIM benchmark suite}. É responsável por medir operações de adição de dupla precisão.
 
-\item \textit{Bzip2} e \textit{gzip} são aplicações típicas para compressão e descompressão de arquivos. Para realização de testes de compressão fora definido o uso de arquivos com tamanho no mínimo o dobro da memória \textit{RAM}, assim utilizou-se arquivos com tamanho de 3GB. Evitando assim o efeito de \textit{cache} de grande parte desse arquivo na memória.
+\item \textit{Bzip2} e \textit{Gzip} são aplicações típicas para compressão e descompressão de arquivos. Para realização de testes de compressão fora definido o uso de arquivos com tamanho no mínimo o dobro da memória \textit{RAM}, assim utilizou-se arquivos com tamanho de 3GB. Evitando assim o efeito de \textit{cache} de grande parte desse arquivo na memória.
 
 \item \textit{Ccrypt} é uma ferramenta de código aberto voltada para encriptação e desencriptação de arquivos. Foi desenvolvido com o intuito de substituir a aplicação padrão do \textit{unix}, o \textit{crypt} \cite{ccrypt}.
 
-\item \textit{Cachebench} é uma ferramenta de \textit{benchmark} de código aberto desenvolvida para avaliar o desempempenho do subsistema de memória.
+\item \textit{Cachebench} é uma ferramenta de \textit{benchmark} de código aberto desenvolvida para avaliar o desempempenho do subsistema de memória. Atualmente é integrado \textit{LLCbench} (\textit{Low-Level Characterization Benchmarks}) \cite{cachebench}.
+
+\item \textit{Cat} e \textit{Grep} são comandos padrões em sistemas \textit{Linux} que são responsáveis por gerar requisições de leitura no disco. \textit{Cat} é reponsável por mostrar conteúdo de arquivos bem como combina-los e criar outros novos. Enquanto que \textit{Grep} é utilizado para busca de palavras em arquivos texto.
+
+\item \textit{cp} e \textit{dd} são outros comandos padrões em sistemas \textit{Linux}, neste caso, responsáveis por gerar atividades voltadas para escrita de disco. \textit{cp} é utilizado para copiar arquivos e diretórios. O comando \textit{dd} é utilizado para criação de imagens e cópias de arquivos.
+
+\item \textit{Iozone} é uma ferramenta de \textit{benchmark} utilizada, voltada para testes de operações de disco, tais como leitura e escrita \cite{iozone}.
+
+\item \textit{Bw\_mem} é umas das ferramentas de \textit{benchmark}, voltada para testes de leitura e escrita de memória, que compôem o \textit{LMbench} \cite{lmbench}.
+
+\item \textit{Make} é um comando nativo em sistemas operacionais \textit{Linux}, responsável por automatizar um conjunto de procedimentos, principalmente  a compilação de programas grandes que possuem vários arquivos com códigos fontes. 
+
+\item \textit{Povray} é uma ferramenta de codigo aberto voltada para para renderização de quadros com gráficos 3-D \cite{povray}.
 
 
 
