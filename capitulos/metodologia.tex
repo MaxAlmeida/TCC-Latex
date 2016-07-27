@@ -120,7 +120,7 @@ A partir da questão problema definiu-se as seguintes hipóteses que irão motiv
 	\item \textit{H3}: Com esse mecanismo de predição de desempenho é possível propor uma nova distribuição de aplicações em um ambiente com múltiplas máquinas virtuais.  %reformular
 \end{itemize}
 	
-\section{Ambiente de Testes}
+\section{Ambiente de Testes}\label{sec:ambiente_teste}
 Para o estudo proposto por este trabalho fora definido um  ambiente de testes que consiste no uso de máquinas virtuais com aplicações voltadas para realização
 de testes de \textit{benchmark}. Tais aplicações foram definidas a partir do trabalho de \citeonline{koh2007}, tendo essas sido escolhidas visando o estresse de vários aspectos de sistema e de \textit{hardware}. Com a infraestrutura de computação em nuvem implementada com o \textit{OpenNebula} foi possível a criação desses ambientes de testes em máquinas virtuais criadas remotamente. As máquinas virtuais possuíam, como configuração, sistema operacional \textit{Centos 7}, espaço em disco de 15GB e 1GB de memória \textit{RAM}. Em um primeiro momento as aplicações foram instaladas e testadas de modo que se pudesse observar quais são os comandos utilizados para funcionamento das mesmas, em seguida foram criados \textit{snapshots} das máquinas virtuais com o auxílio provido pelo \textit{OpenNebula}. 
 
@@ -158,7 +158,7 @@ Dada a configuração do servidor apresentado na seção \ref{sec:infraestrutura
 O primeiro experimento tinha como objetivo verificar a existência da interferência entre máquinas virtuais no servidor físico utilizado, sendo neste experimento executado com poucas ferramentas dado que os resultados eram mais voltados para verificação da interferência e motivação da continuidade do trabalho em si do que para uma análise mais profunda. No segundo experimento, teve como objetivo verificar a variação de interferência para o conjunto completo das ferramentas já apresentadas. No terceiro experimento, teve como foco a avaliação da interferência para diversos tipos de caracteristicas a níveis de sistema tais como média de utilização de \textit{CPU} e \textit{leitura e escrita de disco por segundo}, por exemplo. Sendo os resultados deste terceiro e último experimentos utilizados como insumo para análise de dados apresentada neste trabalho. A amostragem dos dados referentes a cada experimento foi baseada nos resultados apresentados no trabalho de \citeonline{koh2007}, visando assim um comparativo dos resultados encontrados.
 
 \subsection{Cálculo da Interferência}
-
+Os procedimentos adotados para o cálculo da interferência seguem os propostos no trabalho de \citeonline{koh2007}. Desse modo, duas máquinas virtuais, com as especificações e aplicações de \textit{benchmark} apresentadas na seção \ref{sec:ambiente_teste}, são criadas em um servidor utilizando \textit{hypervisor} \textit{KVM}. Cada máquina virtual, denominadas \textit{'dom1'} e \textit{'dom2'} respectivamente, executa uma das aplicações de \textit{benchmarking}. Uma aplicação executando em \textit{dom1} é chamada de aplicação \textit{foreground}, e a que estiver executando em \textit{dom2} é a aplicação \textit{background}. 
 \subsection{Características de Cargas de trabalho a nível de sistema}
 
 
