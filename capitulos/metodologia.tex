@@ -182,9 +182,24 @@ Sendo NS(F@B) e  NS(B@F) medidos em dois testes separados. Para medida de desemp
 
 %Para observar o grau de interferência ocasionada por uma aplicação que está sendo executada em outra máquina virutal, é feito um cálculo  de degradação a partir da pontuação de desempe
 \subsection{Métricas de desempenho a nível de sistema}
-No trabalho de \citeonline{koh2007} são utilizadas métricas de desempenho a nível de sistema ( denominadas \textit{System-level Workload Characteristics}) de forma a analisar melhor o grau de interferência em diversos aspectos de sistema na máquina virtual. Segundo \citeonline{koh2007}, o fato desse tipo de métrica de desempenho ser independente de qualquer tipo de microarquitetura subjacente, garante que seja possível ser feitas comparações através dos diferentes tipos de servidores físicos. No trabalho de \citeonline{koh2007} essas métricas são obtidas através de um \textit{hypervisor} instrumentalizado, de modo que elas são coletadas de fora da máquina virtual, possibilitando assim que a interferência da coleta seja praticamente nula. A partir disso, fora feita uma investigação de como o \textit{hypervisor} utilizado, o \textit{kvm}, ou a plataforma em nuvem \textit{OpenNebula} poderia prover essas métricas sem que fosse necessário qualquer tipo de interferência na máquina virtual para coleta desses dados.
+No trabalho de \citeonline{koh2007} são utilizadas métricas de desempenho a nível de sistema ( denominadas \textit{System-level Workload Characteristics}) de forma a analisar melhor o grau de interferência em diversos aspectos de sistema na máquina virtual. Segundo \citeonline{koh2007}, o fato desse tipo de métrica de desempenho ser independente de qualquer tipo de microarquitetura subjacente, garante que seja possível ser feitas comparações através dos diferentes tipos de servidores físicos.
+
+No trabalho de \citeonline{koh2007} essas métricas são obtidas através de um \textit{hypervisor} instrumentalizado, de modo que elas são coletadas de fora da máquina virtual, possibilitando assim que a interferência da coleta seja praticamente nula. A partir disso, fora feita uma investigação de como o \textit{hypervisor} utilizado, o \textit{KVM}, ou a plataforma em nuvem \textit{OpenNebula} poderia prover essas métricas sem que fosse necessário qualquer tipo de interferência na máquina virtual para coleta desses dados.
+
+Para o \textit{KVM} chegou-se a ferramentas como o \textit{iperf-kvm} e \textit{kvm-stat}. Entretanto, as informações apresentadas por essas ferramentas não eram claras e, para o caso do \textit{kvm-stat}, não detalhava por máquina virtual e sim para  \textit{hypervisor} inteiro. Mesmo no \textit{OpenNebula} as informações apresentadas consistiam em uso de espaço em disco, memória utilizada e quantidade de \textit{CPU} alocado por máquina virtual, não sendo essas informações, relevantes para o estudo proposto. Assim, a abordagem escolhida foi o uso de uma ferramentas típica para monitoramento de desempenho: o \textit{Munin} em conjunto com o \textit{Cachegrind} e o \textit{Virsh}. A seguir são apresentadas as métricas coletadas neste trabalho.
+
+\begin{itemize}
+\item \textbf{Média de CPU}(\textit{cpuutil}): É calculado dividindo o \textit{tempo de CPU} alcançado por uma máquina virtual para executar uma aplicação, pelo tempo de execução dessa aplicação. O tempo de CPU é coletado pelo \textit{libvirt}.
+
+\item \textbf{Interrupções de entrada e saída por segundo}(\textit{interrupts}): Mede quantas vezes uma máquina virtual sofre uma interrupção advinda do \textit{hypervisor} devido a espera por operações de entrada e saída.
+
+\item \textbf{Requisições de escrita e leitura de disco por segundo }(\textit{writes\_issued, reads\_issued}) e \textbf{Tempo gasto para escrita e leitura do disco}(\textit{time\_writing, time\_reading}): Quantidade de requisições no disco e o tempo para operações de escrita e leitura são bons indicadores de operações de entrada e saída. Essa valores são coletados utilizando o \textit{Munin}.
+
+\end{itemize}
 
 \subsection{Procedimentos experimentais}
+
+
 \section{Análise de dados}
 Análise estatística
 Variável independente
