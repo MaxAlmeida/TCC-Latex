@@ -197,7 +197,43 @@ Para o \textit{KVM} chegou-se a ferramentas como o \textit{iperf-kvm} e \textit{
 
 \end{itemize}
 
-\subsection{Procedimentos experimentais}
+\section{Procedimentos experimentais}
+Um dos impasses encontrados no desenvolvimento deste trabalho foi executar os mesmos procedimentos feitos por \citeonline{koh2007}, dado que não fica tão explícito quais foram os caminhos adotados para execução de cada aplicação ou ferramentas de \textit{benchmark}. Dessa maneira, fora necessário definir experimentalmente os procedimentos a serem adotados para geração estress computacional e coleta de dados. De maneira geral, cada ferramenta era executada 15 vezes, em cada execução o tempo de execução ou a pontuação alcançada(para ferramentas que tinha pontuações explícitas) era coletado. Alcançada a quantidade de 15 execuções era calculada uma média dos dados coletados.
+
+Inicialmente foi definido um número de 30 execuções por ferramentas(uma amostragem de 30 valores). Entretanto, principalmente no segundo experimento, a estimativa de tempo para execução de todas ferramentas se mostrou demasiadamente grande. Dessa forma, cogitou-se o uso de 10 ou 15 valores. De modo a chegar a um valor adequado para amostragem, levando se conta a quantidade o tempo necesário para essa quantidade. Calculou-se o desvio padrão das ferramentas \textit{Make} e \textit{Bzip} para 10, 15 e 30 valores de amostragem, a fim de verificar a diferença de dispersão entre esses valores. A tabela \ref{desvio} apresenta esses resultados.     
+
+\begin{table}[!h]
+\centering
+\caption{Desvio Padrão para diferentes quantidades de valores para \textit{Povray} e \textit{Make}}
+\label{desvio}
+\begin{tabular}{|l|c|l|l|}
+\hline
+Ferramenta            & \multicolumn{1}{l|}{Quantidade de Valores} & Desvio Padrão  & Média         \\ \hline
+\multirow{3}{*}{Make} & 10                                         & 0.993032191489 & 44.5126       \\ \cline{2-4} 
+                      & 15                                         & 0.436379367501 & 44.3846666667 \\ \cline{2-4} 
+                      & 30                                         & 0.379019873315 & 44.3230666667 \\ \hline
+\multirow{3}{*}{Gzip} & 10                                         & 0.394128701484 & 31.9069       \\ \cline{2-4} 
+                      & 15                                         & 0.229156361673 & 32.0740666667 \\ \cline{2-4} 
+                      & 30                                         & 0.249032463378 & 32.1289333333 \\ \hline
+\end{tabular}
+\end{table}
+
+A diferença do desvio padrão para uma amostragem entre 15 e 30 valores foi considerada irrelevante se comparada com a média alcançada dos resultados. O desvio padrão para uma amostragem de 10 valores mostrou uma dispersão mais elevada, mesmo assim ainda irrelevante a diferença se comparada com a média, mas visando uma margem mas segura de erro, acabou-se definido o uso de uma amostragem de 15 valores. 
+
+Para geração de carga de trabalho a partir das ferramentas selecionadas, alguns procedimentos foram definidos experimentalmente, principalmente paras aplicações utilizadas no cotidiano. A seguir são descritos alguns procedimentos adotados para cada ferramenta selecionada.
+
+\begin{itemize}
+\item \textit{Add\_double}: A única opção para execução dessa ferramenta de \textit{Benchmarking} é a quantidade de tempo que é executada. Foi escolhido um tempo de 30 segundos.
+
+\item \textit{Bzip2, cp, cat, gzip}: Para essas ferramentas foi definido o uso de um arquivo com tamanho de 3 \textit{GB} ( o triplo da memoria da máquina virtual) de modo que se evitasse o efeito de \textit{cache} pela memória. Desse modo, os comandos \textit{cat} e \textit{cp} geravam cargas a partir da geração de cópias desse arquivo. Aplicações \textit{Bzip2} e \textit{gzip}, efetuavam a compreensão desse arquivo com a opção \textit{--best}.
+
+\item \textit{Cachebench}: Possui diferentes tipos de testes de \textit{benchmark} para o sistema de memória, sendo executados para tamanhos variáveis de alocação de memória. É executado com as opções: \textit{-b} ( \textit{Read/Modify/Write benchmark}), \textit{-x0}, \textit{-m24}, \textit{-d1}( 1 segundo por iteração), \textit{-e1}(1 repetição do teste por tamanho de alocação da memória) . Como resultado é considerado apenas o valor da taxa de transferência em \textit{MB/s} apresentado para o maior tamanho de alocação de memória que a ferramenta suporta.
+
+\item  \textit{Ccrypt, grep}: Para essas ferramentas foi utilizado um arquivo de 2\textit{GB}, gerado com números \textit{randômicos} a parir de \textit{/dev/random}. Com \textit{Ccrypt} é efetuada a encriptação do arquivo, com o \textit{grep} é feita uma busca pelo número \textit{'123'}.
+
+\item \textit{Iozone}: Essa ferramenta foi executada de modo que se fosse executados os testes de leitura, reeleitura, escrita, reescrita em modo sequencial
+
+\end{itemize} 
 
 
 \section{Análise de dados}
