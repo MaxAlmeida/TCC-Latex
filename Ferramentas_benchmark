@@ -5,8 +5,9 @@ Add_double
   ./singleuser <<<$'foreground\n\n3\n/mnt\n'
  
 Bw_mem
+executar bw_mem 800M cp trinta vezes
 Instalando bw_mem http://apt.sw.be/redhat/el7/en/x86_64/rpmforge/RPMS/
-executar bw_mem cp 800M trinta vezes
+bw_mem 800M rdwr
 
 Bzip2
 dd if=/dev/zero of=file.txt count=1024 bs=4048576 >> comando para gerar arquivo de 4GB
@@ -14,11 +15,12 @@ bzip2 -c --best file.txt > file.txt.bz
 
 cat
 trinta vezes
-cat random > filecat.txt >> random um arquivo de texto de 1gb ou mais
+time sh -c "cat random > filecat.txt >> random" um arquivo de texto de 1gb ou mais
 
 cachebench
 Trinta vezes no mínimo
 ./cachebench -rwbsp -x0 -m24 -d1 -e1
+http://icl.cs.utk.edu/llcbench/cachebench.html
 
 Ccrypt
 dd if=/dev/zero of=random bs=20048576 count=100 >> criação de arquivo de 2GB
@@ -34,8 +36,8 @@ copiar um arquivo para outro arquivo "cp file1 file2" trinta vezes. O tamanho de
 dd
 https://www.jamescoyle.net/how-to/599-benchmark-disk-io-with-dd-and-bonnie
 Usar o seguinte comando para gerar um arquivo com 4gb ou pelo menos o dobro da memória da máquina virtual>>
-sudo time sh -c "dd if=/dev/zero of=/home/out bs=8k count=500k; rm -f /home/out && sync"
-
+sudo time sh -"dd c if=/dev/zero of=/home/out bs=8k count=500k; rm -f /home/out && sync"
+ão
 
 
 Grep
@@ -51,7 +53,7 @@ Iozone
 http://www.thegeekstuff.com/2011/05/iozone-examples/
 operações típicas de banco de dados
 executar iozone na opção -a trinta vezes. Executa os seis primeiros testes com o tamanho fixo do arquivo de 2 GB e tamanho de bloco fixo em 16
-./iozone -a -i 0 -i 1 -i 2 -i 3 -i 4 -i 5 -i 6 -s 2000000 -r 16
+./iozone -a -i 0 -i 1 -i 2 -s 2000000 -r 4086
 
 Make
 trinta vezes
