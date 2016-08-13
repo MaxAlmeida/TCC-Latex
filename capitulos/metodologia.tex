@@ -67,7 +67,7 @@ No trabalho de \citeonline{popiolek2012}, disserta sobre a importância de se ut
 \label{iobound_experiments}
 \end{figure}
 
-Por fim, o trabalho de \citeonline{huber2011} tem como intuito prover um modelo genérico de predição de desempenho a partir de determinados fatores que podem interferir na virtualização(Figura \ref{influence_factors}). A idéia é que esse modelo genérico seja aplicável em diferentes tipos plataformas de virtualização. Assim, neste trabalho os experimentos são aplicados nos \textit{hypervisors } \textit{Citrix XenServer 5.5} e \textit{VMware ESX 4.0}. Os fatores categorizados para os experimentos foram: tipo de virtualização, configuração de gerenciamento de recursos e perfis de cargas de trabalho. Para o tipo de virtualização, os experimentos consistem em observar a perda de desempenho ocasionada com a virtualização. Na categoria de configuração de gerenciamento de recursos, são considerados fatores de configuração como número de máquinas virtuais e afinidade de núcleo. E para cargas de trabalho, foram executadas algumas ferramentas de \textit{benchmarking} a fim de se analisar diversas cargas de trabalho. Para o modelo de predição, fora utlizada análise de regressão linear assim como feito em \citeonline{koh2007}.
+Por fim, o trabalho de \citeonline{huber2011} tem como intuito prover um modelo genérico de predição de desempenho a partir de determinados fatores que podem interferir na virtualização(Figura \ref{influence_factors}). A idéia é que esse modelo genérico seja aplicável em diferentes tipos plataformas de virtualização. Assim, neste trabalho os experimentos são aplicados nos \textit{hypervisors } \textit{Citrix XenServer 5.5} e \textit{VMware ESX 4.0}. Os fatores categorizados para os experimentos foram: tipo de virtualização, configuração de gerenciamento de recursos e perfis de cargas de trabalho. Para o tipo de virtualização, os experimentos consistem em observar a perda de desempenho ocasionada com a virtualização. Na categoria de configuração de gerenciamento de recursos, são considerados fatores de configuração como número de máquinas virtuais e afinidade de núcleo. E para cargas de trabalho, foram executadas algumas ferramentas de \textit{benchmarking} a fim de se analisar diversas cargas de trabalho. Para o modelo de predição, fora utlizada análise de regressão linear assim como feito em \citeonline{koh2007}. 
 
 \begin{figure}[!htb]
 \centering
@@ -154,12 +154,14 @@ Uma aplicação executando em \textit{dom1} é chamada de aplicação \textit{fo
 A fim de observar o quanto o desempenho é afetado pela interferência gerada por uma aplicação executada em outra máquina virtual, é feita a medida da degradação a partir do desempenho padrão de uma aplicação, essa medida denomina-se pontuação normalizada. Assim, para calcular a pontuação normalizada de uma aplicação, primeiro é definida a pontuação de desempenho inativa que é a pontuação de uma aplicação quando executada contra uma máquina virtual inativa, ou seja sem nenhuma aplicação executando. Então, em seguida é feito o cálculo da pontuação normalizada de uma aplicação F contra B, dividindo a pontuação de desempenho de F contra B pela pontuação de desempenho inativa de F. Assim define-se NS(F@B), como sendo a pontuação normalizada de F contra B,
 
 \begin{equation}
+\label{eq:degradation}
 NS(F@B) = PontuaçãoDesempenho(F@B)/PontuaçãoDesempenho(F@Inativo)
 \end{equation}
 
 A partir disso, é feito cálculo do desempenho combinado de duas aplicações, F e B, em cada máquina virtual.
 
 \begin{equation}
+\label{eq:combined}
 NS ( F + B ) = NS ( F @ B ) + NS ( B @ F )
 \end{equation}
 Sendo NS(F@B) e  NS(B@F) medidos em dois testes separados. Para medida de desempenho, nos dois primeiros primeiros experimentos são utilizadas as pontuações geradas pelas próprias aplicações. Entretanto, algumas aplicações, aquelas que não são voltadas para \textit{benchmark}, não geram pontuações explícitas. Para essas aplicações, fora definido como o inverso do tempo necessário para sua execuação, como pontuação de desempenho. Na tabela \ref{table-aplications} é apresentado o maior recurso utilizado bem como a medida de desempenho utilizada para cada ferramenta. Para o terceiro experimento as pontuações utilizadas são métricas de desempenho a nível de sistema.
