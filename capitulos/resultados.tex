@@ -55,28 +55,61 @@ O terceiro experimento consistiu em coletar os dados referentes as métricas de 
 
 \begin{figure}[!h]
 \centering
-\includegraphics [keepaspectratio=true,scale=0.4]{graficos/exp_3_read_write.eps}
+\includegraphics [keepaspectratio=true,scale=0.5]{graficos/exp_3_read_write.eps}
 \caption{Desempenho alcançado das aplicações para requisções de escrita e leitura em disco}
 \label{disk_operations}
 \end{figure} 
 
 \begin{figure}[!h]
 \centering
-\includegraphics [keepaspectratio=true,scale=0.4]{graficos/exp2_latency.eps}
+\includegraphics [keepaspectratio=true,scale=0.5]{graficos/exp2_latency.eps}
 \caption{Tempo que as aplicações levam para executar uma operação de leitura e escrita em disco}
 \label{latency_disk}
 \end{figure}
 
 \begin{figure}[!h]
 \centering
-\includegraphics [keepaspectratio=true,scale=0.4]{graficos/exp_3_cpu.eps}
+\includegraphics [keepaspectratio=true,scale=0.5]{graficos/exp_3_cpu.eps}
 \caption{Porcentagem de utilização de cpu para cada aplicação}
 \label{cpu_util}
 \end{figure}  
 
-As imagens \ref{disk_operations}, \ref{latency_disk} e \ref{cpu_util} mostram o desempenho das aplicações quando executados contra um servidor inativo. Os dados apresentados permite observar o perfil de execução de algumas aplicações a partir da pontuação alcançada nas métricas de desempenho a nível de sistema. Percebe-se dessa forma que aplicações como \textit{crypt}, \textit{cat}, \textit{cp} possui um perfil misto nas operações em disco, ou seja, executam de forma quase igualitária tanto operações de leitura quanto operações de escrita em disco. Em contrapartida, aplicações como \textit{dd}, \textit{grep}, \textit{gzip} e \textit{Bzip2} possuem um perfil único no que tange as operações em disco, com \textit{dd} tendo uma elevada pontuação para operações de escrita de disco, e as outras três pussuindo um perfil voltado mais para leitura em disco. O perfil de execução dessas aplicações para as métricas de leitura e escrita em disco reflete o perfil para o tempo de escrita e de leitura em disco, mantendo dessa forma , o mesmo padrão de desempenho para essas duas últimas métricas. Para porcentagem de utilização de \textit{cpu}, observa-se que as aplicações \textit{bzip2}, \textit{crypt}, \textit{grep} e \textit{gzip} possui as taxas de utilização de \textit{cpu}, mostrando assim seu perfil misto de execução. Já \textit{cat}, \textit{cp} e \textit{dd} apresentam baixas taxa de utilização de \textit{cpu} evidenciando dessa forma seu perfil voltado para utilização de disco.
+As imagens \ref{disk_operations}, \ref{latency_disk} e \ref{cpu_util} mostram o desempenho das aplicações quando executadas contra um servidor inativo. Os dados apresentados permite observar o perfil de execução de algumas aplicações a partir da pontuação alcançada nas métricas de desempenho a nível de sistema. Percebe-se dessa forma que aplicações como \textit{crypt}, \textit{cat}, \textit{cp} possui um perfil misto nas operações em disco, ou seja, executam de forma quase igualitária tanto operações de leitura quanto operações de escrita em disco. Em contrapartida, aplicações como \textit{dd}, \textit{grep}, \textit{gzip} e \textit{Bzip2} possuem um perfil único no que tange as operações em disco, com \textit{dd} tendo uma elevada pontuação para operações de escrita de disco, e as outras três pussuindo um perfil voltado mais para leitura em disco. O perfil de execução dessas aplicações para as métricas de leitura e escrita em disco reflete o perfil para o tempo de escrita e de leitura em disco, mantendo dessa forma, o mesmo padrão de desempenho para essas duas últimas métricas. Para porcentagem de utilização de \textit{cpu}, observa-se que as aplicações \textit{bzip2}, \textit{crypt}, \textit{grep} e \textit{gzip} possui taxas elevadas de utilização de \textit{cpu}, mostrando assim um  perfil misto de execução com relação à utilização de \textit{cpu} e \textit{disco}. Já \textit{cat}, \textit{cp} e \textit{dd} apresentam baixas taxa de utilização de \textit{cpu} evidenciando dessa forma seu perfil voltado para utilização de disco.
 
- 
+No experimento 2 observou-se que algumas aplicações podem sofrer maior degradação dependendo da aplicação que está sendo executada como \textit{background}. \textit{Bzip2}, por exemplo, obteve uma queda de desempenho acentuada executando contra \textit{cp}, \textit{cat} e \textit{dd}. Já contra \textit{Grep} e \textit{crypt}, obteve pontuação relativamente alta. A imagem \ref{bzip_performance} mostra como se dá essa degradação nas métricas a nível de sistema de \textit{bzip2} contra um conjunto de aplicações. 
+%Para avaliar como cada aplicação interfere na outra foi utilizada a pontuação normalizada para cada métrica a nível de sistema. Desse modo  a seguir são apresentados algumas combinações de execução concorrente. %Um dos problemas enfrentados é a pequena variabilidade durante a coleta de dados. Assim, notou-se que as métricas que sofrem uma degradação nula  durante a execuçao contra uma determinada aplicaçao em outra maquina virtual pode a vir a ter seu desempenho   
+\begin{figure}[!h]
+\centering
+\includegraphics [keepaspectratio=true,scale=1.0]{graficos/bzip_performance.eps}
+\caption{Pontuação normalizada das métricas a nível de sitema de \textit{Bzip2} contra diferentes tipos de aplicações.}
+\label{bzip_performance}
+\end{figure}  
+
+As pontuações normalizadas de algumas métricas ultrapassam o valor de 1, o que teoricamente seria impossível dado que o desempenho, contra uma aplicação \textit{background}, tende a ser menor ou igual a 1 dependendo da aplicação. Entretanto, as medições \textit{F@B} e \textit{F@Inativo} são feitas em experimentos diferentes. Dessa forma, observou-se que, mesmo coletando uma amostra de 300 valores para cada métrica, pode haver uma pequena variação de experimento para experimento. Assim, uma pontuação de uma métrica que não sofre degradação contra uma determinada aplicação \textit{background} (F@B), pode naquele momento alcançar um valor um pouco maior do que quando foi executando contra uma máquina virtual inativa (F@Inativo), resultando em uma pontuação normalizada maior que 1 de acordo com a equação \ref{eq:degradation}.
+
+Nota-se, portanto, que \textit{bzip2} contra \textit{cat} resulta uma interferência nula na métrica \textit{writes\_issued} dada a pontuação normalizada desta, por outro lado a pontuação normalizada de \textit{cpuutil}, \textit{writes\_issued} e \textit{read\_time}caíram drasticamente. A queda de \textit{cpuutil} em \textit{bzip2}, mesmo com \textit{cat} possuindo baixa taxa de utilização de \textit{cpu}, pode ser explicada pela pontuação alcançada por \textit{read\_time}. Uma pontuação normalizada de \textit{read\_time} mais baixa indica que \textit{bzip2} agora está levando mais tempo para realizar poucas requisições de disco, fazendo que a \textit{cpu} fique mais tempo ociosa esperando por operações de \textit{entrada/saída}. Por possuir um perfil mais voltado para operações de leitura em disco, o desempenho de \textit{bzip2} tende a ser fortemente influenciado com a queda de valores de \textit{reads\_issued} e \textit{read\_time}.
+\begin{figure}[!h]
+\centering
+\includegraphics [keepaspectratio=true,scale=1.0]{graficos/dd_performance.eps}
+\caption{Pontuação normalizada das métricas a nível de sitema de \textit{dd} contra diferentes aplicações.}
+\label{dd_performance}
+\end{figure}   
+
+\begin{figure}[!h]
+\centering
+\includegraphics [keepaspectratio=true,scale=1.0]{graficos/grep_performance.eps}
+\caption{Pontuação normalizada das métricas a nível de sitema de \textit{Grep} contra diferentes aplicações.}
+\label{grep_performance}
+\end{figure}   
+
+\begin{figure}[!h]
+\centering
+\includegraphics [keepaspectratio=true,scale=1.0]{graficos/comparative_performance.eps}
+\caption{Comparativo de desempenho de \textit{Bzip2}, \textit{Gzip}, \textit{Cat} e \textit{DD} contra \textit{Grep}.}
+\label{comparative_performance}
+\end{figure}   
+
+
  %Entretanto, os resultados de \textit{grep+grep} e \textit{crypt+crypt} mostram que mesmo aplicações iguais podem não interferir tanto quanto o esperado. Uma das hipóteses iniciais é de que configuração de disco em \textit{raid 5} do servidor, minimiza a interferência para aplicações com perfis de \textit{Entrada\Saída} como \textit{Grep} e \textit{Crypt}. Outro fator que 
 
   
