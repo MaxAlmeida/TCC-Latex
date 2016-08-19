@@ -50,8 +50,33 @@ A imagem \ref{second_experiment_second} apresenta os resultados de interferênci
 Os resultados deste segundo experimento demonstraram que o perfil de execução de aplicação influenciam de maneira considerável no desempenho de uma aplicação que está sendo executada em uma outra máquina virtual. Observa-se que a tendência é que aplicações com perfil voltadas para uso de disco sofram pouca interferência de aplicações com perfil de uso mais voltado para \textit{cpu} e memória. Em contrapartida, seus desempenhos cai consideralvemente quando executadas contra outras aplicações com perfil de uso voltado para disco. Mesmo entre aplicações de disco, pode haver um padrão de degradação mais ou menos intensificado dado o tipo de operação de disco ao qual as aplicações são voltadas (leitura ou escrita). Com esses resultados, chegou-se a conclusão que os testes definidos para \textit{cpu} são insuficientes para que se observe algum tipo de degradação nesse perfil de execução. 
 % Além disso, nota ferramentas quando executadas contra ferramentas com o mesmo perfil de execução (\textit{cpu} x \textit{cpu}), demonstram uma interferência insignificante. 
 
+\section{Interferência nas Métricas de Desempenho a nível de Sistema}
+O terceiro experimento consistiu em coletar os dados referentes as métricas de desempenho a nível desse sistema. Desse modo, foi possível observar o perfil de execução das aplicações bem como avaliar como ocorre o impacto da degradação do desempenho nesses tipos de métrica. Como observado no experimento 2, algumas aplicações sofreram pouca degradação em seus desempenhos bem como interferiu muito pouco contra outras aplicações. Dessa forma, optou-se por restringir esse experimento às ferramentas aos quais foram observados o grau de interferência maior, sendo removidas então deste terceiro experimento \textit{make}, \textit{povray}, \textit{add\_double} e \textit{cachebench}.
 
+\begin{figure}[!h]
+\centering
+\includegraphics [keepaspectratio=true,scale=0.4]{graficos/exp_3_read_write.eps}
+\caption{Desempenho alcançado das aplicações para requisções de escrita e leitura em disco}
+\label{disk_operations}
+\end{figure} 
 
+\begin{figure}[!h]
+\centering
+\includegraphics [keepaspectratio=true,scale=0.4]{graficos/exp2_latency.eps}
+\caption{Tempo que as aplicações levam para executar uma operação de leitura e escrita em disco}
+\label{latency_disk}
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+\includegraphics [keepaspectratio=true,scale=0.4]{graficos/exp_3_cpu.eps}
+\caption{Porcentagem de utilização de cpu para cada aplicação}
+\label{cpu_util}
+\end{figure}  
+
+As imagens \ref{disk_operations}, \ref{latency_disk} e \ref{cpu_util} mostram o desempenho das aplicações quando executados contra um servidor inativo. Os dados apresentados permite observar o perfil de execução de algumas aplicações a partir da pontuação alcançada nas métricas de desempenho a nível de sistema. Percebe-se dessa forma que aplicações como \textit{crypt}, \textit{cat}, \textit{cp} possui um perfil misto nas operações em disco, ou seja, executam de forma quase igualitária tanto operações de leitura quanto operações de escrita em disco. Em contrapartida, aplicações como \textit{dd}, \textit{grep}, \textit{gzip} e \textit{Bzip2} possuem um perfil único no que tange as operações em disco, com \textit{dd} tendo uma elevada pontuação para operações de escrita de disco, e as outras três pussuindo um perfil voltado mais para leitura em disco. O perfil de execução dessas aplicações para as métricas de leitura e escrita em disco reflete o perfil para o tempo de escrita e de leitura em disco, mantendo dessa forma , o mesmo padrão de desempenho para essas duas últimas métricas. Para porcentagem de utilização de \textit{cpu}, observa-se que as aplicações \textit{bzip2}, \textit{crypt}, \textit{grep} e \textit{gzip} possui as taxas de utilização de \textit{cpu}, mostrando assim seu perfil misto de execução. Já \textit{cat}, \textit{cp} e \textit{dd} apresentam baixas taxa de utilização de \textit{cpu} evidenciando dessa forma seu perfil voltado para utilização de disco.
+
+ 
  %Entretanto, os resultados de \textit{grep+grep} e \textit{crypt+crypt} mostram que mesmo aplicações iguais podem não interferir tanto quanto o esperado. Uma das hipóteses iniciais é de que configuração de disco em \textit{raid 5} do servidor, minimiza a interferência para aplicações com perfis de \textit{Entrada\Saída} como \textit{Grep} e \textit{Crypt}. Outro fator que 
 
   
