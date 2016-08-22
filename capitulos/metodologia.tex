@@ -14,7 +14,7 @@ No trabalho apresentado por \cite{koh2007} é feito um estudo de interferência 
 %\footnotetext[7]{IOzone Filesystem Benchmark (http://www.iozone.org)}
 %\footnotetext[8]{The Persistence of Vision Raytracer (http://www.povray.org)}
 
-A análise de dados é baseada no cálculo de degradação de desempenho para o seguinte conjunto de métricas: média de uso de CPU, \textit{cache hits}, \textit{cache misses}, troca de máquinas virtuais por segundo, bloqueio de operações de entrada e saída por segundo, quantidade de requisição de leitura e escrita por segundo e tempo gasto na leitra e escrita para o disco da máquina virtual. 
+A análise de dados é baseada no cálculo de degradação de desempenho para o seguinte conjunto de métricas: média de uso de CPU, \textit{cache hits}, \textit{cache misses}, troca de máquinas virtuais por segundo, bloqueio de operações de entrada e saída por segundo, quantidade de requisição de leitura e escrita por segundo e tempo gasto na leitura e escrita para o disco da máquina virtual. 
 
 De maneira geral, a observação feita neste trabalho é que determinadas aplicações podem sofrer mais interferências de outras aplicações que possuem o mesmo uso de tipo de recurso. O exemplo disso é apresentado na Figura \ref{interference_app}, onde uma aplicação executada sem interferência alcança uma pontuação de 1. Duas aplicações que não interferem uma com a outra alcança uma pontuação perto de 2, como \textit{grep}+\textit{povray}. Já executando \textit{grep}+\textit{grep} a pontuação cai para 0.35 %Por exemplo, uma aplicação A que costuma consumir mais CPU, po{de sofrer mais interferência de uma outra aplicação que possui a mesma característica, do que de uma aplicação que realiza operações mais focadas na escrita de disco. Além disso, é proposto por esse trabalho que com resultados desses desempenhos pode se fazer predição de desempenho de uma aplicação qualquer, a partir de analise matemáticas.
 
@@ -81,23 +81,23 @@ Os trabalhos de \citeonline{koh2007} e \citeonline{huber2011} tem como ponto em 
 
 Dado os trabahos relacionados apresentados, o de \citeonline{koh2007} foi o que apresentou resultados mais significativos em um nivel de detalhamento mais avançado, sendo dessa forma considerado o mais adequado para ser utilizado como insumo para desenvolvimento deste trabalho. Ainda mais, quando se pode verificar a extensibiliidade do trabalho de \citeonline{koh2007} para outro \textit{hypervisor} como o \textit{KVM}. Entretanto, em aspectos metodológicos, o trabaho se demonstrou bastante deficiente, dificultando de certo modo a replicação dos experimentos realizados. A partir disso, uma outra contribuição deste trabalho se comparado ao de \citeonline{koh2007} é o detalhamento dos experimentos efetuados, de modo que o mesmo possa ser replicado em trabalhos futuros.
 
-\section{Questão problema}
-Dado que o trabalho de \citeonline{koh2007} apresenta uma análise de interferência de desempenho utilizando o \textit{XEN}, que é um \textit{hypervisor} conhecido por utilizar a paravirtualização para provimento de máquinas virtuais, este trabalho visará responder a seguinte questão:
+%\section{Questão problema}
+%Dado que o trabalho de \citeonline{koh2007} apresenta uma análise de interferência de desempenho utilizando o \textit{XEN}, que é um %\textit{hypervisor} conhecido por utilizar a paravirtualização para provimento de máquinas virtuais, este trabalho visará responder %a seguinte questão:
 
-\textit{ Qual  grau de interferência entra máquinas virtuais, executando sob o mesmo servidor, utilizando o \textit{KVM} como \textit{hypervisor}, que implementa a virtualização total?  }
+%\textit{ Qual  grau de interferência entra máquinas virtuais, executando sob o mesmo servidor, utilizando o \textit{KVM} como \textit{hypervisor}, que implementa a virtualização total?  }
  
-Tendo essa questão como ponto de referência, a proposta deste trabalho é a aplicar o mesmo estudo de interferência entre máquinas virtuais feito no trabalho de \citeonline{koh2007}, de modo que sejam comparados grau de interferência entre as duas técnicas de virtualização existentes: paravirtualização e virtualização total.
-\subsection{Hipótese}
-A partir da questão problema definiu-se a seguinte hipótese que irá motivar a realização deste trabalho:
+%Tendo essa questão como ponto de referência, a proposta deste trabalho é a aplicar o mesmo estudo de interferência entre máquinas /%virtuais feito no trabalho de \citeonline{koh2007}, de modo que sejam comparados grau de interferência entre as duas técnicas de %virtualização existentes: paravirtualização e virtualização total.
+%\subsection{Hipótese}
+%A partir da questão problema definiu-se a seguinte hipótese que irá motivar a realização deste trabalho:
 
-\begin{itemize}
+%\begin{itemize}
     %\item \textit{H1}: O estudo de interferência entre aplicações executadas em ambientes virtualizados proposto por \citeonline{koh2007} é aplicável em outros tipos de plataforma de virtualização 
     
-	\item \textit{H1}: O \textit{XEN}, por utilizar a paravirtualização como técnica de virtualização, apresenta menor interferência entre máquinas virtuais do que o \textit{KVM}. Como explicado no capítulo \ref{sec:infraestrutura}, a paravirtualização tende a possuir um ganho de desempenho se comparado com  virtualização total. Comparando os resultados do trabalho de \citeonline{koh2007}, feitos com \textit{hypervisor} \textit{XEN}(paravirtualização), com os resultados de interferência provenientes de um \textit{hypervisor} \textit{KVM}(Virtualização total), é uma ótima oportunidade de verificar a diferença de desempenho entre os dois tipos de virtualização.
+	%\item \textit{H1}: O \textit{XEN}, por utilizar a paravirtualização como técnica de virtualização, apresenta menor interferência entre máquinas virtuais do que o \textit{KVM}. Como explicado no capítulo \ref{sec:infraestrutura}, a paravirtualização tende a possuir um ganho de desempenho se comparado com  virtualização total. Comparando os resultados do trabalho de \citeonline{koh2007}, feitos com \textit{hypervisor} \textit{XEN}(paravirtualização), com os resultados de interferência provenientes de um \textit{hypervisor} \textit{KVM}(Virtualização total), é uma ótima oportunidade de verificar a diferença de desempenho entre os dois tipos de virtualização.
 	%\item \textit{H2}: O modelo de prediçã proposto por \citeonline{koh2007} man
 	%\item \textit{H2}: O modelo de predição proposto por \citeonline{koh2007} é aplicável em um ambiente com características distintas de \textit{hardware} e de plataforma de virtualização. Em seu trabalho, \citeonline{koh2007} é relatado que esforços já estavam sendo empreendidos para verificar a portabilidade do seu estudo de interferência para outros tipos de ambientes de \textit{hardware}. Entretanto, não foi encontrado qualquer tipo de evidência em algum trabalho futuro que apresente a aplicação deste estudo em outro tipo de ambiente. Dessa forma, com outro tipo de \textit{hypervisor} (\textit{KVM}) e com configurações de \textit{hardware} apresentados no capítulo \ref{cap:resultados}, é interessante verificar aplicabilidade deste experimento para outros tipo de plataforma tanto no quesito de \textit{hardware} quanto de virtualização. 
 	%\item \textit{H3}: Com esse mecanismo de predição de desempenho é possível propor uma nova distribuição de aplicações em um ambiente com múltiplas máquinas virtuais.  %reformular
-\end{itemize}
+%\end{itemize}
 	
 \section{Ambiente de Testes}\label{sec:ambiente_teste}
 Para o estudo proposto por este trabalho foi definido um  ambiente de testes que consiste no uso de máquinas virtuais com aplicações voltadas para realização
@@ -188,7 +188,7 @@ Povray      & Misto                                        & Tempo              
 \end{tabular}
 \end{table}
 
-
+Dessa forma, uma pontuação normalizada(F@B) próxima ou igual a 1 é um resultado que indica que o desempenho de uma aplicação \textit{F} contra \textit{B} sofreu baixa degradação.
 
 %Para observar o grau de interferência ocasionada por uma aplicação que está sendo executada em outra máquina virutal, é feito um cálculo  de degradação a partir da pontuação de desempe
 \subsection{Métricas de desempenho a nível de sistema}
@@ -196,12 +196,10 @@ No trabalho de \citeonline{koh2007} são utilizadas métricas de desempenho a n�
 
 No trabalho de \citeonline{koh2007} essas métricas são obtidas através de um \textit{hypervisor} instrumentalizado, de modo que elas são coletadas de fora da máquina virtual, possibilitando assim que a interferência da coleta seja praticamente nula. A partir disso, fora feita uma investigação de como o \textit{hypervisor} utilizado, o \textit{KVM}, ou a plataforma em nuvem \textit{OpenNebula} poderia prover essas métricas sem que fosse necessário qualquer tipo de interferência na máquina virtual para coleta desses dados.
 
-Para o \textit{KVM} chegou-se a ferramentas como o \textit{iperf-kvm} e \textit{kvm-stat}. Entretanto, as informações apresentadas por essas ferramentas não eram claras e, para o caso do \textit{kvm-stat}, não detalhava por máquina virtual e sim para  \textit{hypervisor} inteiro. Mesmo no \textit{OpenNebula} as informações apresentadas consistiam em uso de espaço em disco, memória utilizada e quantidade de \textit{CPU} alocado por máquina virtual, não sendo essas informações, relevantes para o estudo proposto. Assim, a abordagem escolhida foi o uso de uma ferramentas típica para monitoramento de desempenho: o \textit{Munin} em conjunto com o \textit{Cachegrind} e o \textit{Virsh}. A seguir são apresentadas as métricas coletadas neste trabalho.
+Para o \textit{KVM} chegou-se a ferramentas como o \textit{iperf-kvm} e \textit{kvm-stat}. Entretanto, as informações apresentadas por essas ferramentas não eram claras e, para o caso do \textit{kvm-stat}, não detalhava por máquina virtual e sim para  \textit{hypervisor} inteiro. Mesmo no \textit{OpenNebula} as informações apresentadas consistiam em uso de espaço em disco, memória utilizada e quantidade de \textit{CPU} alocado por máquina virtual, não sendo essas informações, relevantes para o estudo proposto. Assim, a abordagem escolhida foi o uso de uma ferramentas típica para monitoramento de desempenho: \textit{iostat} para operações de disco e o \textit{mpstat} para \textit{CPU}. %o \textit{Munin} em conjunto com o \textit{Cachegrind} e o \textit{Virsh}. A seguir são apresentadas as métricas coletadas neste trabalho.
 
 \begin{itemize}
 \item \textbf{Média de CPU}(\textit{cpuutil}): É calculado dividindo o \textit{tempo de CPU} alcançado por uma máquina virtual para executar uma aplicação, pelo tempo de execução dessa aplicação. O tempo de CPU é coletado pelo \textit{libvirt}.
-
-\item \textbf{Interrupções de entrada e saída por segundo}(\textit{interrupts}): Mede quantas vezes uma máquina virtual sofre uma interrupção advinda do \textit{hypervisor} devido a espera por operações de entrada e saída.
 
 \item \textbf{Requisições de escrita e leitura de disco por segundo }(\textit{writes\_issued, reads\_issued}) e \textbf{Tempo gasto para escrita e leitura do disco}(\textit{time\_writing, time\_reading}): Quantidade de requisições no disco e o tempo para operações de escrita e leitura são bons indicadores de operações de entrada e saída. Essa valores são coletados utilizando o \textit{Munin}.
 
@@ -256,11 +254,3 @@ Para coleta de dados de dados foi construídos \textit{scripts}, utilizando a li
 \footnotetext[9]{https://www.python.org/}
 \footnotetext[10]{https://github.com/MaxAlmeida/TCC-SCRIPTS-MONITORING}
 
-
-
-\section{Análise de dados}
-Análise estatística
-Variável independente
-variável dependente
-Análise multivariada
- 	
