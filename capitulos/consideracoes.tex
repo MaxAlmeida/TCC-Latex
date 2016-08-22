@@ -1,39 +1,42 @@
-\chapter{Considerações Finais}
-\label{cap:consideracoes_finais}
+\chapter{Conclusão}
+\label{cap:conclusao}
+
+A primeira parte deste trabalho consistiu na implantação de um ambiente de computação em nuvem de modo que fosse possível um melhor aproveitamento dos recursos de hardware dos servdores físicos do \textit{LAPPIS}, bem como a garantia de um ambiente estável para aplicação de estudo de interferência em ambientes virtualizados. Nesta etapa do trabalho, também foram feitas pesquisas bibliográficas referentes a interferência entre máquinas virtuais em um servidor físico, ao qual foram selecionados alguns trabalhos que poderiam servir de insumo para este estudo.
+
+Na segunda parte deste trabalho teve como foco a aplicação dos experimentos feitos por \citeonline{koh2007} no ambiemte récem implantado, entretanto uma das dificuldades encontradas foi replicar os procedimentos feitos por \citeonline{koh2007}, dado que os mesmos não eram explicitamente descritos. Além disso, o \textit{hypervisor} utilizado, o \textit{KVM}, não possuía suporte para coleta de métricas de desempenho a nível de sistema. Desse modo a coleta de dados foi dividida em três ciclos de experimento, que permitiram que fosse obtida e avaliada de maneira gradativa os dados obtivos com relação a interferência ocasionada entre máquinas virtuais. Assim, umas das contribuições deste trabalho envolve a definição de procedimentos metodológicos, experimentais bem como no uso de ferramentas, que possibilitem a replicação deste experimento em trabalhos futuros, e em ambientes com \textit{hypervisors} que não possuam suporte para coleta de dados referentes ao desempenho de máquinas virtuais.  %
+
+Os resultados dos experimentos realizados permitem concluir que as tecnologias atuais de virtualização e de computação em nuvem, não garamente um isolamento efetivo entre máquinas virtuais em um mesmo servidor físico. A tendência é que aplicações que possum perfil voltado para operações em disco interferem de maneira significativa no desempenho outras aplicações  com o mesmo perfil, quando executadas em máquinas virtuais diferentes. Aplicações com o perfil voltado para \textit{cpu} interferem muito pouco contra aplicações com o perfil voltado para aplicações em disco e vice-versa.
+
+Um ponto que pode ser considerado uma limitação deste trabalho é que não foi possível avaliar a degradação de desempenho entre aplicações com o perfil voltado para utilização de \textit{cpu}. Entende-se que para as configurações de \textit{hardware} do servidor utilizado neste estudo, são necessárias um número maior de máquinas virtuais executando \textit{benchmarking} de cpu, ao mesmo tempo, para que fosse possível observar algum tipo de interferência e degradação em seus desempenhos.
+
+Os procedimentos adotados por esse trabalho promovem algumas posssibilidades para trabalhos futuros. Dessa forma, um dos caminhos que podem ser adotados consiste em um comparativo entre os diversos tipos de \textit{hypervisors} utilizados, levando-se em conta a técnica de virtualização utilizada: \textit{paravirtualização } e \textit{virtualização total}, de modo que se possa avaliar qual tipo de ferramenta dado a, técnica de virtualização, trata melhor a interferência de desempenho entre as máquinas virtuais.
+
+ Durante o desenvolvimento deste trabalho foi publicado um artigo por \citeonline{Caglar2016} ao qual é apresentado o desenvolvimento de uma ferramenta responsável por mitigar a interferência no desempenho de aplicações efetuando migrações entre servidores dado o tipo de aplicação qu está sendo executado. Para tal essa ferramenta coleta dados a partir de ferramentas de \textit{benchmarking} de modo que são traçados os perfis das aplicações. Assim, aplicando técnicas de \textit{machine learning} em cima dos dados coletados essa ferramenta promove a migração de máquinas virtuais entre os servidores físicos dado o seu grau de degradação da aplicação. Para predição de desempenho dessas aplicações foi utilizada uma ténica de mineração de dados denominada \textit{k-means}.
+ 
+Já no trabalho de \citeonline{koh2007}, para predição de desempenho foi utilizada a média aritmética ponderada a partir de uma análise de componente principal efetuada em cima dos dados coletados. Dessa forma um possível trabalho futuro englobaria a aplicação de técnicas de \textit{machine learning} utilizando os modelos preditivos aplicados por \textit{kooh2007} e comparando os com os resultados alcançados por \citeonline{Caglar2016} utilizando o \textit{k-means}.
+
+%Vale ressaltar que no trabalho de \citeonline{koh2007}, foi realizado também estudos estatísticos a fim de avaliar possíveis relações entre as aplicações utilizadas no experimento.   
 
 
-Neste trabalho foram apresentados conceitos referentes a virtualização e a computação em nuvem, bem como uma breve abordagem das ferramentas utilizadas para provimento dos mesmos e trabalhos relacionados a interferência de máquinas virtuais em seus desempenhos. E como já fora dito nesses tópicos, um dos conceitos chaves da computação em nuvem é o melhor aproveitamento no uso de recursos de servidores físicos, algo que não vinha sendo feito no LAPPIS. Outro assunto bastante recorrente no que diz respeito a provimento de plataformas em nuvem, são as possíveis perdas de desempenhos relacionadas com a virtualização. Apartir disso, este trabalho alcançou resultados que englobam uma colaboração para o LAPPIS e consequetemente para a FGA, e também o estabelecimento de uma infraestrutura que possibilitasse o estudo sobre a interferência de desempenho entre máquinas virtuais. A seguir são listados os resultados alcançados:  
 
-\begin{itemize}
-  \item Implantação de uma Plataforma em Nuvem nos servidores do LAPPIS.
-  \item Automatização parcial da infraestrutura virtual ( plataforma em nuvem, serviços oferecidos)
-  \item Estabelecimento de um ambiente para estudo de interferência de desempenho entre ambientes virtuais.
+
+\
+
+%Dessa, com os experimentos realizados, notou-se que as tecnologias atuais de virtualização e de computação em nuvem, não garantem isolamento efetivo entre máquinas virtuais em um mesmo servidor físico.
+
+%Neste trabalho foram apresentados conceitos referentes a virtualização e a computação em nuvem, bem como uma breve abordagem das ferramentas utilizadas para provimento dos mesmos e trabalhos relacionados a interferência de máquinas virtuais em seus desempenhos. E como já fora dito nesses tópicos, um dos conceitos chaves da computação em nuvem é o melhor aproveitamento no uso de recursos de servidores físicos, algo que não vinha sendo feito no LAPPIS. Outro assunto bastante recorrente no que diz respeito a provimento de plataformas em nuvem, são as possíveis perdas de desempenhos relacionadas com a virtualização. Apartir disso, este trabalho alcançou resultados que englobam uma colaboração para o LAPPIS e consequetemente para a FGA, e também o estabelecimento de uma infraestrutura que possibilitasse o estudo sobre a interferência de desempenho entre máquinas virtuais. A seguir são listados os resultados alcançados:  
+
+%\begin{itemize}
+ % \item Implantação de uma Plataforma em Nuvem nos servidores do LAPPIS.
+  %\item Automatização parcial da infraestrutura virtual ( plataforma em nuvem, serviços oferecidos)
+  %\item Estabelecimento de um ambiente para estudo de interferência de desempenho entre ambientes virtuais.
   %\item Disponibilização de serviços de utilidade para a FGA: \textit{Redmine}, \textit{Dotproject}, \textit{Moodle}, \textit{Boca}, ambientes de homologação para o portal da FGA.
-\end{itemize}
+%\end{itemize}
 
-A implantação de uma plataforma em nuvem, promoveu um melhor aproveitamento no uso de recursos dos servidores físicos do LAPPIS, garantido melhor gerenciabilidade e facilidade no provimento de ambientes virtuais, possibilitando assim a disponibilização de serviços de utilidade para FGA, tais como \textit{Redmine}, \textit{Dotproject}, \textit{Moodle}, \textit{Boca}. A automatização no provimento da plataforma em nuvem e dos serviços oferecidos, a partir do uso das ferramentas \textit{Chef} e \textit{Chake}, garante que os procedimentos para provimento dos mesmos sejam documentados, colaborando assim para o compartilhamento de conhecimento entre os colaboradores. A partir disso, com todos os serviços sobre uma plataforma em nuvem gerenciável é possível efetuar testes de interferência com mais comodidade e segurança, possibilitando inclusive o benefício na disponibilização desses serviços, melhor alocando-os entre os servidores disponíveis.
+%A implantação de uma plataforma em nuvem, promoveu um melhor aproveitamento no uso de recursos dos servidores físicos do LAPPIS, garantido melhor gerenciabilidade e facilidade no provimento de ambientes virtuais, possibilitando assim a disponibilização de serviços de utilidade para FGA, tais como \textit{Redmine}, \textit{Dotproject}, \textit{Moodle}, \textit{Boca}. A automatização no provimento da plataforma em nuvem e dos serviços oferecidos, a partir do uso das ferramentas \textit{Chef} e \textit{Chake}, garante que os procedimentos para provimento dos mesmos sejam documentados, colaborando assim para o compartilhamento de conhecimento entre os colaboradores. A partir disso, com todos os serviços sobre uma plataforma em nuvem gerenciável é possível efetuar testes de interferência com mais comodidade e segurança, possibilitando inclusive o benefício na disponibilização desses serviços, melhor alocando-os entre os servidores disponíveis.
  %Por fim, como consequência disso, têm se o ambiente necessário para que sejam efetuados os estudos referentes a interferência de desempenho entre ambientes virtuais.
 
-As próximas atividades deste trabalho serão concentradas na análise da intererência de desempenhos entre ambientes virtuais. Para tal, como apresentado  no capítulo \ref{cap:referencial_teorico}, já fora feita uma pesquisa prévia de trabalhos relacionados sobre o tema. Desse modo, na tabela \ref{tab:cronograma} é apresentado um cronograma com as atividades pretendidas para este trabalho.
+%As próximas atividades deste trabalho serão concentradas na análise da intererência de desempenhos entre ambientes virtuais. Para tal, como apresentado  no capítulo \ref{cap:referencial_teorico}, já fora feita uma pesquisa prévia de trabalhos relacionados sobre o tema. Desse modo, na tabela \ref{tab:cronograma} é apresentado um cronograma com as atividades pretendidas para este trabalho.
 
-
-\begin{table}[!ht]
-\centering
-\caption{Cronograma para as próximas atividades}
-\label{tab:cronograma}
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{|c|l|l|l|l|}
-\hline
-Atividades                                                                     & Março                  & Abril                  & Maio                   & Junho                  \\ \hline
-Avaliar trabalhos relacionados à desempenho de ambientes virtuais              & \multicolumn{1}{c|}{X} & \multicolumn{1}{c|}{X} &                        &                        \\
-Definir os procedimentos adotados para análise de desempenho                   &                        & \multicolumn{1}{c|}{X} &                        &                        \\
-Aplicar os procedimentos de análise de desempenho em um dos servidores físicos &                        & \multicolumn{1}{c|}{X} & \multicolumn{1}{c|}{X} &                        \\
-Coletar resultados da análise de desempenho                                    &                        & \multicolumn{1}{c|}{X} & \multicolumn{1}{c|}{X} &                        \\
-Analisar resultados da análise de desempenho                                   &                        &                        & \multicolumn{1}{c|}{X} & \multicolumn{1}{c|}{}  \\ 
-Documentar resultados da análise de desempenho                                 &                        &                        & \multicolumn{1}{c|}{X} & \multicolumn{1}{c|}{X} \\ 
-Apresentar TCC à banca avaliadora                                              &                        &                        &                        & \multicolumn{1}{c|}{X} \\ \hline
-\end{tabular}%
-}
-\end{table}
 
 %A partir do referencial teórico foram apresentados os diversos conceitos que envolve virtualização, bem como uma abordagem geral sobre os modelos de computação em nuvem. Assim a apartir do exposto pelos trabalhos relacionados referentes a desempenho de máquinas virtuais em ambientes virtualizados esse trabalho tem como proposta aplicar um estudo de interferência de desempenho a partir de trabalhos já realizados. Para tal, seria necessário que fosse implementado uma infraestrutura de virtualização que possibilitasse tal estudo. Assim, como meio de colaborar com a infraestrutura do laboratório do LAPPIS, disponibilou-se uma infraestrutura em nuvem facilitasse a disponibilização de serviços necessárrios
