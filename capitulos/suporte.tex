@@ -1,7 +1,7 @@
-\chapter{Suporte Tecnológico}
-
+%\section{Ferramentas de Computação em Nuvem}
+\section{Suporte Tecnológico}
 Nesta seção são apresentadas as ferramentas utilizadas para a consolidação da infraestrutura do LAPPIS. Basicamente as ferramentas utilizadas englobam o nicho de computação em nuvem \textit{Cloudstack} e \textit{OpenNebula} e automatização da infraestrutura utilizando \textit{chef-solo} e \textit{chake}.
-\section{Cloudstack}
+\subsection{Cloudstack}
 Em um modelo simplificado, o \textit{Cloudstack} é composto de uma máquina de gerenciamento e dos recursos a serem gerenciados. Tais recursos compreende: faixa de endereços \textit{IP}, dispositivos \textit{storage}, servidores e \textit{VLAN'S}. Para implementação em uma configuração mínima, pode se utilizar uma máquina dedicada apenas para a interface de gerenciamento, mantendo o servidor físico apenas com o \textit{hypervisor}, ou utilizar o servidor físico executando a interface de gerenciamento e o \textit{hypervisor} simultaneamente. 
 
 \begin{figure}[!htb]
@@ -21,7 +21,7 @@ Em modelo mais complexo, o \textit{Cloudstack} apresenta seu pontencial de dispo
 \item \textbf{Clusters: } São simples grupos de servidores homogêneos combinados com um Storage Primário. Cada Cluster utiliza um mesmo tipo de hypervisor mas em uma Zona pode coexistir combinações de todos os hypervisores suportados. Cada \textit{cluster} utiliza um mesmo tipo de \textit{hypervisor} mas em uma Zona pode coexistir combinações de todos os \textit{hypervisores} suportados.
 \item \textbf{Hosts: } Responsável por disponibilizar a camada de computação real em que Máquinas Virtuais são executadas.
 \item \textbf{Storage Primário: }  onde os discos das Máquinas Virtuais residem e pode ser utilizado o disco local de um \textit{host} ou um \textit{storage} compartilhado como \textit{NFS, iSCSI, Fiber Channel}, etc.
-\item \textbf{Storage Secundário:} onde é armazenado os \textit{templates} de máquinas virtuais, arquivos ISO e \textit{snapshots} e é utilizado o protocolo NFS para este \textit{storage}
+\item \textbf{Storage Secundário:} onde é armazenado os \textit{templates} de máquinas virtuais, arquivos ISO e \textit{snapshots} e é utilizado o protocolo NFS para este \textit{storage}.
 \end{itemize}
 
 
@@ -33,7 +33,7 @@ Em modelo mais complexo, o \textit{Cloudstack} apresenta seu pontencial de dispo
 \label{diagramacloudstack}
 \end{figure}
 
-\section{OpenNebula}
+\subsection{OpenNebula}
 O \textit{OpenNebula}, assim como o \textit{Cloudstack}, é uma ferramenta de código aberto que emergiu como um projeto de pesquisa em 2005 tendo seu primeiro lançamento público em março de 2008. Oferece uma solução simples mas repleta de funcionalidades para construir e gerenciar nuvens corporativas e \textit{data centers} virtuais. Além disso, combina tecnologias de virtualização existentes com funcionalides avançadas para fornecimento automático e elasticidade, seguindo uma abordagem \textit{bottom-up}, guiado pelas reais necessidades de adminstradores de sistemas e \textit{devops}\cite{opennebula}.
 
 Em uma configuração mínima  arquitetura do \textit{OpenNebula} é composta por três componentes: \textit{hosts}, \textit{datastores} e \textit{front-end}. O \textit{front-end} é a máquina responsável por disponinbilizar a interface de gerenciamento. Através da rede, monitora os \textit{hosts} e máquinas virtuais, bem como inicia operações relacionadas com máquinas virtuais e \textit{datastores}. Os \textit{hosts} ou \textit{worker nodes} são as máquinas físicas responsáveis pelos recursos físicos essenciais para a criação de máquinas virtuais, é nesta máquina onde o \textit{hypervisor} será instalado. Por fim, os \textit{datastore} é o \textit{storage} utilizado como repositório de imagens e para manter os discos das máquinas virtuais em execução. Não precisa ser necessariamente um \textit{storage} dedicado, podendo ser uma máquina física com mais capacidade de disco ou até mesmo sendo um dos próprios \textit{hosts}.  
@@ -82,16 +82,16 @@ Cada instância do \textit{OpenNebula} é denominada de zona, desse modo em uma 
 \label{opennebulafederation}
 \end{figure}
 
-\section{Comparativo entre as ferramentas de Plataforma em nuvem}
+\subsection{Comparativo entre as ferramentas de Plataforma em nuvem}
 
-Nesta seção é apresentado um breve comparativo entre as ferramentas \textit{OpenNebula} e \textit{Cloudstack} baseado no trabalho de \citeonline{salam}. De acordo com \citeonline{salam}, de maneira geral tanto \textit{Cloudstack} quanto o \textit{OpenNebula} possuem funcionalidades que proporcionam um excelente \textit{feedback} com relação ao provimento de plataformas em nuvem. O \textit{OpenNebula} tem como pontos fortes a flexibilidade e escalabilidade o que proporciona um certo dinanismo na adição de novos recursos. Já o \textit{Cloudstack} provê uma API que proporciona facilidades no que diz respeito a integração de outras ferramentas, possibilitando bons mecanismos para configuração da plataforma como um todo \cite{salam}. Entretanto, dos fatores apresentados na Tabela \ref{cloud_comparison}, a robustez contra erros foi decisivo para escolha em favor do OpenNebula, dado que, como será relatado no capítulo \ref{cap:resultados}, o \textit{Cloudstack} mostrou-se bastante instável e intolerante a erros.
+Nesta seção é apresentado um breve comparativo entre as ferramentas \textit{OpenNebula} e \textit{Cloudstack} baseado no trabalho de \citeonline{salam}. De acordo com \citeonline{salam}, de maneira geral tanto \textit{Cloudstack} quanto o \textit{OpenNebula} possuem funcionalidades que proporcionam um excelente \textit{feedback} com relação ao provimento de plataformas em nuvem. O \textit{OpenNebula} tem como pontos fortes a flexibilidade e escalabilidade o que proporciona um certo dinanismo na adição de novos recursos. Já o \textit{Cloudstack} provê uma API que proporciona facilidades no que diz respeito a integração de outras ferramentas, possibilitando bons mecanismos para configuração da plataforma como um todo \cite{salam}. Entretanto, dos fatores apresentados na Tabela \ref{cloud_comparison}, a robustez contra erros foi decisivo para escolha em favor do OpenNebula, dado que, como é relatado no apêndice \ref{cap:estudo_caso}, o \textit{Cloudstack} mostrou-se bastante instável e intolerante a erros.
 
 \begin{table}[!h]
 \centering
 \caption{Comparativo entre \textit{Cloudstack} e \textit{OpenNebula}}
 \label{cloud_comparison}
 \cite{salam}.
-\resizebox{1.2\textwidth}{!}{
+\resizebox{1.0\textwidth}{!}{
 \begin{tabular}{|c|c|c|ll}
 \cline{1-3}
 \multicolumn{1}{|l|}{}                                                                     & OpenNebula                                                                                                                                     & Cloudstack                                                                                                                                    &  &  \\ \cline{1-3}
@@ -112,12 +112,12 @@ Segurança                                                                      
 
 \footnotetext[1]{\textit{OpenNebula} também prover uma interface \textit{web}, possui um módulo responsável por isso chamado \textit{Sunstone}}
 
-\section{Automatização da Infraestrutura}
-O \textit{Chef} é um \textit{Framework} que tem como objetivo transformar uma complexa infraestrutura em código,  tornando mais fácil a disponiblização de aplicações em qualquer ambiente seja ele físico ou virtual \cite{chef}. É composto pelo \textit{Chef Client} e pelo \textit{Chef Server}, sendo que o \textit{chef client} é responsável por efetuar as configurações necessárias na máquina pretendida a partir de informações localizadas e gerenciadas pelo \textit{chef server}. As configurações são feitas a partir de arquivos denominados de recursos e receitas \textit{Chef}. Os recursos descrevem algum pedaço da infraestrutura tal como um arquivo, template ou pacote. A receita \textit{Chef} é um arquivo que contém os recursos relacionados a configuração de um servidor \textit{web} ou de banco de dados. No código \ref{codigoChef}, é apresentado um exemplo de uma receita \textit{Chef}. Na linha 1 é feita a instalação de um servidor \textit{apache} usando a diretiva \textit{package} que se equivale a um \textit{yum install} ou \textit{apt-get install}. Nas linha 3 a 5 usa-se o recurso \textit{service} para habilitar e iniciar o serviço do \textit{apache}. Por fim, o recurso \textit{template} define um arquivo de configuração, no caso \textit{index.html.erb}, já pronto a ser utilizado na máquina alvo no endereço \textit{/var/www.html.index.html}. Um meio de se utilizar o \textit{Chef client} sem ter que o usar o \textit{Chef Server} é usar a versão código aberto do \textit{Chef client}, o \textit{Chef Solo}.
+\subsection{Automatização da Infraestrutura}
+O \textit{Chef} é um \textit{Framework} que tem como objetivo transformar uma complexa infraestrutura em código,  tornando mais fácil a disponiblização de aplicações em qualquer ambiente seja ele físico ou virtual \cite{chef}. É composto pelo \textit{Chef Client} e pelo \textit{Chef Server}, sendo que o \textit{Chef client} é responsável por efetuar as configurações necessárias na máquina pretendida a partir de informações localizadas e gerenciadas pelo \textit{chef server}. As configurações são feitas a partir de arquivos denominados de recursos e receitas \textit{Chef}. Os recursos descrevem algum pedaço da infraestrutura tal como um arquivo, template ou pacote. A receita \textit{Chef} é um arquivo que contém os recursos relacionados a configuração de um servidor \textit{web} ou de banco de dados. No código \ref{codigoChef}, é apresentado um exemplo de uma receita \textit{Chef}. Na linha 1 é feita a instalação de um servidor \textit{apache} usando a diretiva \textit{package} que se equivale a um \textit{yum install} ou \textit{apt-get install}. Nas linha 3 a 5 usa-se o recurso \textit{service} para habilitar e iniciar o serviço do \textit{apache}. Por fim, o recurso \textit{template} define um arquivo de configuração, no caso \textit{index.html.erb}, já pronto a ser utilizado na máquina alvo no endereço \textit{/var/www.html.index.html}. Um meio de se utilizar o \textit{Chef client} sem ter que o usar o \textit{Chef Server} é usar a versão código aberto do \textit{Chef client}, o \textit{Chef Solo}.
 
-O \textit{chake} é uma ferramenta que ajuda a gerenciar múltiplos ambientes sem a necessidade de se utilizar o \textit{chef server}. As configurações são geralmente implantadas via \textit{rsync} com o auxílio do \textit{SSH}, e aplicadas invocando o \textit{chef solo} em cada ambiente. O uso dessas ferramentas contribui para gerencia do serviços oferecidos, promovendo também um meio de compartilhamento de conhecimento através do código.
+O \textit{Chake} é uma ferramenta que ajuda a gerenciar múltiplos ambientes sem a necessidade de se utilizar o \textit{Chef Server}. As configurações são geralmente implantadas via \textit{rsync} com o auxílio do \textit{SSH}, e aplicadas invocando o \textit{chef solo} em cada ambiente. O uso dessas ferramentas contribui para gerencia do serviços oferecidos, promovendo também um meio de compartilhamento de conhecimento através do código.
 
-Dentre outras ferramentas de automatização o chef foi o a solução que demonstrou maior maturidade e robustez , o uso do chake possibilita o uso da versão livre do chef client , o chef-solo.. 
+Dentre outras ferramentas de automatização o chef foi o a solução que demonstrou maior maturidade e robustez , o uso do chake possibilita o uso da versão livre do Chef Client , o Chef Solo.
 \begin{lstlisting}[caption={Código exemplo de uma receita Chef}, label=codigoChef]
 package 'httpd'
 
@@ -130,4 +130,4 @@ template '/var/www/html/index.html' do
 end
 \end{lstlisting}
 
-A escolha do \textit{chef} deve se ao fato de ser uma ferramenta bastante consolidada no que diz respeito a automatização da infraestrutura.  O uso de uma linguagem de domínio específico para especificação de recursos utilizando o \textit{ruby} como linguagem de referênncia, facilita na documentação através do código.
+A escolha do \textit{Chef} deve se ao fato de ser uma ferramenta bastante consolidada no que diz respeito a automatização da infraestrutura.  O uso de uma linguagem de domínio específico para especificação de recursos utilizando o \textit{ruby} como linguagem de referênncia, facilita na documentação através do código.

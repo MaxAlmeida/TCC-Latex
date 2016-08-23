@@ -1,22 +1,22 @@
 \chapter{Introdução}
-\addcontentsline{toc}{chapter}{Introdução}
+%\addcontentsline{toc}{chapter}{Introdução}
 \section{Contextualizaç\~ao}
-Ultimamente, devido a tendências como computação em nuvem, TI verde e a consolidação de servidores, a virtualização vem ganhando cada vez mais importância. Antigamente usada para uso mais eficiente de recursos físicos de \textit{mainframes}, hoje em dia a virtualização é novamente utilizada para executar múltiplas máquinas virtuais em uma infraestrutura compartilhada, aumentando dessa forma a utilização de recursos, promovendo flexibilidade e centralizando a administração\cite{huber2011}. Segundo \citeonline{popiolek2012}, essa popularidade se deve também ao amplo uso de infraestruturas distribuidas por parte de sistemas computacionais modernos, o que colabora para o desenvolvimento de aplicações colaborativas e promove o compartilhamento de recursos remotos.
+Ultimamente, devido a tendências como computação em nuvem, TI verde e a consolidação de servidores, a virtualização vem ganhando cada vez mais importância. Antigamente usada para uso mais eficiente de recursos físicos de \textit{mainframes}, hoje em dia a virtualização é novamente utilizada para executar múltiplas máquinas virtuais em uma infraestrutura compartilhada, aumentando dessa forma a utilização de recursos, promovendo flexibilidade e centralizando a administração \cite{huber2011}. Segundo \citeonline{popiolek2012}, essa popularidade se deve também ao amplo uso de infraestruturas distribuidas por parte de sistemas computacionais modernos, o que colabora para o desenvolvimento de aplicações colaborativas e promove o compartilhamento de recursos remotos.
 
-Neste contexto, a computação em nuvem, alinhada à virtualização, permite um conjunto de servidores físicos disponibilizar dezenas ou centenas de máquinas virtuais. Desse modo, proporciona-se aumento na escalabilidade, maximizando o uso de recursos \cite{popiolek2012}. Entretanto, antes de migrar aplicações de ambientes não virtuais para ambientes virtuais, é necessário entender como será o desempenho dessas aplicações nesse novo ambiente \cite{benevuto2006}. A adoção de servidores virtualizados vem com o aumento de custo na complexidade e dinâmica do sistema. O aumento da dinâmica é causada pela falta de controle direto sobre o hardware, pelas interações complexas entre as aplicações e cargas de trabalho que compartilham os mesmos recursos físicos, introduzindo novos desafios em sistemas gestão\cite{huber2011}.
+Neste contexto, a computação em nuvem, alinhada à virtualização, permite um conjunto de servidores físicos disponibilizar dezenas ou centenas de máquinas virtuais. Desse modo, proporciona-se aumento na escalabilidade, maximizando o uso de recursos  \cite{popiolek2012}. Entretanto, antes de migrar aplicações de ambientes não virtuais para ambientes virtuais, é necessário entender como será o desempenho dessas aplicações nesse novo ambiente \cite{benevuto2006}. A adoção de servidores virtualizados vem com o aumento de custo na complexidade e dinâmica do sistema. O aumento da dinâmica é causada pela falta de controle direto sobre o hardware, pelas interações complexas entre as aplicações e cargas de trabalho que compartilham os mesmos recursos físicos, introduzindo novos desafios em sistemas gestão \cite{huber2011}.
 
 De acordo com \citeonline{koh2007}, observa-se que as tecnologias atuais que possibilitam a criação de máquinas virtuais não fornecem um isolamento efetivo. Enquanto o \textit{hypervisor} ( software responsável pela disponibilização e gerenciamento de máquinas virtuais), reparte os recursos e os aloca para as VMs, o comportamento de cada VM ainda pode afetar o desempenho das outras de maneira negativa, devido ao uso de recursos compartilhados no sistema.  
 
-Além disso, o custo de desempenho de virtualização pode variar de forma significativa, dependendo da configuração do ambiente virtual. Uma escolha de configuração que afeta criticamente o desempenho do sistema é a alocação de CPUs à várias máquinas virtuais\cite{benevuto2006}.
+Além disso, o custo de desempenho de virtualização pode variar de forma significativa, dependendo da configuração do ambiente virtual. Uma escolha de configuração que afeta criticamente o desempenho do sistema é a alocação de CPUs à várias máquinas virtuais     \cite{benevuto2006}.
 
-A partir do que foi abordado até agora, entende-se que é fundamental compreender os fatores que impactam no desempenho de ambientes virtualizados, bem como quantificar e avaliar o desempenho de aplicações em tais ambientes para que possa implanta-las e configura-las adequadamente. Tendo isso em vista, torna-se importante o conhecimento de ferramentas e técnicas ou metodologias que auxiliem nas atividades relacionadas a análise de desempenho em ambientes virtualizados. 
+A partir do que foi abordado até agora, entende-se que é fundamental compreender os fatores que impactam no desempenho de ambientes virtualizados, bem como quantificar e avaliar o desempenho de aplicações em tais ambientes para que possa implantá-las e configurá-las adequadamente. Tendo isso em vista, torna-se importante o conhecimento de ferramentas e técnicas ou metodologias que auxiliem nas atividades relacionadas a análise de desempenho em ambientes virtualizados. 
 
 %\section{Quest\~ao de pesquisa}
 %De acordo com o contexto apresentado, este trabalho visa responder a seguinte questão: O tipo de virtualização e o tipo de monitor de máquinas virtuais influenciam na interferência de desempenho entre máquinas virtuais? 
 
 
 \section{Justificativa}
-A virtualização introduz um outro nível de complexidade para a modelagem de servidores e análise de performances. Como CPDs rapidamente adotaram a virtualização como meio principal para consolidar múltiplas aplicações em um servidor, torna-se essencial que a performance de máquinas virtuais seja bem compreendidas\cite{ticko2010}. Para \citeonline{huber2011} os provedores de plafaformas virtualizadas se deparam com as seguintes questões:
+A virtualização introduz um outro nível de complexidade para a modelagem de servidores e análise de performances. Como CPDs rapidamente adotaram a virtualização como meio principal para consolidar múltiplas aplicações em um servidor, torna-se essencial que a performance de máquinas virtuais seja bem compreendidas \cite{ticko2010}. Para \citeonline{huber2011} os provedores de plafaformas virtualizadas se deparam com as seguintes questões:
 
 \begin{itemize}
   \item Qual desempenho teria um novo serviço disponibilizado em um infraestrutura virtualizado e quanto de recurso deve ser alocado para tal serviço?
@@ -37,14 +37,14 @@ Tais questões evidenciam a necessidade de analisar os fatores que colaboram par
 A partir do contexto e da justificativa apresentada, o objetivo deste trabalho é aplicar um estudo de interferência de desempenho entre máquinas virtuais utilizando como estudo de caso a infraestrutura do LAPPIS. Como colaboração ao LAPPIS e garantia de um provimento de máquinas virtuais de fácil gerenciamento para realização do estudo, pretende-se também estabelecer uma platafroma em nuvem nessa infraestrutura. Para isso, os seguintes objetivos devem ser perseguidos: 
 
 \begin{itemize}
-\item Realizar estudo bibliográfico sobre virtualização para melhor entendimento dos conceitos
-\item Efetuar estudo prévio de trabalhos já realizados relacionados à análise de desempenho em ambientes virtualizados.
+%\item Realizar estudo bibliográfico sobre virtualização para melhor entendimento dos conceitos
+%\item Efetuar estudo prévio de trabalhos já realizados relacionados à análise de desempenho em ambientes virtualizados.
 \item Implantar uma plataforma em nuvem nos servidores do LAPPIS.
 \item Automatizar parcialmente a infraestrutura virtual do LAPPIS ( plataforma em nuvem, serviços oferecidos)
 \item Estabelecer um ambiente para estudo de interferência de desempenho entre ambientes virtuais.
 \item Aplicar a análise de desempenho em um dos servidores físicos do LAPPIS.
 \item Analisar e documentar os resultados obtidos a partir da analise de desempenho.
-\item Sugerir uma nova alocação de máquinas virtuais da infraestrutura com base na análise de desempenho
+%\item Sugerir uma nova alocação de máquinas virtuais da infraestrutura com base na análise de desempenho
 
 
 %\item Elicitar principais suportes tecnológicos no que diz respeito a geração de cargas de trabalho e avaliação de métricas voltados para desempenho de sistemas virtualizados.
@@ -53,14 +53,16 @@ A partir do contexto e da justificativa apresentada, o objetivo deste trabalho �
 \end{itemize}
 
 \section{Estrutura do trabalho}
+Este trabalho está organizado em quatro capítulos subsequentes. No Capítulo \ref{cap:referencial_teorico}, são apresentados conceitos referentes à ambientes virtualizados. Esses conceitos englobam a definição de elementos que constituem os ambientes virtualizados, tais como: máquina virtuais, monitor de máquinas virtuais, tipos de virtualização e ferramentas de virtualização. Por fim, ainda neste capítulo, são apresentadas as ferramentas utilizadas para provimento de uma infraestrutura de computação em nuvem. No capítulo \ref{cap:metodologia}, são apresentados os trabalhos relacionados bem como os procedimentos adotados para aplicação do estudo de interferência em ambientes virtuais. No Capítulo \ref{cap:resultados}, são apresentados os resultados obtidos a partir da execução dos procedimentos definidos no Capítulo \ref{cap:metodologia}, sendo também feita uma análise desses resultados. Por fim, no Capítulo \ref{cap:conclusao}, são feitas ponderações referentes à execução do trabalho bem como dos resultados alcançados. Neste capítulo, também são apresentadas algumas sugestões de trabalhos futuros.
 
-Este trabalho está organizado da seguinte forma:
-\begin{itemize}
-\item Referencial Teórico - Neste capítulo, são apresentadas definições e conceitos relacionados a virtualização.
-\item Suporte Tecnológico - São descritas as ferramentas utilizadas para o desenvolvimento deste trabalho 
+
+%Este trabalho está organizado da seguinte forma:
+%\begin{itemize}
+%\item Referencial Teórico - Neste capítulo, são apresentadas definições e conceitos relacionados a virtualização.
+%\item Suporte Tecnológico - São descritas as ferramentas utilizadas para o desenvolvimento deste trabalho 
 %\item Proposta - Descreve a proposta a partir de trabalhos relacionados, detalhando-se os procedimentos e métodos que irão compor a metodologia proposta bem como quais cenários serão utilizados para análise
-\item Resultado Preeliminares - Apresenta os resultados alcançados até o momento nesste trabalho.
-\item Considerações finais - Apresenta uma breve reflexão sobre o trabalho proposto.
+%\item Resultado Preeliminares - Apresenta os resultados alcançados até o momento nesste trabalho.
+%\item Considerações finais - Apresenta uma breve reflexão sobre o trabalho proposto.
 
-\end{itemize}
+%\end{itemize}
 
