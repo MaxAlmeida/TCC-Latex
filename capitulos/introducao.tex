@@ -3,7 +3,7 @@
 \section{Contextualizaç\~ao}
 Ultimamente, devido a tendências como computação em nuvem, TI verde e a consolidação de servidores, a virtualização vem ganhando cada vez mais importância. Antigamente usada para uso mais eficiente de recursos físicos de \textit{mainframes}, hoje em dia a virtualização é novamente utilizada para executar múltiplas máquinas virtuais em uma infraestrutura compartilhada, aumentando dessa forma a utilização de recursos, promovendo flexibilidade e centralizando a administração \cite{huber2011}. Segundo \citeonline{popiolek2012}, essa popularidade se deve também ao amplo uso de infraestruturas distribuidas por parte de sistemas computacionais modernos, o que colabora para o desenvolvimento de aplicações colaborativas e promove o compartilhamento de recursos remotos.
 
-Neste contexto, a computação em nuvem, alinhada à virtualização, permite um conjunto de servidores físicos disponibilizar dezenas ou centenas de máquinas virtuais. Desse modo, proporciona-se aumento na escalabilidade, maximizando o uso de recursos  \cite{popiolek2012}. Entretanto, antes de migrar aplicações de ambientes não virtuais para ambientes virtuais, é necessário entender como será o desempenho dessas aplicações nesse novo ambiente \cite{benevuto2006}. A adoção de servidores virtualizados vem com o aumento de custo na complexidade e dinâmica do sistema. O aumento da dinâmica é causada pela falta de controle direto sobre o hardware, pelas interações complexas entre as aplicações e cargas de trabalho que compartilham os mesmos recursos físicos, introduzindo novos desafios em sistemas gestão \cite{huber2011}.
+Neste contexto, a computação em nuvem, alinhada à virtualização, permite um conjunto de servidores físicos disponibilizar dezenas ou centenas de máquinas virtuais. Desse modo, proporciona-se aumento na escalabilidade, maximizando o uso de recursos  \cite{popiolek2012}. Entretanto, antes de migrar aplicações de ambientes não virtuais para ambientes virtuais, é necessário entender como será o desempenho dessas aplicações nesse novo ambiente \cite{benevuto2006}. A adoção de servidores virtualizados vem com o aumento de custo na complexidade e dinâmica do sistema. O aumento da dinâmica é causada pela falta de controle direto sobre o hardware, pelas interações complexas entre as aplicações e cargas de trabalho que compartilham os mesmos recursos físicos, introduzindo novos desafios em sistemas de gestão \cite{huber2011}.
 
 De acordo com \citeonline{koh2007}, observa-se que as tecnologias atuais que possibilitam a criação de máquinas virtuais não fornecem um isolamento efetivo. Enquanto o \textit{hypervisor} ( software responsável pela disponibilização e gerenciamento de máquinas virtuais), reparte os recursos e os aloca para as VMs, o comportamento de cada VM ainda pode afetar o desempenho das outras de maneira negativa, devido ao uso de recursos compartilhados no sistema.  
 
@@ -16,12 +16,12 @@ A partir do que foi abordado até agora, entende-se que é fundamental compreend
 
 
 \section{Justificativa}
-A virtualização introduz um outro nível de complexidade para a modelagem de servidores e análise de performances. Como CPDs rapidamente adotaram a virtualização como meio principal para consolidar múltiplas aplicações em um servidor, torna-se essencial que a performance de máquinas virtuais seja bem compreendidas \cite{ticko2010}. Para \citeonline{huber2011} os provedores de plafaformas virtualizadas se deparam com as seguintes questões:
+A virtualização introduz um outro nível de complexidade para a modelagem de servidores e análise de desempenho. Como CPDs rapidamente adotaram a virtualização como meio principal para consolidar múltiplas aplicações em um servidor, torna-se essencial que a desempenho de máquinas virtuais seja bem compreendidas \cite{ticko2010}. Para \citeonline{huber2011} os provedores de plafaformas virtualizadas se deparam com as seguintes questões:
 
 \begin{itemize}
   \item Qual desempenho teria um novo serviço disponibilizado em um infraestrutura virtualizado e quanto de recurso deve ser alocado para tal serviço?
 
-  \item Como a configuração do sistema deve ser adaptada para evitar problemas de performance decorrentes de mudanças de cargas de trabalho?
+  \item Como a configuração do sistema deve ser adaptada para evitar problemas de desempenho decorrentes de mudanças de cargas de trabalho?
 \end{itemize}
 
 
@@ -34,13 +34,14 @@ Tais questões evidenciam a necessidade de analisar os fatores que colaboram par
 
 %Aplicar, a partir de trabalhos já efetuados, um estudo de interferência entre máquinas virtuais em seus desempenhos, de modo que seja avaliada a influência do tipo de virtualização e da ferramenta utilizada como monitor de máquinas virtuais, na queda de desempenho em máquinas virtuais, causada por essa interferência. 
 
-A partir do contexto e da justificativa apresentada, o objetivo deste trabalho é aplicar um estudo de interferência de desempenho entre máquinas virtuais utilizando como estudo de caso a infraestrutura do LAPPIS. Como colaboração ao LAPPIS e garantia de um provimento de máquinas virtuais de fácil gerenciamento para realização do estudo, pretende-se também estabelecer uma platafroma em nuvem nessa infraestrutura. Para isso, os seguintes objetivos devem ser perseguidos: 
+A partir do contexto e da justificativa apresentada, o objetivo deste trabalho é aplicar um estudo de interferência de desempenho entre máquinas virtuais utilizando como estudo de caso a infraestrutura do LAPPIS  \footnotemark[1]                                                                                                                              . Como colaboração ao LAPPIS e garantia de um provimento de máquinas virtuais de fácil gerenciamento para realização do estudo, pretende-se também estabelecer uma platafroma em nuvem nessa infraestrutura. Para isso, os seguintes objetivos devem ser perseguidos: 
 
+\footnotetext[1]{O Laboratório Avançado de Produção, Pesquisa \& Inovação em Software (LAPPIS), localizado na Faculdade UnB Gama (FGA) foi criado em 2012 e foi concebido para atuar em áreas tecnológicas desde sistemas de informação até os sistemas embarcados, em especial, objetivando as oportunidades de pesquisas teóricas e aplicadas. \cite{lappis}}
 \begin{itemize}
 %\item Realizar estudo bibliográfico sobre virtualização para melhor entendimento dos conceitos
 %\item Efetuar estudo prévio de trabalhos já realizados relacionados à análise de desempenho em ambientes virtualizados.
 \item Implantar uma plataforma em nuvem nos servidores do LAPPIS.
-\item Automatizar parcialmente a infraestrutura virtual do LAPPIS ( plataforma em nuvem, serviços oferecidos)
+\item Automatizar parcialmente a infraestrutura virtual do LAPPIS (plataforma em nuvem, serviços oferecidos).
 \item Estabelecer um ambiente para estudo de interferência de desempenho entre ambientes virtuais.
 \item Aplicar a análise de desempenho em um dos servidores físicos do LAPPIS.
 \item Analisar e documentar os resultados obtidos a partir da analise de desempenho.
