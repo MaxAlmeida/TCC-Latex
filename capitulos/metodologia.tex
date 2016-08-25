@@ -29,7 +29,7 @@ Além disso, é proposto por esse trabalho que com resultados desses desempenhos
 
 No trabalho de \citeonline{popiolek2012}, disserta sobre a importância de se utilizar métricas nativas (Tabela \ref{metric_tools}) de sistemas  operacionais tais como \textit{Linux} e \textit{Windows} para detecção de gargálos de performance. Esse trabalho acaba focando na aferição de operações de entrada e saída, memória e uso de CPU, utilizando ferramentas de \textit{bencharmking} para geração de cargas de trabalho. Seus cenários de teste são basicamente variando de uma a seis máquinas virtuais, sendo que o \textit{hypervisor} utilizado é o \textit{KVM}. As análises permitem mostrar a queda de desempenho como um todo quando se tem o aumento do número de máquinas virtuais em execução (Figura \ref{iobound_experiments}). Como trabalho futuros, propõe-se que sejam feitas análise estatísticas afim de comprovar possíveis relações entre as métricas observadas, alem de determinar o limiar que um sistema pode operar sem ter perda significativa no desempenho.
 
-\begin{table}[!htb]
+\begin{table}[H]
 \centering
 \caption{Contadores de desempenho de disco para \textit{Windows} e \textit{Linux} \cite{popiolek2012}}
 \label{metric_tools}
