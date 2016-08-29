@@ -8,7 +8,7 @@ No primeiro experimento tinha como intuito, observar se de fato havia algum tipo
 \begin{figure}[!htb]
 \centering
 \includegraphics [keepaspectratio=true,scale=0.65]{graficos/exp1.eps}
-\caption{Variação de desempenho para um conjunto de aplicações}
+\caption{Pontuação combinada de aplicações selecionadas para o primeiro experimento}
 \label{first_experiment}
 \end{figure} 
 
@@ -24,8 +24,8 @@ No segundo experimento foi construída uma matriz \textit{nxn} com as combinaç�
 
 \begin{figure}[!h]
 \centering
-\includegraphics [keepaspectratio=true,scale=0.5]{graficos/exp_2_foreground.eps}
-\caption{Variação de desempenho para um conjunto de aplicações}
+\includegraphics [keepaspectratio=true,scale=0.45]{graficos/exp_2_foreground.eps}
+\caption{Pontuação normalizada contra um conjunto de aplicações}
 \label{second_experiment}
 \end{figure} 
 
@@ -41,7 +41,7 @@ Dada a variação de interferência de desempenho entre essas aplicações, vale
 
 \begin{figure}[!h]
 \centering
-\includegraphics [keepaspectratio=true,scale=0.5]{graficos/exp_2_1_foreground.eps}
+\includegraphics [keepaspectratio=true,scale=0.45]{graficos/exp_2_1_foreground.eps}
 \caption{Variação de desempenho para um conjunto de aplicações}
 \label{second_experiment_second}
 \end{figure} 
@@ -56,26 +56,26 @@ O terceiro experimento consistiu em coletar os dados referentes as métricas de 
 
 \begin{figure}[!h]
 \centering
-\includegraphics [keepaspectratio=true,scale=0.5]{graficos/exp_3_read_write.eps}
+\includegraphics [keepaspectratio=true,scale=0.4]{graficos/exp_3_read_write.eps}
 \caption{Desempenho alcançado das aplicações para requisções de escrita e leitura em disco}
 \label{disk_operations}
 \end{figure} 
 
 \begin{figure}[!h]
 \centering
-\includegraphics [keepaspectratio=true,scale=0.5]{graficos/exp2_latency.eps}
+\includegraphics [keepaspectratio=true,scale=0.4]{graficos/exp2_latency.eps}
 \caption{Tempo que as aplicações levam para executar uma operação de leitura e escrita em disco}
 \label{latency_disk}
 \end{figure}
 
 \begin{figure}[!h]
 \centering
-\includegraphics [keepaspectratio=true,scale=0.5]{graficos/exp_3_cpu.eps}
+\includegraphics [keepaspectratio=true,scale=0.4]{graficos/exp_3_cpu.eps}
 \caption{Porcentagem de utilização de cpu para cada aplicação}
 \label{cpu_util}
 \end{figure}  
 
-As imagens \ref{disk_operations}, \ref{latency_disk} e \ref{cpu_util} mostram o desempenho das aplicações quando executadas contra um servidor inativo. Os dados apresentados permite observar o perfil de execução de algumas aplicações a partir da pontuação alcançada nas métricas de desempenho a nível de sistema. Percebe-se dessa forma que aplicações como \textit{crypt}, \textit{cat}, \textit{cp} possui um perfil misto nas operações em disco, ou seja, executam de forma quase igualitária tanto operações de leitura quanto operações de escrita em disco. Em contrapartida, aplicações como \textit{dd}, \textit{grep}, \textit{gzip} e \textit{Bzip2} possuem um perfil único no que tange as operações em disco, com \textit{dd} tendo uma elevada pontuação para operações de escrita de disco, e as outras três pussuindo um perfil voltado mais para leitura em disco. O perfil de execução dessas aplicações para as métricas de leitura e escrita em disco reflete o perfil para o tempo de escrita e de leitura em disco, mantendo dessa forma, o mesmo padrão de desempenho para essas duas últimas métricas. Para porcentagem de utilização de \textit{cpu}, observa-se que as aplicações \textit{bzip2}, \textit{crypt}, \textit{grep} e \textit{gzip} possui taxas elevadas de utilização de \textit{cpu}, mostrando assim um  perfil misto de execução com relação à utilização de \textit{cpu} e \textit{disco}. Já \textit{cat}, \textit{cp} e \textit{dd} apresentam baixas taxa de utilização de \textit{cpu} evidenciando dessa forma seu perfil voltado para utilização de disco.
+As imagens \ref{disk_operations}, \ref{latency_disk} e \ref{cpu_util} mostram o desempenho das aplicações quando executadas contra um servidor inativo. Os dados apresentados permite observar o perfil de execução de algumas aplicações a partir da pontuação alcançada nas métricas de desempenho a nível de sistema. Percebe-se dessa forma que aplicações como \textit{crypt}, \textit{cat}, \textit{cp} possui um perfil misto nas operações em disco, ou seja, executam de forma quase igualitária tanto operações de leitura quanto operações de escrita em disco. Em contrapartida, aplicações como \textit{dd}, \textit{grep}, \textit{gzip} e \textit{Bzip2} possuem um perfil único no que tange as operações em disco, com \textit{dd} tendo uma elevada pontuação para operações de escrita de disco, e as outras três pussuindo um perfil voltado mais para leitura em disco. O perfil de execução dessas aplicações para as métricas de leitura e escrita em disco reflete o perfil para o tempo de escrita e de leitura em disco, mantendo dessa forma, o mesmo padrão de desempenho para essas duas últimas métricas. Para porcentagem de utilização de \textit{cpu}, observa-se que as aplicações \textit{bzip2}, \textit{crypt}, \textit{grep} e \textit{gzip} possui taxas elevadas de utilização de \textit{cpu}, mostrando assim um  perfil misto de execução com relação à utilização de \textit{cpu} e \textit{disco}. Já \textit{cat}, \textit{cp} e \textit{dd} apresentam baixas taxas de utilização de \textit{cpu} evidenciando dessa forma seu perfil voltado para utilização de disco.
 
 No experimento 2 observou-se que algumas aplicações podem sofrer maior degradação dependendo da aplicação que está sendo executada como \textit{background}. \textit{Bzip2}, por exemplo, obteve uma queda de desempenho acentuada executando contra \textit{cp}, \textit{cat} e \textit{dd}. Já contra \textit{Grep} e \textit{crypt}, obteve pontuação relativamente alta. A Figura \ref{bzip_performance} mostra como se dá essa degradação nas métricas a nível de sistema de \textit{bzip2} contra um conjunto de aplicações. 
 %Para avaliar como cada aplicação interfere na outra foi utilizada a pontuação normalizada para cada métrica a nível de sistema. Desse modo  a seguir são apresentados algumas combinações de execução concorrente. %Um dos problemas enfrentados é a pequena variabilidade durante a coleta de dados. Assim, notou-se que as métricas que sofrem uma degradação nula  durante a execuçao contra uma determinada aplicaçao em outra maquina virtual pode a vir a ter seu desempenho   

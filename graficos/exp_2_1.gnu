@@ -12,7 +12,7 @@ set yrange [0:1.2]
 set xrange [-1:11]
 #set xtics 1
 #set xlabel ""
-set ylabel "Desempenho de aplicações combinadas"
+set ylabel "Pontuação normalizada"
 #set boxwidth 0.2 relative
 set style fill solid border -1
 set boxwidth 0.9
