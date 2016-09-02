@@ -59,7 +59,7 @@ O \textit{System Datastore} é uma abstração do OpenNebula que é responsável
 As Figuras \ref{ssh_datastore} e \ref{shared_datastore}, apresentam uma abstração do \textit{System Datastore} quando configurados como \textit{shared} e \textit{ssh}, respectivamente. Nota-se, que na opção \textit{shared}, o \textit{System Datastore} é centralizado no próprio \textit{Datastore}, isso promove melhor desempenho na criação de máquinas virtuais. Entretanto, é necesário uma infraestrutura que possibilite uma boa velocidade de tráfego em rede, para que não haja perda de desempenho nas máquinas virtuais. Já na opção \textit{ssh}, o \textit{System Datastore} é mantido localmente não havendo riscos de perda de desempenho da máquina virtual por tráfego de rede, entretanto leva-se mais tempo para criação de máquinas virtuais do que na opção \textit{shared}, dado que, a imagem da máquina virtual será transferida do \textit{Datastore} para o servidor de destino.
 \begin{figure}[!htb]
 \centering
-\includegraphics [keepaspectratio=true,scale=0.60]{figuras/ssh_datastore.eps}
+\includegraphics [keepaspectratio=true,scale=0.4]{figuras/ssh_datastore.eps}
 \caption{Funcionamento do \textit{System Datastore} na configuração \textit{SSH}.}
 \cite{opennebula}.
 \label{ssh_datastore}
@@ -67,7 +67,7 @@ As Figuras \ref{ssh_datastore} e \ref{shared_datastore}, apresentam uma abstraç
 
 \begin{figure}[!htb]
 \centering
-\includegraphics [keepaspectratio=true,scale=0.60]{figuras/shared_datastore.eps}
+\includegraphics [keepaspectratio=true,scale=0.4]{figuras/shared_datastore.eps}
 \caption{Funcionamento do \textit{System Datastore} na configuração \textit{shared}. }
 \cite{opennebula}.
 \label{shared_datastore}
@@ -75,7 +75,7 @@ As Figuras \ref{ssh_datastore} e \ref{shared_datastore}, apresentam uma abstraç
 
 O \textit{OpenNebula} possui modelos de implementação tanto para nuvens privadas mais simplifcadas quanto para ambientes de infraestrutura mais complexos. Dessa forma, para locais ou empresas que possuem múltiplos \textit{data centers}, que por sua vez, possuem vários \textit{clusters} de servidores, o \textit{OpenNebula} prover funcionalidades que colaboram para que vários \textit{data centers} separados regionalmente possam ser gerenciados a partir de uma interface em nuvem com acesso externo, essa integração é denominada de Federação. 
 
- A Figura \ref{opennebulafederation} apresenta uma abstração de Federação composta por vária instâncias do \textit{OpenNebula}. Cada instância do \textit{OpenNebula} é denominada de zona, desse modo em uma infraestrutura com múltiplas zonas pode ser configuradas como uma Federação. Assim, tem-se um compartilhamento da base de dados entre as zonas(Usuários, grupos). Nessa configuração, uma das zonas tem o papel de \textit{master}, ao qual é o responsável por escrever as informações na base dados, mantendo assim a consistência nos dados\cite{opennebula}.
+A Figura \ref{opennebulafederation} apresenta uma abstração de Federação composta por vária instâncias do \textit{OpenNebula}. Cada instância do \textit{OpenNebula} é denominada de zona, desse modo em uma infraestrutura com múltiplas zonas pode ser configuradas como uma Federação. Assim, tem-se um compartilhamento da base de dados entre as zonas(Usuários, grupos). Nessa configuração, uma das zonas tem o papel de \textit{master}, ao qual é o responsável por escrever as informações na base dados, mantendo assim a consistência nos dados\cite{opennebula}.
 
 \begin{figure}[!htb]
 \centering

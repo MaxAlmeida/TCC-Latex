@@ -12,7 +12,7 @@ Define-se que virtualização é a técnica que permite particionar um único si
 
 \item \textbf{Virtualização de \textit{desktops}:} trata da configuração dos \textit{desktops} dos usuários finais em uma infraestrutura centralizada virtual. Isso significa que as aplicações de \textit{desktop} também passam a executar em um \textit{datacenter}, sob a forma de máquinas virtuais. Esse é o conceito de \textit{Virtual Desktop Infrastructure(VDI)}, que permite a montagem dinâmica de \textit{desktops}, oferecendo maior confiabilidade e otimização do uso de espaço em disco com a consollidação do armazenamento e flexibilidade na escolha do sistema peracional \cite{manoel}.
 
-\item \textbf{Virtualização do armazenamento (\textit{storage})}: a ideia é introduzir um componente que permite às diversas unidade heterogêneas de armazenamento (discos físicos) serem vistas como um conjunto homogêneo de recursos \cite{manoel}.
+\item \textbf{Virtualização do armazenamento (\textit{storage})}: a idéia é introduzir um componente que permite às diversas unidade heterogêneas de armazenamento (discos físicos) serem vistas como um conjunto homogêneo de recursos \cite{manoel}.
 
 \item \textbf{Virtualização das aplicações:} trata do conceito de execução do programa por completo, em um repositório central, permitindo a configuração centralizada do aplicativo, o que melhora seu gerenciamento, por permitir que seja feita em um único lugar \cite{manoel}. 
 
@@ -104,7 +104,7 @@ O \textit{KVM} é implementado como um processo convencional do \textit{Linux}, 
 
 Já o \textit{Xen} foi criado por Keir Fraser e Ian pratt como parte do projeto de pesquisa \textit{Xenoserver} pela \textit{Cambridge University}. Sendo que em 2002, teve seu código fonte aberto afim de promover melhorias no mesmo com a contribuição da comunidade de desenvolvedores. É um dos mais populares \textit{hypervisor} a implementar técnica de paravirtualização \cite{xen}. Desse modo é conhecido por possuir uma baixa perda de desempenho, se aproximando do desempenho nativa do servidor\cite{walters}. Isso é justificado pelo fato de que o sistema operacional das máquinas virtuais é modificado de modo que as chamadas privilegiadas são substituidas por chamadas diretas ao \textit{hypervisor}, ao contrário do que é feito com abordagens que utilizam emulação e tradução binária que acabam por focar no gerenciamento de chamadas previlegiadas \cite{redhatkvm}. 
 
-\begin{figure}[!htb]
+\begin{figure}[h!]
 \centering
 \includegraphics [keepaspectratio=true,scale=0.65]{figuras/xen_arquitecture.eps}
 \caption{Arquitetura do XEN}
