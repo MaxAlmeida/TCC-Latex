@@ -6,7 +6,7 @@ Bzip: 42.3671666667
 Povray: 223.308466667
 
 Grep x Povray: 60.1937
-
+Povray x 
 
 bzip2 x grep:  45.4030666667   grep x bzip2: 60.6004666667
 Grep x Bzip2 : 60.3724
@@ -17,7 +17,7 @@ bzip2 x cp: 92.7449333333
 
 crypt x crypt: 57.8379333333
 
-grep x grep:  
+grep x grep:  62.4551333333
 
 >>>>(Para arquivo random 2gb e file.txt 3GB)
 
