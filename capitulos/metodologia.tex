@@ -94,33 +94,33 @@ de testes de \textit{benchmark}. Tais aplicações foram definidas a partir do t
 Assim era possível criar, destruir e efetuar quaisquer tipos de testes com relativa comodidade. Entre as aplicações escolhidas estão típicas provedoras de \textit{stress} computacional no cotidiano, tais como compilação de código fonte, compressão e encriptação de arquivos e processamento de imagens. Há também ferramentas voltadas para geração de testes de \textit{benchmark} tais como \textit{Cachebench} e \textit{AIM Benchmark suite}. A seguir é feita uma breve descrição das ferramentas utilizadas.
 
 \begin{itemize}
-\item \textit{Add\_double} \footnotemark[3]                                                                                                                               é um dos vários programas de testes de carga existentes no \textit{AIM benchmark suite}. É responsável por medir operações de adição de dupla precisão.
+\item \textit{Add\_double} \footnotemark[5]                                                                                                                               é um dos vários programas de testes de carga existentes no \textit{AIM benchmark suite}. É responsável por medir operações de adição de dupla precisão.
 
-\item \textit{Bzip2} \footnotemark[4] e \textit{Gzip} \footnotemark[5] são aplicações típicas para compressão e descompressão de arquivos. Com uso de arquivos grandes é possível gerar cargas de trabalhos usando essas ferramentas.
+\item \textit{Bzip2} \footnotemark[6] e \textit{Gzip} \footnotemark[7] são aplicações típicas para compressão e descompressão de arquivos. Com uso de arquivos grandes é possível gerar cargas de trabalhos usando essas ferramentas.
 
-\item \textit{Ccrypt} \footnotemark[6] é uma ferramenta de código aberto voltada para encriptação e desencriptação de arquivos. Foi desenvolvido com o intuito de substituir a aplicação padrão do \textit{unix}, o \textit{crypt}.
+\item \textit{Ccrypt} \footnotemark[8] é uma ferramenta de código aberto voltada para encriptação e desencriptação de arquivos. Foi desenvolvido com o intuito de substituir a aplicação padrão do \textit{unix}, o \textit{crypt}.
 
-\item \textit{Cachebench} \footnotemark[7] é uma ferramenta de \textit{benchmark} de código aberto desenvolvida para avaliar o desempempenho do subsistema de memória. Atualmente é integrado \textit{LLCbench} (\textit{Low-Level Characterization Benchmarks}).
+\item \textit{Cachebench} \footnotemark[9] é uma ferramenta de \textit{benchmark} de código aberto desenvolvida para avaliar o desempempenho do subsistema de memória. Atualmente é integrado \textit{LLCbench} (\textit{Low-Level Characterization Benchmarks}).
 
 \item \textit{Cat} e \textit{Grep} são comandos padrões em sistemas \textit{Linux} que são responsáveis por gerar requisições de leitura no disco. \textit{Cat} é reponsável por mostrar conteúdo de arquivos bem como combina-los e criar outros novos. Enquanto que \textit{Grep} é utilizado para busca de palavras em arquivos texto.
 
 \item \textit{cp} e \textit{dd} são outros comandos padrões em sistemas \textit{Linux}, neste caso, responsáveis por gerar atividades voltadas para escrita de disco. \textit{cp} é utilizado para copiar arquivos e diretórios. O comando \textit{dd} é utilizado para criação de imagens e cópias de arquivos.
 
-\item \textit{Iozone} \footnotemark[8] é uma ferramenta de \textit{benchmark} utilizada, voltada para testes de operações de disco, tais como leitura e escrita.
+\item \textit{Iozone} \footnotemark[10] é uma ferramenta de \textit{benchmark} utilizada, voltada para testes de operações de disco, tais como leitura e escrita.
 
 \item \textit{Make} é um comando nativo em sistemas operacionais \textit{Linux}, responsável por automatizar um conjunto de procedimentos, principalmente  a compilação de programas grandes que possuem vários arquivos com códigos fontes. 
 
-\item \textit{Povray} \footnotemark[9] é uma ferramenta de codigo aberto voltada para para renderização de quadros com gráficos 3-D.
+\item \textit{Povray} \footnotemark[11] é uma ferramenta de codigo aberto voltada para processamento de imagens com gráficos 3-D.
 
 \end{itemize}
 
-\footnotetext[3]{AIM Benchmark (http://sourceforge.net/projects/aimbench)}
-\footnotetext[4] {Bzip2 (http://www.bzip.org/)}
-\footnotetext[5]{Gzip (http://www.gzip.org/)}
-\footnotetext[6]{Ccrypt (http://ccrypt.sourceforge.net/}
-\footnotetext[7]{Cachebench memory benchmark (http://icl.cs.utk.edu/projects/llcbench/cachebench.html)}
-\footnotetext[8]{IOzone Filesystem Benchmark (http://www.iozone.org)}
-\footnotetext[9]{The Persistence of Vision Raytracer (http://www.povray.org)}
+\footnotetext[5]{AIM Benchmark (http://sourceforge.net/projects/aimbench)}
+\footnotetext[6] {Bzip2 (http://www.bzip.org/)}
+\footnotetext[7]{Gzip (http://www.gzip.org/)}
+\footnotetext[8]{Ccrypt (http://ccrypt.sourceforge.net/}
+\footnotetext[9]{Cachebench memory benchmark (http://icl.cs.utk.edu/projects/llcbench/cachebench.html)}
+\footnotetext[10]{IOzone Filesystem Benchmark (http://www.iozone.org)}
+\footnotetext[11]{The Persistence of Vision Raytracer (http://www.povray.org)}
 
 %Além das ferramentas já mostradas outras aplicações foram utilizadas no trabalho de \citeonline{koh2007}: \textit{Spinlock}, \textit{CacheBuster} e \textit{Analyser}.
 
@@ -235,7 +235,7 @@ Para a coleta de dados referentes às métricas de desempenho a nível de sistem
 Para coleta de dados de dados foi construídos \textit{scripts}, utilizando a linguagem \textit{Python} \footnotemark[9]                                                                                                                               com a quantidade de execução bem como os comandos utilizados para cada aplicação e ferramenta de \textit{benchmark}, de modo a garantir mais comodidade na obtenção dos dados. Esses \textit{scripts} estão disponíveis via repositório remoto \footnotemark[10].
 
 
-\footnotetext[8]{http://www.apache.org/}
-\footnotetext[9]{https://www.python.org/}
-\footnotetext[10]{https://github.com/MaxAlmeida/TCC-SCRIPTS-MONITORING}
+\footnotetext[12]{http://www.apache.org/}
+\footnotetext[13]{https://www.python.org/}
+\footnotetext[14]{https://github.com/MaxAlmeida/TCC-SCRIPTS-MONITORING}
 

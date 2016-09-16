@@ -1,0 +1,50 @@
+\,v1
+Bzip2 @bzip2,0.9459441
+Crypt @bzip2,0.9487319
+Cat@bzip2,0.6628938
+cp@bzip2,0.6465861
+dd@bzip2,0.8785234
+Grep@bzip2,0.8044399
+Gzip@bzip2,1.0757524
+Bzip2 @crypt,0.9202348
+Crypt @crypt,0.8812926
+Cat @ crypt,0.5823585
+cp @ crypt,0.5858705
+dd @ crypt,0.8207051
+Grep @ crypt,0.7826676
+Gzip @ crypt,0.9355609
+Bzip2 @ cat,0.5698206
+Crypt @ cat,0.7127452
+Cat @ cat,0.4029380
+cp @ cat,0.4118448
+dd @ cat,0.7793715
+Grep @ cat,0.6799015
+Gzip @ cat,0.5593700
+Bzip2 @ cp,0.5618850
+Crypt @ cp,0.7054977
+Cat @ cp,0.4269562
+cp @ cp,0.3948467
+dd @ cp,0.7839808
+Grep @ cp,0.6784094
+Gzip @ cp,0.5609119
+Bzip2 @ dd,0.3250593
+Crypt @ dd,0.3889255
+Cat@ dd,0.2338506
+cp @ dd,0.1999059
+dd  @ dd,0.3500783
+Grep @ dd,0.4382481
+Gzip@ dd,0.2937172
+Bzip2 @ grep,1.0031521
+Crypt@ grep,0.3611063
+Cat@ grep,0.7257827
+cp@ grep,0.7304886
+dd @ grep,0.9167994
+Grep@ grep,0.8021211
+Gzip@ grep,1.1279607
+Bzip2 @gzip,0.8849525
+Crypt@gzip,0.9340912
+Cat@gzip,0.6184785
+cp@gzip,0.6110009
+dd @ gzip,0.8658553
+Grep @ gzip,0.8031626
+Gzip @ gzip,0.9941937
