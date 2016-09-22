@@ -25,7 +25,7 @@ Este artigo mostra que duas aplicações, cada uma sendo executada em uma máqui
 %\label{interference_app}
 %\end{figure}
 
-Além disso, é mostrado que com resultados desses desempenhos é possível fazer predição de desempenho de uma aplicação qualquer, a partir de análises estatísticas. Dada a quantidade de variáveis, que são as métricas utilizadas para medição de desempenho, as análises estatísticas escolhidas foram a análise de componente principal (PCA) e a análise de regressão linear. Um comparativo entre as análises foi feito de modo que chegou-se a conclusão que análise por PCA apresentava uma porcentagem de erro menor. Esse artigo demonstrou que a taxa de erro utilizando o modelo PCA se manteve igual, mesmo utilizando outros servidores físicos com configurações diferentes. Entretanto, uma das restrições deste artigo é que o mesmo fora aplicado em aplicações que estavam sendo executadas em duas máquinas virtuais. Desse modo, como trabalhos futuros é proposta a investigação no uso de mais máquinas virtuais, e aplicação de modelos não lineares para predição de desempenho bem como a adição de novos tipos de métricas que envolvam outras características a nível de sistema, tal como desempenho de aplicações de rede.
+Além disso, é mostrado que com resultados desses desempenhos é possível fazer predição de desempenho de uma aplicação qualquer, a partir de análises estatísticas. Dada a quantidade de variáveis, que são as métricas utilizadas para medição de desempenho, as análises estatísticas escolhidas foram a média ponderada com o auxílio da análise de componente principal (PCA) e a análise de regressão linear. Um comparativo entre as análises foi feito de modo que chegou-se a conclusão que análise por média ponderada apresentava uma porcentagem de erro menor. Esse artigo demonstrou que a taxa de erro utilizando o modelo com média pondeerada com o auxílio do PCA se manteve igual, mesmo utilizando outros servidores físicos com configurações diferentes. Entretanto, uma das restrições deste artigo é que o mesmo fora aplicado em aplicações que estavam sendo executadas em duas máquinas virtuais. Desse modo, como trabalhos futuros é proposta a investigação no uso de mais máquinas virtuais, e aplicação de modelos não lineares para predição de desempenho bem como a adição de novos tipos de métricas que envolvam outras características a nível de sistema, tal como desempenho de aplicações de rede.
 
 O artigo de \citeonline{popiolek2012}, disserta sobre a importância de se utilizar métricas nativas (Tabela \ref{metric_tools}) de sistemas  operacionais tais como \textit{Linux} e \textit{Windows} para detecção de gargalos de desempenho. Esse trabalho acaba focando na aferição de operações de entrada e saída, memória e uso de CPU, utilizando ferramentas de \textit{benchmark} para geração de cargas de trabalho. Seus cenários de teste são basicamente variando de uma a seis máquinas virtuais, sendo que o \textit{hypervisor} utilizado é o \textit{KVM}. As análises permitem mostrar a queda de desempenho como um todo quando se tem o aumento do número de máquinas virtuais em execução (Figura \ref{iobound_experiments}). Como trabalho futuros, propõe-se que sejam feitas análise estatísticas afim de comprovar possíveis relações entre as métricas observadas, alem de determinar o limiar que um sistema pode operar sem ter perda significativa no desempenho.
 \begin{figure}[!htb]
@@ -67,7 +67,7 @@ Por fim, o artigo de \citeonline{huber2011} tem como intuito prover um modelo ge
 
 Os artigos de \citeonline{koh2007} e \citeonline{huber2011} tem como ponto em comum o desenvolvimento de mecanismos que possam predizer o desempenho em ambientes virtualizados, uma característica interessante é que \citeonline{huber2011} aplica os mesmos experimentos em \textit{hypervisors} com arquiteturas distintas. Já o artigo de \citeonline{koh2007}, apesar de fazer essa análise em apenas um \textit{hypervisor}, acaba focando na interferência que determinadas aplicações utilizadas no cotidiano, dependendo de sua característica a nível de sistema, podem ocasionar em outras aplicações executadas em máquinas virtuais diferentes, no mesmo servidor físico, trazendo assim um experimento mais próximo do que acontece no mundo real, tornando isso um diferencial desse trabalho. Desse modo, ainda com relação ao artigo de \citeonline{koh2007}, um questionamento que poderia ser feito é com relação a aplicabilidade deste experimento em um outro \textit{hypervisor} com um tipo de virtualização diferente do apresentado no trabalho. Já o trabalho de \citeonline{popiolek2012} é mais voltado para monitoramento, análise de desempenho e detecção de gargalos a partir de métricas nativas do sistema operacional não sendo feito, como nos outros trabalhos, qualquer iniciativa de predição de desempenho.
 
-Dados os trabalhos relacionados apresentados, o de \citeonline{koh2007} foi o que apresentou resultados mais significativos em um nível de detalhamento mais avançado, sendo dessa forma considerado o mais adequado para ser utilizado como insumo para desenvolvimento deste trabalho. Ainda mais, quando se pode verificar a extensibiliidade do trabalho de \citeonline{koh2007} para outro \textit{hypervisor} como o \textit{KVM}. Entretanto, em aspectos metodológicos, esse artigo se demonstrou bastante deficiente, dificultando de certo modo a replicação dos experimentos realizados. %A partir disso, uma outra contribuição deste trabalho se comparado ao de \citeonline{koh2007} é o detalhamento dos experimentos efetuados, de modo que o mesmo possa ser replicado em trabalhos futuros.
+Dados os trabalhos relacionados apresentados, o de \citeonline{koh2007} foi o que apresentou resultados mais significativos em um nível de detalhamento mais avançado, sendo dessa forma considerado o mais adequado para ser utilizado como insumo para desenvolvimento deste trabalho. Ainda mais, quando se pode verificar a extensibiliidade do trabalho de \citeonline{koh2007} para outro \textit{hypervisor} como o \textit{KVM}. Entretanto, em aspectos metodológicos, esse artigo se demonstrou bastante deficiente, dificultando de certo modo a replicação dos experimentos realizados. Para análise de dados a partir da predição de desempenho, além dos modelos utilizados no trabalho de \citeonline{koh2007}, este trabalho aplica a Regressão Polinomial. No Capítulo tal é feito um comparativo nos resultados obtidos entre os modelos de predição.   %A partir disso, uma outra contribuição deste trabalho se comparado ao de \citeonline{koh2007} é o detalhamento dos experimentos efetuados, de modo que o mesmo possa ser replicado em trabalhos futuros.
 
 %\section{Questão problema}
 %Dado que o trabalho de \citeonline{koh2007} apresenta uma análise de interferência de desempenho utilizando o \textit{XEN}, que é um %\textit{hypervisor} conhecido por utilizar a paravirtualização para provimento de máquinas virtuais, este trabalho visará responder %a seguinte questão:
@@ -226,16 +226,123 @@ Para a coleta de dados referentes às métricas de desempenho a nível de sistem
 
 \item \textit{Iozone}: Essa ferramenta foi executada de modo que se efetuasse os testes de leitura e escrita no modo sequencial e rândomico.
 
-\item \textit{Make}: Para geração de carga foi efetuada a compilação do código fonte da versão mais recente do \textit{apache} \footnotemark[8]                                                                                                                              . Coletado o tempo para execução da compilação, a mesma é desfeita para que em seguida seja executada novamente, obtendo assim a quantidade de valores necessária para o cálculo da média.
+\item \textit{Make}: Para geração de carga foi efetuada a compilação do código fonte da versão mais recente do \textit{apache} \footnotemark[12]                                                                                                                              . Coletado o tempo para execução da compilação, a mesma é desfeita para que em seguida seja executada novamente, obtendo assim a quantidade de valores necessária para o cálculo da média.
 
 \item \textit{Povray}: Possui um módulo próprio para execução de testes de \textit{benchmark}. O próprio módulo de \textit{benchmark} já contabiliza o tempo de execução dos ceńarios de processamento de imagens da ferramenta. 
 
 \end{itemize}
 
-Para coleta de dados de dados foi construídos \textit{scripts}, utilizando a linguagem \textit{Python} \footnotemark[9]                                                                                                                               com a quantidade de execução bem como os comandos utilizados para cada aplicação e ferramenta de \textit{benchmark}, de modo a garantir mais comodidade na obtenção dos dados. Esses \textit{scripts} estão disponíveis via repositório remoto \footnotemark[10].
+Para coleta de dados de dados foi construídos \textit{scripts}, utilizando a linguagem \textit{Python} \footnotemark[13]                                                                                                                               com a quantidade de execução bem como os comandos utilizados para cada aplicação e ferramenta de \textit{benchmark}, de modo a garantir mais comodidade na obtenção dos dados. Esses \textit{scripts} estão disponíveis via repositório remoto \footnotemark[14].
 
 
 \footnotetext[12]{http://www.apache.org/}
 \footnotetext[13]{https://www.python.org/}
 \footnotetext[14]{https://github.com/MaxAlmeida/TCC-SCRIPTS-MONITORING}
 
+\section{Análise de dados}
+
+A análise dos dados obtidos referentes às métricas de desempenho e às pontuações normalizadas obtidas pelas aplicações foi baseada no uso de técnicas de análise multivariada. A análise multivariada consiste em um conjunto de técnicas estatísticas que tem como intuito dar a possibilidade de inferir padrões ou explicaçoes para um experimento com uma grande quantidade de dados. Sua área de atuação envolve \cite{johnson1988}:
+\begin{itemize}
+  \item \textbf{Redução de dados ou simplificação estrutural}: O fenômento ou experimento estudado é representado o mais simples possível sem que haja perda de informação valiosa. Dessa forma, espera-se que a interpretação, com os dados reduzidos, seja facilitada.
+  
+  \item \textbf{Ordemanemto e Agrupamento}: Os dados obtidos são agrupados de acordo com as semelhanças existentes em suas características. Para isso, podem ser necessárias a criação de classificações, dada as características dos dados, bem definidas.
+  
+  \item \textbf{Investigação de dependência entre as variáveis}: Trata de verificar a relação (independência ou dependência) entre todas as variáveis e como elas acontecem.
+  
+  \item \textbf{Predição}: As relações entre as variáveis devem ser determinadas com o intuito de predizer os valores de uma ou mais variáveis na base da observação de outras variáveis.
+  
+  \item \textbf{Construção e Teste de Hipótese}: Hipóteses estatísticas formuladas em função de dados multivariados são testadas. Isso pode ser utilizada para validar suposiçoes ou reforçar convincçoes anteriores.
+\end{itemize}
+
+Dessa forma, neste trabalho as técnicas de análise multivariada foram aplicadas com o intuito de predizer o desempenho das aplicações. As técnicas utilizadas foram média ponderada com o auxílio da análise por componente principal (PCA), Regressão Linear e Regressão Polinomial. Destaca-se que a média ponderada não é uma técnica de análise multivariada mas ainda assim fora feito o uso, para agrupamento dos dados, da análise por componente principal. Para realização da análise por componente principal foi utilizada a ferramenta \textit{Scilab} \footnotemark[15] com o auxílio da biblioteca \textit{FACT} \footnotemark[16]. Já para a análise de regressão linear e polinomial foi utilizada uma ferramenta de análise statística chamada \textit{R} \footnotemark[17].
+
+\footnotetext[15]{http://www.scilab.org/}
+\footnotetext[16]{https://atoms.scilab.org/toolboxes/FACT/0.9}
+\footnotetext[17]{https://www.r-project.org/}
+
+
+De maneira geral, escolheu-se uma aplicação U a partir do conjunto de aplicações definidos anteriormente. Em seguida, ao utilizar o restante das aplicações como um conjunto de referência (B1, B2, ..., Bn), foi feita a predição da pontuação normalizada de U contra as outras aplicações (i.e, NS(U@B1), NS(U@B2), ... NS(U@Bn)), das aplicações contra U (i.e, NS(B1@U),
+NS(B2@U), ... NS(Bn@U)) e de U contra ele mesmo (NS(U@U)). Assim, para cada técnica aplicada, foi comparado a pontuação predita com a pontuação real medida. Esse procedimento foi feito com todas as aplicações definidas.
+\subsection{Método da Média Ponderada}
+O método da média ponderada é baseado na similaridade entre duas aplicações. Dessa forma, para calcular a similaridade, primeiro é feito o cálculo da distância dos vetores de métricas de desempenho de duas aplicações. Dada o número de dimensões desse vetor ( 5 métricas de desempenho a nível de sistema), foi aplicada uma análise de componente princiapl ( PCA ) de modo que se reduzisse a dimensionalidade dos dados sem perda significativa.
+
+Assim, embora as \textit{p} variáveis de um vetor de dados sejam necessárias para reproduzir a total variabilidade de um sistema, frequetemente muito dessa variabilidade pode ser representada por uma pequena quantidade \textit{k} de componentes principais. Dessa forma, os \textit{k} componentes principais podem substituir  as \textit{p} variáveis iniciais, reduzindo o conjunto de dados necessários para a análise \cite{johnson1988}.
+
+Uma vez que os dados coletados foram convertidos pela análise de componentes principal, foi feita a escolha dos componentes que representam a maior variabilidade desses dados. Com isso, através dos dados obtidos, foram escolhidos três componentes que representam 94\% da variança total ( Cada componente representa 53,8\%, 24\%, 16,3\% da variança, respectivamente).
+
+Para cálcular a predição da pontuação de U@Bn, adota-se o seguinte procedimento apresentado no trabalho de \citeonline{koh2007}. Primeiro, em cima dos dados transferidos para PCA, foi calculada a distância euclidiana do ponto desejado, U@Bn, para todos os resultados de \textit{benchmark} obtidos e então foram escolhidos os N pontos de dados mais próximos e definidos como um conjunto dos mais próximos. A Tabela \ref{tab:distance} apresenta, de forma resumida, as distâncias de todos os possíveis resultados. Dessa forma, como exemplo, o ponto mais próximo de Crypt @ Bzip2 seria Gzip @ Gzip que possui uma distância no valor próximo de 0.57.
+
+\begin{table}[H]
+\centering
+\caption{Distâncias entre todos os resultados possíveis em um espaço convertido por PCA}
+\resizebox{1.0\textwidth}{!}{
+\label{tab:distance}
+\begin{tabular}{|l|l|l|l|l|l|l|l|}
+\hline
+             & Bzip2 @bzip2 & Crypt @bzip2 & Cat@bzip2 & cp@bzip2  & \multirow{19}{*}{…} & Grep @ gzip         & Gzip @ gzip         \\ \cline{1-5} \cline{7-8} 
+Bzip2 @bzip2 & 0            & 1.102869     & 2.4386345 & 2.4250186 &                     & 1.2633136           & 0.5690718           \\ \cline{1-5} \cline{7-8} 
+Crypt @bzip2 & 1.102869     & 0            & 2.6056928 & 2.5741534 &                     & 0.5302071           & 1.6175143           \\ \cline{1-5} \cline{7-8} 
+Cat@bzip2    & 2.4386345    & 2.6056928    & 0         & 0.0501223 &                     & 3.1076937           & 2.2385216           \\ \cline{1-5} \cline{7-8} 
+cp@bzip2     & 2.4250186    & 2.5741534    & 0.0501223 & 0         &                     & 3.0771376           & 2.2355895           \\ \cline{1-5} \cline{7-8} 
+dd@bzip2     & 5.0252066    & 4.2494446    & 4.0022146 & 3.9707719 &                     & 4.6279707           & 5.2554733           \\ \cline{1-5} \cline{7-8} 
+Grep@bzip2   & 1.2525575    & 0.5336179    & 3.1080279 & 3.0776579 &                     & 0.0149488           & 1.817609            \\ \cline{1-5} \cline{7-8} 
+Gzip@bzip2   & 0.5760883    & 1.6706953    & 2.4515783 & 2.4493552 &                     & 1.8264631           & 0.2241569           \\ \cline{1-5} \cline{7-8} 
+Bzip2 @crypt & 0.2172969    & 0.9282131    & 2.4547679 & 2.4370193 &                     & 1.084986            & 0.7486825           \\ \cline{1-5} \cline{7-8} 
+Crypt @crypt & 1.2447313    & 0.2841369    & 2.515042  & 2.4800047 &                     & 0.6798471           & 1.7234778           \\ \cline{1-5} \cline{7-8} 
+Cat @ crypt  & 2.4081187    & 2.459687     & 0.3298372 & 0.2815878 &                     & 2.9627743           & 2.2731623           \\ \cline{1-5} \cline{7-8} 
+cp @ crypt   & 2.4135763    & 2.4695297    & 0.3190288 & 0.2710900 &                     & 2.9724883           & 2.2758141           \\ \cline{1-5} \cline{7-8} 
+dd @ crypt   & 5.0868376    & 4.2942036    & 4.0676885 & 4.0352312 &                     & 4.6669795           & 5.3238229           \\ \cline{1-5} \cline{7-8} 
+Grep @ crypt & 1.2926098    & 0.5070597    & 3.0493338 & 3.0172721 &                     & 0.1672786           & 1.8466285           \\ \cline{1-5} \cline{7-8} 
+Gzip @ crypt & 0.4752394    & 1.4734599    & 2.1522185 & 2.1460257 &                     & 1.7091792           & 0.1684164           \\ \cline{1-5} \cline{7-8} 
+\multicolumn{5}{|c|}{\multirow{2}{*}{…}}                           &                     & \multicolumn{2}{c|}{\multirow{2}{*}{...}} \\
+\multicolumn{5}{|c|}{}                                             &                     & \multicolumn{2}{c|}{}                     \\ \cline{1-5} \cline{7-8} 
+Grep @ gzip  & 1.2633136    & 0.5302071    & 3.1076937 & 3.0771376 &                     & 0                   & 1.8279515           \\ \cline{1-5} \cline{7-8} 
+Gzip @ gzip  & 0.5690718    & 1.6175143    & 2.2385216 & 2.2355895 &                     & 1.8279515           & 0                   \\ \hline
+\end{tabular}}
+\end{table}
+
+ A similaridade entre o ponto desejado e um ponto dentro do conjunto dos mais próximos é definida como o inverso da distância. Então, foi calculado o peso de cada dado no conjunto dos mais próximos proporcional a similaridade:
+
+\begin{equation}
+\label{eq:prediction} 
+w_i = s_i / \sum\limits_{i=1}^{N}s_i
+\end{equation}
+
+Onde S\textsubscript{i} é a similaridade de uma aplicação i dentro do conjunto dos mais próximos. Por fim, a predição da pontuação de U@Bn foi calculada com a seguinte fórmula:
+
+\begin{equation}
+\label{eq:simi} 
+NS(U@Bn) = \sum\limits_{i=1}^{N}w_i \cdot NS(i)
+\end{equation}
+
+\subsection{Análise de Regressão Linear e Polinomial}
+Análise de regressão é uma técnica estatística que tem como intuito analisar a relação entre uma única variável dependente (critério) e várias variáveis independentes (preditoras), possibilitando assim, apartir dos valores conhecidos das variáveis independentes X\textsubscript{1}, X\textsubscript{2}, ..., X\textsubscript{n} a predição do valor da variável dependente Y \cite{hair}. Uma forma clássica da análise de regressão é a regressão linear, que por vez declara que a variável dependente Y é uma função linear das variáveis independentes. Assim, sua formulação é feita da seguinte maneira \cite{johnson1988}:
+
+\begin{equation}
+\label{eq:linear} 
+ \overline{Y} = a_0 + a_1 \cdot X_1 + a_2 \cdot X_2 + ... + a_n \cdot X_n
+\end{equation}
+
+Dessa forma, a regressão linear tem como objetivo determinar os coeficientes a\textsubscript{0}, a\textsubscript{1}, ... , a\textsubscript{n}, utilizando para isso o método dos mínimos quadrados, de modo a minimizar o erro |\textoverline{Y} - Y| \cite{koh2007}. Por mais que a regressão linear seja amplamente utilizada, sua forma clássica pode ainda assim não ser suficiente para explicar uma boa quantidade de dados, principalmente aqueles que apresenta um padrão não linear \cite{pantula}. Desse modo, uma outra forma de análise de regressão é a regressão polinomial que se modela a partir de uma função polinomial, e tem como proposta desenvolver aproximações para relações curvilíneas ou não lineares. Os polinômios são transformações de pontência de uma variável independente que acrescentam uma componente não-linear para cada pontência adicional da variável independente. A construção de seu modelo procede da seguinte maneira \cite{hair}:
+
+\begin{equation}
+\label{eq:polinomio} 
+ \overline{Y} = a_0 + a_1 \cdot X_1 + a_2 \cdot X^2 + a_3 \cdot X^3 + ... + a_n \cdot X^n
+\end{equation}
+
+Vale acrescentar que na análise de regressão um dos mecanismos utilizadas para verificação da precisão de um modelo preditivo é o coeficiente de Derterminação (R\textsuperscript{2}). Seu valor varia de 0 a 1, indicando, em termos de porcentagem, o quanto um modelo conseguie explicar os valores observados. Assim, se o R\textsuperscript{2} é 0,70 isso significa que 70\% dos dados coletados são explicados pelo modelo preditivo calculado. O cálculo de R\textsuperscript{2} é motrada na equação \ref{eq:polinomio}
+
+\begin{equation}
+\label{eq:polinomio}  
+R^2 = \frac{ \sum\limits_{i=1}^{N}(\hat{y}_i - \overline{y})^2}{\sum\limits_{i=1}^{N}(y_i - \overline{y})^2}
+\end{equation} 
+
+onde \textoverline{y} é a média de todas as observações, y\textsubscript{i} é o valor da observação individual i e \^{y}\textsubscript{i} é o valor previsto da observação i \cite{hair}.
+
+Neste trabalho foram aplicadas tanto a análise de regressão linear quanto a análise de regressão polinomial, definindo como variável dependente a pontuação normalizada e como variáveis independentes as métricas de desempenho a nível de sistema. Os dados coletados, com os valores das métricas de desempenho a nível de sistema e com as pontuações normalizadas, foram utilizados para a  determinação dos coeficientes. Uma vez que os coeficientes foram calculados utilizando o método dos mínimos quadrados, aplica-se os dados das métricas de desempenho a nível de sistema na equação com os coeficientes obtidos, alcançando dessa forma a predição da pontuação normalizada. Por fim, Também são calculados os valores de R\textsuperscript{2}, a fim de verificar qual modelo apresenta maior aplicabilidade dentro dos dados coletados. Os resultados dessas análises são apresentados na Seção \ref{sec:performance_predict}.
+
+
+
+
+%Através de 
+%Para análise de dados foram utilizados três modelos estatísticos tendo como objetivo a predição de desempenho das aplicações. Os modelos utilizados foram média ponderada com o auxílio do PCA, Regressão Linear e Regressão Polinomial. Esses modelos estatísticos s
