@@ -114,7 +114,17 @@ A Figura \ref{grep_performance} apresenta a degradação sofrida por \textit{gre
 Com os resultados deste experimento foi possível traçar um perfil de execução para cada ferramenta, bem como observar como o seu perfil de execução influencia bastante em seu desempenho final quando executado contra uma aplicação em \textit{background}. Uma das hipóteses levantadas na Seção \ref{sec:exp2} era de que poderia haver uma padrão de degradação dentre as aplicações com perfil voltado para operações de disco. Com os resultados apresentados tal hipótese não pode ser confirmada dado que o se observou foi que o que causa maior degradação para esse conjunto de aplicações são as taxas mais elevadas de requisições no disco que uma aplicação \textit{background} pode gerar. De maneira geral, percebe-se que aplicações que possuem perfil misto para \textit{cpu} e \textit{disco}, possuem baixa degradação contra aplicações de perfil misto e de perfil voltado para \textit{cpu}, e uma elevada perda de desempenho quando executadas contra aplicações de perfil apenas de disco. Aplicações com perfil de disco possuem baixa degradação apenas quando executadas contra aplicações de perfil \textit{cpu}. 
 
 \section{Predição de Desempenho}
-\label{sec:performance_predict}
+\label{sec:performance_predict} 
+Essa Seção tem como intuito apresentar os resultados obtidos com aplicação dos mecanismos de predição. Além da média ponderada com análise de componente principal e regressão linear ( mecanismos aplicados no trabalho de \citeonline{koh2007}, também fora aplicado a regressão polinomial. Os mecanismos de predição foram aplicados em cima dos dados coletados das métricas de desempenho a nível de sistema e da pontuação normalizada das aplicações. Esperava-se, com isso, predizer a pontuação normalizada de uma aplicação a partir dos valores alcançados nas métricas de desempenho a nível de sistema. 
+
+A Imagem \ref{mean_predict} apresenta um comparativo dos resultados alcançados utilizando a média ponderada com os valores reais da pontuação normalizada. Observa-se que no geral de fato o modelo é capaz de predizer com certa precisão. Observa-se, por exemplo, Bzip2 @ Bzip2 e Crypt @ Cat que os erros de predição obtidos foram 0,68\% e 0,13\% respectivamente. Entretanto, há alguns casos que há uma discrepância relevante como por exemplo Crypt @ Grep ao qual o erro de predição foi de 41,5\%.   
+
+\begin{figure}[!htb]
+\centering
+\includegraphics [keepaspectratio=true,scale=1.0]{graficos/mean_predict.eps}
+\caption{Comparativo entre a pontuação normalizada real e a pontuação predita utilizando média ponderada com o aúxilio da análise por componente principal.}
+\label{mean_predict}
+\end{figure}   
 %\begin{figure}[!h]
 %\centering
 %\includegraphics [keepaspectratio=true,scale=1.0]{graficos/comparative_performance.eps}

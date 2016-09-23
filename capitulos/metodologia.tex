@@ -262,7 +262,11 @@ Dessa forma, neste trabalho as técnicas de análise multivariada foram aplicada
 
 
 De maneira geral, escolheu-se uma aplicação U a partir do conjunto de aplicações definidos anteriormente. Em seguida, ao utilizar o restante das aplicações como um conjunto de referência (B1, B2, ..., Bn), foi feita a predição da pontuação normalizada de U contra as outras aplicações (i.e, NS(U@B1), NS(U@B2), ... NS(U@Bn)), das aplicações contra U (i.e, NS(B1@U),
-NS(B2@U), ... NS(Bn@U)) e de U contra ele mesmo (NS(U@U)). Assim, para cada técnica aplicada, foi comparado a pontuação predita com a pontuação real medida. Esse procedimento foi feito com todas as aplicações definidas.
+NS(B2@U), ... NS(Bn@U)) e de U contra ele mesmo (NS(U@U)). Assim, para cada técnica aplicada, foi comparado a pontuação predita com a pontuação real medida. Para avaliação desse comparativo são calculados a média, mediana e o maior erro da predição obtido, onde o cálculo do erro da predição é feito pela equação \ref{eq:predict_error}. Esse procedimento foi feito com todas as aplicações definidas.  
+\begin{equation}
+\label{eq:predict_error}
+\textrm{Erro da predição} = \frac{|\textrm{Pontuação real - Pontuação predita}|}{\textrm{Pontuação real}}
+\end{equation}
 \subsection{Método da Média Ponderada}
 O método da média ponderada é baseado na similaridade entre duas aplicações. Dessa forma, para calcular a similaridade, primeiro é feito o cálculo da distância dos vetores de métricas de desempenho de duas aplicações. Dada o número de dimensões desse vetor ( 5 métricas de desempenho a nível de sistema), foi aplicada uma análise de componente princiapl ( PCA ) de modo que se reduzisse a dimensionalidade dos dados sem perda significativa.
 
