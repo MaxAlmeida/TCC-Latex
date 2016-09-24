@@ -117,13 +117,39 @@ Com os resultados deste experimento foi possível traçar um perfil de execuçã
 \label{sec:performance_predict} 
 Essa Seção tem como intuito apresentar os resultados obtidos com aplicação dos mecanismos de predição. Além da média ponderada com análise de componente principal e regressão linear ( mecanismos aplicados no trabalho de \citeonline{koh2007}, também fora aplicado a regressão polinomial. Os mecanismos de predição foram aplicados em cima dos dados coletados das métricas de desempenho a nível de sistema e da pontuação normalizada das aplicações. Esperava-se, com isso, predizer a pontuação normalizada de uma aplicação a partir dos valores alcançados nas métricas de desempenho a nível de sistema. 
 
-A Imagem \ref{mean_predict} apresenta um comparativo dos resultados alcançados utilizando a média ponderada com os valores reais da pontuação normalizada. Observa-se que no geral de fato o modelo é capaz de predizer com certa precisão. Observa-se, por exemplo, Bzip2 @ Bzip2 e Crypt @ Cat que os erros de predição obtidos foram 0,68\% e 0,13\% respectivamente. Entretanto, há alguns casos que há uma discrepância relevante como por exemplo Crypt @ Grep ao qual o erro de predição foi de 41,5\%.   
+A Figura \ref{mean_predict} apresenta um comparativo dos resultados alcançados utilizando a média ponderada com os valores reais da pontuação normalizada. Observa-se que no geral de fato o modelo é capaz de predizer com certa precisão. Observa-se, por exemplo, Bzip2 @ Bzip2 e Crypt @ Cat que os erros de predição obtidos foram 0,68\% e 0,13\% respectivamente. Entretanto, há alguns casos que há uma discrepância relevante como por exemplo Crypt @ Grep ao qual o erro de predição foi de 41,5\%.
+   
+\begin{figure}[!htb]
+\centering
+\includegraphics [keepaspectratio=true,scale=0.8]{graficos/mean_predict.eps}
+\caption{Comparativo entre a pontuação normalizada real e a pontuação predita utilizando média ponderada com o aúxilio da análise por componente principal.}
+\label{mean_predict}
+\end{figure}   
+
+ %A tabela \ref{tab:coeficiente_linear} apresenta os coeficientes encontrados para regressão linear.
+
 
 \begin{figure}[!htb]
 \centering
-\includegraphics [keepaspectratio=true,scale=1.0]{graficos/mean_predict.eps}
-\caption{Comparativo entre a pontuação normalizada real e a pontuação predita utilizando média ponderada com o aúxilio da análise por componente principal.}
-\label{mean_predict}
+\includegraphics [keepaspectratio=true,scale=0.8]{graficos/linear.eps}
+\caption{Comparativo entre a pontuação normalizada real e a pontuação predita utilizando regressão linear.}
+\label{linear_predict}
+\end{figure}   
+
+A Figura \ref{linear_predict} apresenta os resultados da predição utilizando regressão linear. Nota-se que em muitos casos os valores preditos pela regressão linear possuem uma diferença maior para os valores reais do que na predição feita por média ponderada. Assim, enquanto que Gzip @ Cat e bzip2 @ cp obteve uma taxa de erro de 7,92\% e 1 ,65\% respectivamente na predição utilizando média ponderada , na análise de regressão linear esse valores foram de 53,6\% e 31,4\%. Mas ainda assim, para alguns casos, o modelo de regressão linear conseguiu prever com uma taxa de erro mais baixa como por exemplo em dd @ gzip e crypt @ cat, em que as taxas de erros da predição foram de 1,25\% e 5,67\% respectivamente.
+
+Nos resultados apresentados na Figura \ref{poli_predict} percebe-se que dentre os três modelos a regressão polinomial é a que obtém valores de predição com menores taxas de erro. Assim, enquanto que Crypt @ Grep obteve uma taxa de erro de 41,5\% utilizando a média ponderada como modelo de predição, na análise de regressão polinomial essa taxa de erro foi de 3,92\%. Dentre os resultados apresentados na Figura \ref{poli_predict}, Cat @ dd foi o que obteve maior taxa de erro, 19,5\%. 
+
+A partir disso, a fim de verificar a qualidade dos modelos de regressão aplicados, foi calculado o coeficiente de Determinação R\textsuperscript{2} tanto para a regressão linear quanto para a regressão polinomal. Dessa forma, a regressão linear apresentou um coeficiente de determinação de 80,3\% enquanto que a regressão polinomial atingiu um índice de 96,6\%, demonstrando que assim como havia sido observado nos gráficos de predição, que a regressão polinomial é o modelo mais adequado para a predição de desempenho dos dados se comparada com a regressão linear.   
+
+Como comparativo para os três modelos de predição foram calculados a média, mediana e o maior erro de predição para todos os modelos. As Figuras tal, tal e tal apresenta esses resultados.
+
+
+\begin{figure}[!htb]
+\centering
+\includegraphics [keepaspectratio=true,scale=0.8]{graficos/poli.eps}
+\caption{Comparativo entre a pontuação normalizada real e a pontuação predita utilizando regressão polinomial.}
+\label{poli_predict}
 \end{figure}   
 %\begin{figure}[!h]
 %\centering

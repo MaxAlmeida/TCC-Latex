@@ -279,7 +279,7 @@ Para cálcular a predição da pontuação de U@Bn, adota-se o seguinte procedim
 \begin{table}[H]
 \centering
 \caption{Distâncias entre todos os resultados possíveis em um espaço convertido por PCA}
-\resizebox{1.0\textwidth}{!}{
+\resizebox{0.8\textwidth}{!}{
 \label{tab:distance}
 \begin{tabular}{|l|l|l|l|l|l|l|l|}
 \hline
@@ -333,6 +333,42 @@ Dessa forma, a regressão linear tem como objetivo determinar os coeficientes a\
 \label{eq:polinomio} 
  \overline{Y} = a_0 + a_1 \cdot X_1 + a_2 \cdot X^2 + a_3 \cdot X^3 + ... + a_n \cdot X^n
 \end{equation}
+
+\begin{table}[!htb]
+\centering
+\caption{Tabela de coeficientes para regressão linear}
+\label{tab:coeficiente_linear}
+\begin{tabular}{|l|c|}
+\hline
+\multicolumn{1}{|c|}{X}   & \multicolumn{1}{l|}{Coeficientes} \\ \hline
+write\_issued & 3,44                             \\ \hline
+read\_issued  & 1,29                             \\ \hline
+write\_time   & -1,37                            \\ \hline
+read\_time    & -3,91                            \\ \hline
+cpu\_util     & 5,15                             \\ \hline
+a\textsubscript{0}           & 4,99                             \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[]
+\centering
+\caption{Tabela de coeficientes para regressão polinomial}
+\label{tab:coeficiente_poli}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\multicolumn{1}{|l|}{Variável} & \multicolumn{1}{l|}{Coeficientes} & \multicolumn{1}{l|}{Variável} & \multicolumn{1}{l|}{Coeficientes} \\ \hline
+x\textsubscript{1}                             & -6,26E-03                        & $x\textsubscript{1} \cdot x\textsubscript{4}$                         & 4,27E-05                         \\ \hline
+x\textsubscript{1}\textsuperscript{2}                            & 1,26E-05                         & $x\textsubscript{2} \cdot x\textsubscript{4}$                       & -7,23E-05                        \\ \hline
+x\textsubscript{2}                             & 1,49E-03                         & $x\textsubscript{3} \cdot x\textsubscript{4}$                                                & -4,00E-05                        \\ \hline
+$x\textsubscript{1} \cdot x\textsubscript{2}$                          & 1,60E-05                         & x\textsubscript{4}\textsuperscript{2}                           & 3,13E-05                         \\ \hline
+x\textsubscript{2}\textsuperscript{2}                            & 2,42E-06                         & x\textsubscript{5}                            & -1,17E-02                        \\ \hline
+x\textsubscript{3}                             & 1,20E-02                         & $x\textsubscript{1} \cdot x\textsubscript{5}$                                                                       & 6,42E-05                         \\ \hline
+$x\textsubscript{1} \cdot x\textsubscript{3}$                        & -2,39E-05                        & $x\textsubscript{2} \cdot x\textsubscript{5}$                                                                       & -1,60E-05                        \\ \hline
+$x\textsubscript{2} \cdot x\textsubscript{3}$                          & -3,48E-05                        & $x\textsubscript{3} \cdot x\textsubscript{5}$                                                                       & -1,26E-04                        \\ \hline
+x\textsubscript{3}\textsuperscript{2}                            & -5,93E-06                        &$ x\textsubscript{4} \cdot x\textsubscript{5}$                                                                       & 1,08E-04                         \\ \hline
+x\textsubscript{4}                             & -9,41E-03                        & x\textsubscript{5}\textsuperscript{2}                         & 1,03E-04                         \\ \hline
+\end{tabular}
+\end{table}
 
 Vale acrescentar que na análise de regressão um dos mecanismos utilizadas para verificação da precisão de um modelo preditivo é o coeficiente de Derterminação (R\textsuperscript{2}). Seu valor varia de 0 a 1, indicando, em termos de porcentagem, o quanto um modelo conseguie explicar os valores observados. Assim, se o R\textsuperscript{2} é 0,70 isso significa que 70\% dos dados coletados são explicados pelo modelo preditivo calculado. O cálculo de R\textsuperscript{2} é motrada na equação \ref{eq:polinomio}
 
