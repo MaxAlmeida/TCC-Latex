@@ -1,4 +1,0 @@
-mydata = read.csv2("/home/max/Documents/UnB/TCC/TCC-Latex/Dados/base.csv") 
-attach(mydata)
-model <- lm(scorel ~ polym(write_issued,read_issued,write_time,read_time,cputil, degree = 2, raw = TRUE)) polinomial
-linear_regression <- lm(scorel ~ write_issued +read_issued + write_time + read_time + cputil) regressão linear
