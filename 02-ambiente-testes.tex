@@ -1,0 +1,42 @@
+\section{Ambiente de Testes}\label{sec:ambiente_teste}
+
+Para o estudo proposto por este trabalho foi definido um  ambiente de testes que consiste no uso de máquinas virtuais com aplicações voltadas para realização
+de testes de \textit{benchmark}. Tais aplicações foram definidas a partir do trabalho de \cite{koh2007}, tendo essas sido escolhidas visando o estresse de vários aspectos de sistema e de \textit{hardware}. A fim de se ter comodidade na criação e destruição dessas máquinas virtuais foi utilizado o OpenNebula como ferramenta de computação em nuvem e como \textit{hypervisor} foi utilizado o \textit{kvm}. As máquinas virtuais possuíam, como configuração, sistema operacional \textit{Centos 7}, espaço em disco de 15GB e 1GB de memória \textit{RAM}. Em um primeiro momento as aplicações foram instaladas e testadas de modo que se pudesse observar quais são os comandos utilizados para funcionamento das mesmas, em seguida foram criados \textit{snapshots} das máquinas virtuais com o auxílio provido pelo \textit{OpenNebula}. O servidor físico onde as máquinas virtuais foram criadas possui as seguintes configurações:
+\begin{itemize}
+	\item Servidor em \textit{rack} \textit{Dell PowerEdge r620.}
+	\item 24 processadores \textit{Intel Xeon }, 2.0GHz.
+	\item 64 GB de Memória DDR3.
+	\item 2 TB SATA HDD.
+	\item 4 interfaces \textit{EThernet 10/100/1000-BaseT.}
+\end{itemize} 
+
+Entre as aplicações escolhidas estão típicas provedoras de \textit{stress} computacional no cotidiano, tais como compilação de código fonte, compressão e encriptação de arquivos e processamento de imagens. Há também ferramentas voltadas para geração de testes de \textit{benchmark} tais como \textit{Cachebench} e \textit{AIM Benchmark suite}. A seguir é feita uma breve descrição das ferramentas utilizadas.
+
+\begin{itemize}
+\item \textit{Add\_double} \footnotemark[2]                                                                                                                               é um dos vários programas de testes de carga existentes no \textit{AIM benchmark suite}. É responsável por medir operações de adição de dupla precisão.
+
+\item \textit{Bzip2} \footnotemark[3] e \textit{Gzip} \footnotemark[4] são aplicações típicas para compressão e descompressão de arquivos. Com uso de arquivos grandes é possível gerar cargas de trabalhos usando essas ferramentas.
+
+\item \textit{Ccrypt} \footnotemark[5] é uma ferramenta de código aberto voltada para encriptação e desencriptação de arquivos. Foi desenvolvido com o intuito de substituir a aplicação padrão do \textit{unix}, o \textit{crypt}.
+
+\item \textit{Cachebench} \footnotemark[6] é uma ferramenta de \textit{benchmark} de código aberto desenvolvida para avaliar o desempempenho do subsistema de memória. Atualmente é integrado \textit{LLCbench} (\textit{Low-Level Characterization Benchmarks}).
+
+\item \textit{Cat} e \textit{Grep} são comandos padrões em sistemas \textit{Linux} que são responsáveis por gerar requisições de leitura no disco. \textit{Cat} é reponsável por mostrar conteúdo de arquivos bem como combina-los e criar outros novos. Enquanto que \textit{Grep} é utilizado para busca de palavras em arquivos texto.
+
+\item \textit{cp} e \textit{dd} são outros comandos padrões em sistemas \textit{Linux}, neste caso, responsáveis por gerar atividades voltadas para escrita de disco. \textit{cp} é utilizado para copiar arquivos e diretórios. O comando \textit{dd} é utilizado para criação de imagens e cópias de arquivos.
+
+\item \textit{Iozone} \footnotemark[7] é uma ferramenta de \textit{benchmark} utilizada, voltada para testes de operações de disco, tais como leitura e escrita.
+
+\item \textit{Make} é um comando nativo em sistemas operacionais \textit{Linux}, responsável por automatizar um conjunto de procedimentos, principalmente  a compilação de programas grandes que possuem vários arquivos com códigos fontes. 
+
+\item \textit{Povray} \footnotemark[8] é uma ferramenta de codigo aberto voltada para processamento de imagens com gráficos 3-D.
+
+\end{itemize}
+
+\footnotetext[2]{AIM Benchmark (http://sourceforge.net/projects/aimbench)}
+\footnotetext[3] {Bzip2 (http://www.bzip.org/)}
+\footnotetext[4]{Gzip (http://www.gzip.org/)}
+\footnotetext[5]{Ccrypt (http://ccrypt.sourceforge.net/}
+\footnotetext[6]{Cachebench memory benchmark (http://icl.cs.utk.edu/projects/llcbench/cachebench.html)}
+\footnotetext[7]{IOzone Filesystem Benchmark (http://www.iozone.org)}
+\footnotetext[8]{The Persistence of Vision Raytracer (http://www.povray.org)}
