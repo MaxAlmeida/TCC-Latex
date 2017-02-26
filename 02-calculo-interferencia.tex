@@ -1,0 +1,108 @@
+\section{Cálculo da Interferência}
+\label{sec:calculo-interferencia}
+
+Para o estudo proposto por este trabalho foi definido um  ambiente de testes
+que consiste no uso de máquinas virtuais com aplicações voltadas para
+realização de testes de \textit{benchmark}. Tais aplicações foram definidas a
+partir do trabalho de Koh \cite{koh2007}, tendo essas sido escolhidas visando o
+estresse de vários aspectos de sistema e de \textit{hardware}. A fim de se ter
+comodidade na criação e destruição dessas máquinas virtuais foi utilizado o
+OpenNebula como ferramenta de computação em nuvem e como \textit{hypervisor}
+foi utilizado o \textit{kvm}. As máquinas virtuais possuíam, como configuração,
+sistema operacional \textit{Centos 7}, espaço em disco de 15GB e 1GB de memória
+\textit{RAM}. Em um primeiro momento as aplicações foram instaladas e testadas
+de modo que se pudesse observar quais são os comandos utilizados para
+funcionamento das mesmas, em seguida foram criados \textit{snapshots} das
+máquinas virtuais com o auxílio provido pelo \textit{OpenNebula}.
+
+Entre as aplicações escolhidas estão típicas provedoras de \textit{stress}
+computacional no cotidiano, tais como compilação de código fonte, compressão e
+encriptação de arquivos e processamento de imagens, bem como, ferramentas
+voltadas para geração de testes de \textit{benchmark} tais como
+\textit{Cachebench} e \textit{AIM Benchmark suite}. São elas: Add\_double,
+Bzip2, Gzip, Ccrypt, Cachebench, Cat, Grep, cp, dd, Iozone, Make e Povray.
+
+%Add\_double (\url{sourceforge.net/projects/aimbench}), Bzip2 (\url{bzip.org}),
+%Gzip (\url{gzip.org}), Ccrypt (\url{ccrypt.sourceforge.net}), Cachebench
+%(\url{icl.cs.utk.edu/projects/llcbench/cachebench.html}), Cat
+%(\url{linux.die.net/man/1/cat}), Grep (\url{linux.die.net/man/1/grep}), Dp
+%(\url{linux.die.net/man/1/cp}), DD (\url{linux.die.net/man/1/dd}), Iozone
+%(\url{iozone.org}), Make (\url{linux.die.net/man/1/make}) e Povray
+%(\url{povray.org}).
+
+Os procedimentos adotados para o cálculo da interferência seguem os propostos
+no trabalho de Koh \cite{koh2007}. Desse modo, duas máquinas virtuais são
+criadas em um servidor utilizando \textit{hypervisor} \textit{KVM}. Cada
+máquina virtual, denominadas \textit{'dom1'} e \textit{'dom2'} respectivamente,
+executa uma das aplicações de \textit{benchmarking}. 
+
+Uma aplicação executando em \textit{dom1} é chamada de aplicação
+\textit{foreground}, e a que estiver executando em \textit{dom2} é a aplicação
+\textit{background}. Por questões de notação uma aplicação \textit{foreground}
+executando contra uma aplicação \textit{background} é denotada como F@B. Um dos
+procedimentos adotados é garantir que a aplicação \textit{background} mantenha
+sua execução até que a aplicação \textit{foreground} termine. Para o segundo e
+terceiro experimento cada aplicação é executada de modo que seja tanto
+\textit{background} quanto \textit{foreground}, sendo construída dessa forma
+uma matriz \textit{n x n} com todos os possíveis resultados.
+
+A fim de observar o quanto o desempenho é afetado pela interferência gerada por
+uma aplicação executada em outra máquina virtual, é feita a medida da
+degradação a partir do desempenho padrão de uma aplicação, essa medida
+denomina-se pontuação normalizada. Assim, para calcular a pontuação normalizada
+de uma aplicação, primeiro é definida a pontuação de desempenho inativa que é a
+pontuação de uma aplicação quando executada contra uma máquina virtual inativa,
+ou seja, sem nenhuma aplicação executando. Então, em seguida é feito o cálculo
+da pontuação normalizada de uma aplicação F contra B, dividindo a pontuação de
+desempenho de F contra B pela pontuação de desempenho inativa de F. Assim
+define-se NS(F@B), como sendo a pontuação normalizada de F contra B, sendo
+PD(F@B) a pontuação de desempenho de uma aplicação F contra uma aplicação B:
+
+\begin{equation}
+\label{eq:degradation}
+NS(F@B) = PD(F@B)/PD(F@Inativo)
+\end{equation}
+
+A partir disso, é feito cálculo do desempenho combinado de duas aplicações, F e
+B, em cada máquina virtual:
+
+\begin{equation}
+\label{eq:combined}
+NS ( F + B ) = NS ( F @ B ) + NS ( B @ F )
+\end{equation}
+
+
+\begin{table}[!htb]
+\centering
+\caption{Aplicações utilizadas para geração de cargas e trabalho.}
+\label{table-aplications}
+\resizebox{0.45\textwidth}{!}{
+\begin{tabular}{|l|c|c|}
+\hline
+Nome        & \multicolumn{1}{l|}{Maior Recurso Utilizado} & \multicolumn{1}{l|}{Medida de Desempenho} \\ \hline
+Add\_double & CPU                                          & Pontuação                                  \\ \hline
+Bzip2       & Misto                                        & Tempo                                      \\ \hline
+Cat         & Disco                                        & Tempo                                      \\ \hline
+Cachebench  & Memória                                      & Pontuação                                  \\ \hline
+Ccrypt      & Misto                                        & Tempo                                      \\ \hline
+Cp          & Disco                                        & Tempo                                      \\ \hline
+Dd          & Disco                                        & Tempo                                      \\ \hline
+Grep        & Disco                                        & Tempo                                      \\ \hline
+Gzip        & Misto                                        & Tempo                                      \\ \hline
+Iozone      & Disco                                        & Pontuação                                  \\ \hline
+Make        & Misto                                        & Tempo                                      \\ \hline
+Povray      & Misto                                        & Tempo                                      \\ \hline
+\end{tabular}}
+\end{table}
+
+Sendo NS(F@B) e  NS(B@F) medidos em dois testes separados. Para medida de
+desempenho, são utilizadas as pontuações geradas pelas próprias aplicações.
+Entretanto, algumas aplicações, aquelas que não são voltadas para
+\textit{benchmark}, não geram pontuações explícitas. Para essas aplicações,
+fora definido como o inverso do tempo necessário para sua execuação, como
+pontuação de desempenho. Na Tabela \ref{table-aplications} é apresentado o
+maior recurso utilizado bem como a medida de desempenho utilizada para cada
+ferramenta. Dessa forma, uma pontuação normalizada(F@B) próxima ou igual a 1 é
+um resultado que indica que o desempenho de uma aplicação \textit{F} contra
+\textit{B} sofreu baixa degradação.
+

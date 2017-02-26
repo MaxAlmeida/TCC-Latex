@@ -1,0 +1,34 @@
+\section{Conclusão}
+\label{sec:conclusao}
+
+Nossos resultados demonstram que as tecnologias atuais de virtualização e de
+computação em nuvem não garantem um isolamento efetivo entre máquinas virtuais
+em um mesmo servidor físico. A tendência é que aplicações que possuem perfil
+voltado para operações em disco interferem de maneira significativa no
+desempenho outras aplicações  com o mesmo perfil, mesmo quando executadas em
+máquinas virtuais diferentes. Aplicações com o perfil voltado para \textit{CPU}
+interferem pouco contra aplicações com o perfil voltado para aplicações em
+disco e vice-versa.
+
+A partir dos dados coletados, aplicamos modelos estatísticos para a obteção da
+predição de desempenho de uma aplicação a partir das métricas de desempenho em
+nível de sistema. Assim como no trabalho de Koh \cite{koh2007}, a média
+ponderada com o auxílio da análise por componente principal obteve resultados
+melhores se comparada com a regressão linear. Dessa forma, aplicamos um modelo
+regressão polinomial que apresentou ajustes mais aproximados para a predição de
+desempenho de uma aplicação.
+
+A avaliação da degradação de desempenho entre aplicações com o perfil voltado
+para utilização de \textit{cpu} não foi realizada e pode ser considerada uma
+limitação deste trabalho. De toda forma, entendemos que para as configurações
+de \textit{hardware} do servidor utilizado neste estudo são necessárias um
+número maior de máquinas virtuais executando \textit{benchmarking} de
+\textit{cpu}, ao mesmo tempo, para que fosse possível observar algum tipo de
+interferência e degradação em seus desempenhos.
+
+Por fim, os procedimentos adotados neste trabalho promovem algumas
+posssibilidades para trabalhos futuros, como estudo um comparativo entre os
+diversos tipos de \textit{hypervisors} utilizados, levando-se em conta as
+técnicas de virtualização paravirtualização e virtualização total, de modo que
+se possa avaliar qual tipo de ferramenta, dada a técnica de virtualização,
+trata melhor a interferência de desempenho entre as máquinas virtuais.

@@ -1,0 +1,212 @@
+\section{Análise de dados}
+\label{sec:analise-dados}
+
+No trabalho de Koh \cite{koh2007} são utilizadas métricas de desempenho a nível
+de sistema (denominadas \textit{System-level Workload Characteristics}) de
+forma a analisar melhor o grau de interferência em diversos aspectos de sistema
+na máquina virtual. Segundo Koh \cite{koh2007}, o fato desse tipo de métrica de
+desempenho ser independente de qualquer tipo de microarquitetura subjacente
+garante que seja possível ser feitas comparações através dos diferentes tipos
+de servidores físicos.
+
+Neste trabalho, para o \textit{KVM} chegou-se a ferramentas como o
+\textit{iperf-kvm} e \textit{kvm-stat}. Entretanto, as informações apresentadas
+por essas ferramentas não eram claras e, para o caso do \textit{kvm-stat}, não
+detalhava por máquina virtual e sim para  \textit{hypervisor} inteiro. Mesmo no
+\textit{OpenNebula} as informações apresentadas consistiam em uso de espaço em
+disco, memória utilizada e quantidade de \textit{CPU} alocado por máquina
+virtual, não sendo essas informações relevantes para o estudo proposto. Assim,
+a abordagem escolhida foi o uso de uma ferramentas típica para monitoramento de
+desempenho: \textit{iostat} para operações de disco e o \textit{mpstat} para
+\textit{CPU}. Assim gerando as seguintes métricas coletadas neste trabalho:
+
+\begin{itemize}
+
+\item \textbf{Porcentagem de uso do \textit{CPU}}(\textit{cpuutil}):
+Porcentagem de utilização de \textit{CPU} durante a execução de uma aplicação.
+É obtida através da aplicação \textit{mpstat}.
+
+\item \textbf{Requisições de escrita e leitura de disco por segundo
+}(\textit{writes\_issued, reads\_issued}) e \textbf{Tempo gasto para escrita e
+leitura do disco}(\textit{time\_writing, time\_reading}): Quantidade de
+requisições no disco e o tempo para operações de escrita e leitura são bons
+indicadores de operações de entrada e saída. Esses valores são coletados
+utilizando o \textit{iostat}.
+
+\end{itemize}
+
+A análise dos dados obtidos referentes às métricas de desempenho e às
+pontuações normalizadas das aplicações foi baseada no uso de técnicas de
+análise multivariada com o intuito de predizer o desempenho das aplicações. Em
+suma, usamos a média ponderada com o auxílio da análise por componente
+principal (PCA), Regressão Linear e Regressão Polinomial. Para realização da
+análise por componente principal utilizamos a ferramenta \textit{Scilab}com o
+auxílio da biblioteca \textit{FACT}. Já para a análise de regressão linear e
+polinomial utilizamos uma ferramenta de análise statística chamada \textit{R}.
+
+De maneira geral, escolhemos uma aplicação ``U'' a partir do conjunto de
+aplicações definidos anteriormente. Em seguida, ao utilizar o restante das
+aplicações como um conjunto de referência (B1, B2, ..., Bn), foi feita a
+predição da pontuação normalizada de ``U'' contra as outras aplicações (i.e,
+NS(U@B1), NS(U@B2), ... NS(U@Bn)), das aplicações contra ``U'' (i.e, NS(B1@U),
+NS(B2@U), ... NS(Bn@U)) e de ``U'' contra ele mesmo (NS(U@U)). Assim, para cada
+técnica aplicada, foi comparado a pontuação predita com a pontuação real
+medida. Para avaliação desse comparativo são calculados a média, mediana e o
+maior erro da predição obtido, onde o cálculo do erro da predição é feito pela
+equação \ref{eq:predict_error}. Esse procedimento foi feito com todas as
+aplicações definidas:
+
+\begin{equation}
+\label{eq:predict_error}
+\textrm{Erro da predição} = \frac{|\textrm{Pontuação real - Pontuação predita}|}{\textrm{Pontuação real}}
+\end{equation}
+
+\subsection{Método da Média Ponderada}
+
+O método da média ponderada é baseado na similaridade entre duas aplicações.
+Dessa forma, para calcular a similaridade, primeiro é feito o cálculo da
+distância dos vetores de métricas de desempenho de duas aplicações. Dada o
+número de dimensões desse vetor (5 métricas de desempenho a nível de sistema),
+foi aplicada uma análise de componente principal (PCA) de modo que se reduzisse
+a dimensionalidade dos dados sem perda significativa.
+
+Assim, embora as \textit{p} variáveis de um vetor de dados sejam necessárias
+para reproduzir a total variabilidade de um sistema, frequetemente muito dessa
+variabilidade pode ser representada por uma pequena quantidade \textit{k} de
+componentes principais. Dessa forma, os \textit{k} componentes principais podem
+substituir  as \textit{p} variáveis iniciais, reduzindo o conjunto de dados
+necessários para a análise \cite{johnson1988}.
+
+Uma vez que os dados coletados foram convertidos pela análise de componentes
+principal, escolhemos os componentes que representam a maior variabilidade
+desses dados. Com isso, através dos dados obtidos, selecionamos três
+componentes que representam 94\% da variança total (cada componente representa
+53,8\%, 24\%, 16,3\% da variança, respectivamente).
+
+Para cálcular a predição da pontuação de U@Bn, adota-se o seguinte procedimento
+apresentado no trabalho de Koh \cite{koh2007}. Primeiro, em cima dos dados
+transferidos para PCA calculamos a distância euclidiana do ponto desejado,
+U@Bn, para todos os resultados de \textit{benchmark} obtidos e então foram
+escolhidos os N pontos de dados mais próximos e definidos como um conjunto dos
+mais próximos. A similaridade entre o ponto desejado e um ponto dentro do
+conjunto dos mais próximos é definida como o inverso da distância. Então, foi
+calculado o peso de cada dado no conjunto dos mais próximos proporcional a
+similaridade:
+
+\begin{equation}
+\label{eq:prediction} 
+w_i = s_i / \sum\limits_{i=1}^{N}s_i
+\end{equation}
+
+Onde S\textsubscript{i} é a similaridade de uma aplicação i dentro do conjunto
+dos mais próximos. Por fim, a predição da pontuação de U@Bn foi calculada com a
+seguinte fórmula:
+
+\begin{equation}
+\label{eq:simi} 
+NS(U@Bn) = \sum\limits_{i=1}^{N}w_i \cdot NS(i)
+\end{equation}
+
+\subsection{Análise de Regressão Linear e Polinomial}
+
+Análise de regressão é uma técnica estatística que tem como intuito analisar a
+relação entre uma única variável dependente (critério) e várias variáveis
+independentes (preditoras), possibilitando assim, apartir dos valores
+conhecidos das variáveis independentes X\textsubscript{1}, X\textsubscript{2},
+..., X\textsubscript{n} a predição do valor da variável dependente Y
+\cite{hair}. Uma forma clássica da análise de regressão é a regressão linear,
+que por vez declara que a variável dependente Y é uma função linear das
+variáveis independentes. Assim, sua formulação é feita da seguinte maneira
+\cite{johnson1988}:
+
+\begin{equation}
+\label{eq:linear} 
+ \overline{Y} = a_0 + a_1 \cdot X_1 + a_2 \cdot X_2 + ... + a_n \cdot X_n
+\end{equation}
+
+Dessa forma, a regressão linear tem como objetivo determinar os coeficientes
+a\textsubscript{0}, a\textsubscript{1}, ... , a\textsubscript{n}, utilizando
+para isso o método dos mínimos quadrados, de modo a minimizar o erro
+|\textoverline{Y} - Y| \cite{koh2007}. Por mais que a regressão linear seja
+amplamente utilizada, sua forma clássica pode ainda assim não ser suficiente
+para explicar uma boa quantidade de dados, principalmente aqueles que apresenta
+um padrão não linear \cite{pantula}. Desse modo, uma outra forma de análise de
+regressão é a regressão polinomial que se modela a partir de uma função
+polinomial, e tem como proposta desenvolver aproximações para relações
+curvilíneas ou não lineares. Os polinômios são transformações de pontência de
+uma variável independente que acrescentam uma componente não-linear para cada
+pontência adicional da variável independente. A construção de seu modelo
+procede da seguinte maneira \cite{hair}:
+
+\begin{equation}
+\label{eq:polinomio} 
+ \overline{Y} = a_0 + a_1 \cdot X_1 + a_2 \cdot X^2 + a_3 \cdot X^3 + ... + a_n \cdot X^n
+\end{equation}
+
+\begin{table}[!htb]
+\centering
+\caption{Tabela de coeficientes para regressão linear}
+\label{tab:coeficiente_linear}
+\begin{tabular}{|l|c|}
+\hline
+\multicolumn{1}{|c|}{X}   & \multicolumn{1}{l|}{Coeficientes} \\ \hline
+write\_issued & 3,44                             \\ \hline
+read\_issued  & 1,29                             \\ \hline
+write\_time   & -1,37                            \\ \hline
+read\_time    & -3,91                            \\ \hline
+cpu\_util     & 5,15                             \\ \hline
+a\textsubscript{0}           & 4,99                             \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[]
+\centering
+\caption{Tabela de coeficientes para regressão polinomial}
+\label{tab:coeficiente_poli}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\multicolumn{1}{|l|}{Variável} & \multicolumn{1}{l|}{Coeficientes} & \multicolumn{1}{l|}{Variável} & \multicolumn{1}{l|}{Coeficientes} \\ \hline
+x\textsubscript{1}                             & -6,26E-03                        & $x\textsubscript{1} \cdot x\textsubscript{4}$                         & 4,27E-05                         \\ \hline
+x\textsubscript{1}\textsuperscript{2}                            & 1,26E-05                         & $x\textsubscript{2} \cdot x\textsubscript{4}$                       & -7,23E-05                        \\ \hline
+x\textsubscript{2}                             & 1,49E-03                         & $x\textsubscript{3} \cdot x\textsubscript{4}$                                                & -4,00E-05                        \\ \hline
+$x\textsubscript{1} \cdot x\textsubscript{2}$                          & 1,60E-05                         & x\textsubscript{4}\textsuperscript{2}                           & 3,13E-05                         \\ \hline
+x\textsubscript{2}\textsuperscript{2}                            & 2,42E-06                         & x\textsubscript{5}                            & -1,17E-02                        \\ \hline
+x\textsubscript{3}                             & 1,20E-02                         & $x\textsubscript{1} \cdot x\textsubscript{5}$                                                                       & 6,42E-05                         \\ \hline
+$x\textsubscript{1} \cdot x\textsubscript{3}$                        & -2,39E-05                        & $x\textsubscript{2} \cdot x\textsubscript{5}$                                                                       & -1,60E-05                        \\ \hline
+$x\textsubscript{2} \cdot x\textsubscript{3}$                          & -3,48E-05                        & $x\textsubscript{3} \cdot x\textsubscript{5}$                                                                       & -1,26E-04                        \\ \hline
+x\textsubscript{3}\textsuperscript{2}                            & -5,93E-06                        &$ x\textsubscript{4} \cdot x\textsubscript{5}$                                                                       & 1,08E-04                         \\ \hline
+x\textsubscript{4}                             & -9,41E-03                        & x\textsubscript{5}\textsuperscript{2}                         & 1,03E-04                         \\ \hline
+\end{tabular}
+\end{table}
+
+As Tabelas \ref{tab:coeficiente_linear} e \ref{tab:coeficiente_poli} apresentam
+os coeficentes encontrados para regressão linear e regresssão polinomial
+respectivamente. Vale acrescentar que na análise de regressão um dos mecanismos
+utilizadas para verificação da precisão de um modelo preditivo é o coeficiente
+de derterminação (R\textsuperscript{2}). Seu valor varia de 0 a 1, indicando,
+em termos de porcentagem, o quanto um modelo conseguie explicar os valores
+observados. Assim, se o R\textsuperscript{2} é 0,70 isso significa que 70\% dos
+dados coletados são explicados pelo modelo preditivo calculado. O cálculo de
+R\textsuperscript{2} é motrada na equação \ref{eq:polinomio}:
+
+\begin{equation}
+\label{eq:polinomio}  
+R^2 = \frac{ \sum\limits_{i=1}^{N}(\hat{y}_i - \overline{y})^2}{\sum\limits_{i=1}^{N}(y_i - \overline{y})^2}
+\end{equation} 
+
+onde \textoverline{y} é a média de todas as observações, y\textsubscript{i} é o
+valor da observação individual i e \^{y}\textsubscript{i} é o valor previsto da
+observação i \cite{hair}.
+
+Neste trabalho aplicamos tanto a análise de regressão linear quanto a análise
+de regressão polinomial, definindo como variável dependente a pontuação
+normalizada e como variáveis independentes as métricas de desempenho a nível de
+sistema. Os dados coletados, com os valores das métricas de desempenho a nível
+de sistema e com as pontuações normalizadas, foram utilizados para a
+determinação dos coeficientes. Uma vez que os coeficientes foram calculados
+utilizando o método dos mínimos quadrados, aplica-se os dados das métricas de
+desempenho a nível de sistema na equação com os coeficientes obtidos,
+alcançando dessa forma a predição da pontuação normalizada. Por fim, também são
+calculados os valores de R\textsuperscript{2}, a fim de verificar qual modelo
+apresenta maior aplicabilidade dentro dos dados coletados.
+
